@@ -245,6 +245,24 @@
   });
 
   /* ----------------------------------------------------------
+     MODULE 4 — Project card details toggle
+     ---------------------------------------------------------- */
+  document.querySelectorAll(".project-card").forEach(function (card) {
+    const detailsBtn = card.querySelector(".project-card__actions .btn--secondary");
+    const desc = card.querySelector(".project-card__desc");
+
+    if (!detailsBtn || !desc) return;
+
+    detailsBtn.setAttribute("aria-expanded", "false");
+
+    detailsBtn.addEventListener("click", function (event) {
+      event.preventDefault();
+      const isOpen = card.classList.toggle("is-details-open");
+      detailsBtn.setAttribute("aria-expanded", isOpen ? "true" : "false");
+    });
+  });
+
+  /* ----------------------------------------------------------
      MODULE 5 — Contact form validation
      ---------------------------------------------------------- */
   const contactForm  = document.getElementById("contact-form");

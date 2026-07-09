@@ -1293,7 +1293,7 @@ p {
 
 .project-card__tag {
   display: inline-block;
-  padding: 0.3rem 0.75rem;
+  padding: 0.2rem 0.45rem;
   font-size: var(--text-xs);
   font-weight: 500;
   color: var(--color-muted);
@@ -1311,11 +1311,16 @@ p {
 }
 
 .project-card__desc {
+  display: none;
   padding-block: var(--space-sm) var(--space-md);
   font-size: var(--text-sm);
   line-height: var(--leading-snug);
   color: var(--color-muted);
   flex-grow: 1;
+}
+
+.project-card.is-details-open .project-card__desc {
+  display: block;
 }
 
 .project-card__actions {
