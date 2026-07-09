@@ -1328,6 +1328,18 @@ p {
   display: none;
 }
 
+.project-card.is-details-closed {
+  height: auto;
+}
+
+.project-card.is-details-closed .project-card__actions {
+  margin-top: 0;
+}
+
+.projects__grid > li:has(.project-card.is-details-closed) {
+  align-self: start;
+}
+
 .project-card__actions {
   display: flex;
   flex-wrap: wrap;
