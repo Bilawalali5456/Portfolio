@@ -1348,7 +1348,7 @@ p {
 }
 
 .project-card.is-details-closed .project-card__actions {
-  margin-top: 0;
+  margin-top: var(--space-sm);
 }
 
 .projects__grid > li:has(.project-card.is-details-closed) {
