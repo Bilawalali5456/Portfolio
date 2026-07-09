@@ -1347,13 +1347,8 @@ p {
   height: auto;
 }
 
-.project-card__details-btn {
-  align-self: flex-start;
-  margin: var(--space-sm) var(--space-lg) 0;
-}
-
-.project-card.is-details-closed .project-card__details-btn {
-  margin-bottom: var(--space-lg);
+.project-card.is-details-closed .project-card__actions {
+  margin-top: 0;
 }
 
 .projects__grid > li:has(.project-card.is-details-closed) {
