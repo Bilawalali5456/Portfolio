@@ -253,12 +253,12 @@
 
     if (!detailsBtn || !desc) return;
 
-    detailsBtn.setAttribute("aria-expanded", "false");
+    detailsBtn.setAttribute("aria-expanded", "true");
 
     detailsBtn.addEventListener("click", function (event) {
       event.preventDefault();
-      const isOpen = card.classList.toggle("is-details-open");
-      detailsBtn.setAttribute("aria-expanded", isOpen ? "true" : "false");
+      const isClosed = card.classList.toggle("is-details-closed");
+      detailsBtn.setAttribute("aria-expanded", isClosed ? "false" : "true");
     });
   });
 
