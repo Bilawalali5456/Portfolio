@@ -248,18 +248,34 @@
      MODULE 4 — Project card details toggle
      ---------------------------------------------------------- */
   document.querySelectorAll(".project-card").forEach(function (card) {
-    const detailsBtn = card.querySelector(".project-card__actions .btn--secondary");
-    const desc = card.querySelector(".project-card__desc");
+    const detailsBtn = card.querySelector(".project-card__details-btn");
+    const tags = card.querySelector(".project-card__tags");
+    const header = card.querySelector(".project-card__header");
 
-    if (!detailsBtn || !desc) return;
+    if (!detailsBtn) return;
 
     detailsBtn.setAttribute("aria-expanded", "true");
 
     detailsBtn.addEventListener("click", function (event) {
       event.preventDefault();
+      event.stopPropagation();
       const isClosed = card.classList.toggle("is-details-closed");
       detailsBtn.setAttribute("aria-expanded", isClosed ? "false" : "true");
     });
+
+    function openDetails() {
+      if (!card.classList.contains("is-details-closed")) return;
+      card.classList.remove("is-details-closed");
+      detailsBtn.setAttribute("aria-expanded", "true");
+    }
+
+    if (tags) {
+      tags.addEventListener("click", openDetails);
+    }
+
+    if (header) {
+      header.addEventListener("click", openDetails);
+    }
   });
 
   /* ----------------------------------------------------------
