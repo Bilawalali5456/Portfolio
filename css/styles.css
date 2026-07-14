@@ -177,6 +177,7 @@ p {
   right: 0;
   z-index: 100;
   height: var(--nav-height);
+  isolation: isolate;
   transition:
     background-color var(--duration-normal) var(--ease-out),
     border-color var(--duration-normal) var(--ease-out),
@@ -186,12 +187,12 @@ p {
 /*
  * Blur/background live on a pseudo so backdrop-filter does not create a
  * containing block that clips the fixed mobile .nav-menu to the header height.
+ * No negative z-index — that let page content paint over the bar while scrolling.
  */
 .site-header.is-scrolled::before {
   content: "";
   position: absolute;
   inset: 0;
-  z-index: -1;
   background-color: rgba(15, 17, 21, 0.88);
   border-bottom: 1px solid var(--color-border);
   backdrop-filter: blur(12px);
@@ -201,6 +202,8 @@ p {
 }
 
 .site-nav {
+  position: relative;
+  z-index: 1;
   display: flex;
   align-items: center;
   justify-content: space-between;
