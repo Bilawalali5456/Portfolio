@@ -363,7 +363,7 @@ p {
   }
 
   .nav-link {
-    padding: var(--space-sm) var(--space-md);
+    padding: var(--space-2xs) var(--space-md);
     font-size: var(--text-base);
     border-radius: var(--radius-md);
   }
