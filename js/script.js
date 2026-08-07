@@ -384,6 +384,12 @@
 
   processTabs.forEach(function (tab, index) {
     tab.addEventListener("click", function () {
+      clearInterval(autoCycleInterval);
+      activateStep(index);
+    });
+
+    tab.addEventListener("mouseenter", function () {
+      clearInterval(autoCycleInterval);
       activateStep(index);
     });
 

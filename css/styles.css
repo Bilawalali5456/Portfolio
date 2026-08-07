@@ -1815,7 +1815,7 @@ p {
   display: grid;
   grid-template-columns: 1fr;
   gap: var(--space-xl);
-  align-items: center;
+  align-items: stretch;
 }
 
 /* ---- Tabs (left side) ---- */
@@ -1826,6 +1826,7 @@ p {
   list-style: none;
   margin: 0;
   padding: 0;
+  height: 100%;
 }
 
 .process__tab {
@@ -1837,6 +1838,7 @@ p {
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
   cursor: pointer;
+  flex: 1;
   transition:
     border-color var(--duration-normal) var(--ease-out),
     background-color var(--duration-normal) var(--ease-out),
@@ -1960,6 +1962,7 @@ p {
   max-width: 38rem;
   margin-inline: auto;
   filter: drop-shadow(0 32px 64px rgba(0,0,0,0.5));
+  height: 100%;
 }
 
 .process__laptop-body {
@@ -1970,6 +1973,9 @@ p {
   border-radius: 1rem 1rem 0 0;
   padding: 0.75rem 0.75rem 0;
   position: relative;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .process__laptop-screen {
@@ -1977,6 +1983,9 @@ p {
   border-radius: 0.5rem 0.5rem 0 0;
   overflow: hidden;
   border: 1px solid rgba(245,243,239,0.08);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .process__laptop-topbar {
@@ -2001,8 +2010,9 @@ p {
 
 .process__screen-content {
   position: relative;
-  min-height: 16rem;
+  flex: 1;
   padding: var(--space-lg);
+  min-height: 16rem;
 }
 
 /* ---- Slides ---- */
