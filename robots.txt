@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://bilawalali.vercel.app/sitemap.xml
