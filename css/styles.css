@@ -2179,7 +2179,9 @@ p {
   }
 
   .process__tab-desc {
-    display: none;
+    display: none !important;
+    opacity: 0 !important;
+    max-height: 0 !important;
   }
 
   .process__tab-arrow {
