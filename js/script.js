@@ -156,7 +156,7 @@
         }
       });
     },
-    { threshold: 0.15, rootMargin: "0px 0px -5% 0px" }
+    { threshold: 0.15 }
   );
 
   document.querySelectorAll(".reveal, .reveal-stagger").forEach(function (el) {

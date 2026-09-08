@@ -585,14 +585,14 @@ p {
 /* Hero entrance animation */
 .hero__content > * {
   opacity: 0;
-  transform: translateY(1.25rem);
-  animation: hero-enter var(--duration-slow) var(--ease-out) forwards;
+  transform: translateY(20px);
+  animation: hero-enter 0.5s ease-out forwards;
 }
 
 .hero__eyebrow   { animation-delay: 0.1s; }
 .hero__heading  { animation-delay: 0.2s; }
-.hero__tagline  { animation-delay: 0.35s; }
-.hero__actions  { animation-delay: 0.5s; }
+.hero__tagline  { animation-delay: 0.3s; }
+.hero__actions  { animation-delay: 0.4s; }
 
 .hero__visual {
   opacity: 0;
@@ -717,10 +717,10 @@ p {
 /* Scroll-reveal (Module 2) */
 .reveal {
   opacity: 0;
-  transform: translateY(1.25rem);
+  transform: translateY(20px);
   transition:
-    opacity var(--duration-slow) var(--ease-out),
-    transform var(--duration-slow) var(--ease-out);
+    opacity 0.5s ease-out,
+    transform 0.5s ease-out;
 }
 
 .reveal.is-visible {
@@ -1086,10 +1086,10 @@ p {
 /* Staggered scroll reveal (Module 3) */
 .reveal-stagger {
   opacity: 0;
-  transform: translateY(1.25rem);
+  transform: translateY(20px);
   transition:
-    opacity var(--duration-slow) var(--ease-out),
-    transform var(--duration-slow) var(--ease-out);
+    opacity 0.5s ease-out,
+    transform 0.5s ease-out;
   transition-delay: calc(var(--reveal-index, 0) * 100ms);
 }
 
@@ -1155,9 +1155,9 @@ p {
   border-radius: var(--radius-lg);
   overflow: hidden;
   transition:
-    border-color var(--duration-normal) var(--ease-out),
-    transform var(--duration-fast) var(--ease-out),
-    box-shadow var(--duration-normal) var(--ease-out);
+    border-color 0.3s ease,
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .project-card:hover,
@@ -1228,7 +1228,7 @@ p {
   height: 100%;
   object-fit: cover;
   z-index: 1;
-  transition: transform var(--duration-slow) var(--ease-out);
+  transition: transform 0.3s ease;
 }
 
 .project-card__img.is-hidden {
@@ -1237,7 +1237,16 @@ p {
 
 .project-card:hover .project-card__img:not(.is-hidden),
 .project-card:focus-within .project-card__img:not(.is-hidden) {
-  transform: scale(1.06);
+  transform: scale(1.05);
+}
+
+.project-card__actions .btn--primary {
+  transition:
+    background-color 0.3s ease,
+    border-color 0.3s ease,
+    color 0.3s ease,
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .project-card__overlay {
