@@ -702,7 +702,7 @@ button:hover .btn-arrow,
   margin: 0;
   height: 300px;
   border-radius: 28px;
-  overflow: clip;
+  overflow: visible;
   background: var(--surface);
   border: 1px solid var(--border);
 }
@@ -724,7 +724,7 @@ button:hover .btn-arrow,
 }
 
 .hero__float--clients {
-  left: -0.5rem;
+  left: 0;
   bottom: 1rem;
   background: var(--surface);
   border: 1px solid var(--border);
@@ -733,7 +733,7 @@ button:hover .btn-arrow,
 }
 
 .hero__float--countries {
-  right: -0.35rem;
+  right: 0;
   top: 1rem;
   background: var(--accent);
   color: var(--color-base);
@@ -937,11 +937,11 @@ button:hover .btn-arrow,
 
 @media (min-width: 64rem) {
   .hero__float--clients {
-    left: -1.25rem;
+    left: 0;
   }
 
   .hero__float--countries {
-    right: -1rem;
+    right: 0;
   }
 }
 
