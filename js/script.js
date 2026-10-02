@@ -192,32 +192,11 @@
   });
 
   /* ----------------------------------------------------------
-     MODULE 2 — Scroll reveal & stat counter animations
-     Module 3 — .reveal-stagger shares the same observer above
+     MODULE 2 — Stat counter animations
      ---------------------------------------------------------- */
   const prefersReducedMotion = window.matchMedia(
     "(prefers-reduced-motion: reduce)"
   );
-
-  const revealObserver = new IntersectionObserver(
-    function (entries) {
-      entries.forEach(function (entry) {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("is-visible");
-          revealObserver.unobserve(entry.target);
-        }
-      });
-    },
-    { threshold: 0.15 }
-  );
-
-  document.querySelectorAll(".reveal, .reveal-stagger").forEach(function (el) {
-    if (prefersReducedMotion.matches) {
-      el.classList.add("is-visible");
-    } else {
-      revealObserver.observe(el);
-    }
-  });
 
   function formatCounterValue(value, decimals) {
     if (decimals > 0) {
@@ -608,90 +587,6 @@
     });
 
     showStep(1, { focus: false });
-  }
-
-  /* ----------------------------------------------------------
-     PROCESS — legacy tab switcher (no-op if tabs removed)
-     ---------------------------------------------------------- */
-  const processTabs = document.querySelectorAll(".process__tab");
-  const processSlides = document.querySelectorAll(".process__slide");
-
-  if (processTabs.length && processSlides.length) {
-  function activateStep(index) {
-    processTabs.forEach(function (tab, i) {
-      const active = i === index;
-      tab.classList.toggle("is-active", active);
-      tab.setAttribute("aria-selected", active ? "true" : "false");
-    });
-
-    processSlides.forEach(function (slide, i) {
-      slide.classList.toggle("is-active", i === index);
-    });
-  }
-
-  processTabs.forEach(function (tab, index) {
-    tab.addEventListener("click", function () {
-      clearInterval(autoCycleInterval);
-      activateStep(index);
-    });
-
-    tab.addEventListener("mouseenter", function () {
-      clearInterval(autoCycleInterval);
-      activateStep(index);
-    });
-
-    tab.addEventListener("keydown", function (e) {
-      if (e.key === "Enter" || e.key === " ") {
-        e.preventDefault();
-        activateStep(index);
-      }
-      if (e.key === "ArrowDown") {
-        e.preventDefault();
-        activateStep(Math.min(index + 1, processTabs.length - 1));
-        processTabs[Math.min(index + 1, processTabs.length - 1)].focus();
-      }
-      if (e.key === "ArrowUp") {
-        e.preventDefault();
-        activateStep(Math.max(index - 1, 0));
-        processTabs[Math.max(index - 1, 0)].focus();
-      }
-    });
-  });
-
-  /* Auto-cycle tabs every 3 seconds when section is in view */
-  let autoCycleInterval = null;
-  let currentStep = 0;
-
-  const processSection = document.getElementById("process");
-
-  if (processSection) {
-    const cycleObserver = new IntersectionObserver(
-      function (entries) {
-        entries.forEach(function (entry) {
-          if (entry.isIntersecting) {
-            autoCycleInterval = setInterval(function () {
-              if (processTabs.length < 1) return;
-              currentStep = (currentStep + 1) % processTabs.length;
-              activateStep(currentStep);
-            }, 3000);
-          } else {
-            clearInterval(autoCycleInterval);
-            currentStep = 0;
-            activateStep(0);
-          }
-        });
-      },
-      { threshold: 0.4 }
-    );
-
-    cycleObserver.observe(processSection);
-
-    processTabs.forEach(function (tab) {
-      tab.addEventListener("click", function () {
-        clearInterval(autoCycleInterval);
-      });
-    });
-  }
   }
 
   /* ----------------------------------------------------------

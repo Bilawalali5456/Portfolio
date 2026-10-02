@@ -252,8 +252,12 @@
     gsap.set(track, { xPercent: 0 });
 
     var xPos = 0;
-    var baseSpeed = 0.4;
     var dir = -1;
+    var boost = 1;
+    var targetBoost = 1;
+    var BASE_PX_PER_SEC = 40;
+    var MAX_BOOST = 1.6;
+    var BOOST_EASE_SEC = 0.6;
 
     ScrollTrigger.create({
       onUpdate: function (self) {
@@ -264,16 +268,30 @@
       },
     });
 
-    gsap.ticker.add(function () {
-      var boost = 1;
-      if (lenis && typeof lenis.velocity === "number") {
-        boost = 1 + Math.min(Math.abs(lenis.velocity) * 0.08, 2.5);
-        if (Math.abs(lenis.velocity) > 0.2) {
-          dir = lenis.velocity > 0 ? 1 : -1;
-        }
+    gsap.ticker.add(function (time, deltaTime) {
+      var dt = deltaTime / 1000;
+      if (!dt || dt > 0.2) {
+        dt = 1 / 60;
       }
-      xPos += baseSpeed * boost * dir;
-      /* Loop every 50% (duplicated content) */
+
+      if (lenis && typeof lenis.velocity === "number") {
+        var scrollV = lenis.velocity;
+        if (Math.abs(scrollV) > 0.2) {
+          dir = scrollV > 0 ? 1 : -1;
+        }
+        var extra = Math.min(Math.abs(scrollV) * 0.12, MAX_BOOST - 1);
+        targetBoost = 1 + extra;
+      } else {
+        targetBoost = 1;
+      }
+
+      var blend = Math.min(1, dt / BOOST_EASE_SEC);
+      boost += (targetBoost - boost) * blend;
+
+      var trackW = track.offsetWidth || 1;
+      var deltaPx = BASE_PX_PER_SEC * boost * dir * dt;
+      xPos += (deltaPx / trackW) * 100;
+
       if (xPos <= -50) xPos += 50;
       if (xPos >= 0) xPos -= 50;
       gsap.set(track, { xPercent: xPos });
@@ -387,7 +405,7 @@
             trigger: next,
             start: "top bottom",
             end: "top 20%",
-            scrub: true,
+            scrub: 1,
             onUpdate: function (self) {
               card.style.setProperty("--stack-dim", String(self.progress * 0.5));
             },
@@ -497,23 +515,25 @@
       return;
     }
 
-    var getScroll = function () {
-      return Math.max(0, steps.scrollWidth - pin.clientWidth);
+    var track = steps;
+
+    var getTravel = function () {
+      return Math.max(0, track.scrollWidth - window.innerWidth);
     };
 
-    gsap.to(steps, {
+    gsap.to(track, {
       x: function () {
-        return -getScroll();
+        return -getTravel();
       },
       ease: "none",
       scrollTrigger: {
         trigger: section,
         start: "top top",
         end: function () {
-          return "+=" + getScroll();
+          return "+=" + getTravel() * 1.5;
         },
         pin: true,
-        scrub: true,
+        scrub: 1,
         anticipatePin: 1,
         invalidateOnRefresh: true,
         onUpdate: function (self) {
