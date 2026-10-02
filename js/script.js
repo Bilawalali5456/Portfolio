@@ -83,6 +83,29 @@
   updateHeaderScroll();
 
   /* ----------------------------------------------------------
+     Hero live clock — Asia/Karachi
+     ---------------------------------------------------------- */
+  const heroClock = document.getElementById("hero-clock");
+
+  function updateHeroClock() {
+    if (!heroClock) return;
+
+    const now = new Date();
+    const time = new Intl.DateTimeFormat("en-US", {
+      timeZone: "Asia/Karachi",
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: true,
+    }).format(now);
+
+    heroClock.textContent = "Lahore, PK — " + time;
+    heroClock.setAttribute("datetime", now.toISOString());
+  }
+
+  updateHeroClock();
+  setInterval(updateHeroClock, 30000);
+
+  /* ----------------------------------------------------------
      Active nav link highlighting
      ---------------------------------------------------------- */
   function setActiveLink() {
@@ -206,11 +229,12 @@
         if (!entry.isIntersecting) return;
 
         const counter = entry.target;
-        const target = parseFloat(counter.getAttribute("data-count"), 10);
-        const decimals = parseInt(counter.getAttribute("data-decimals") || "0", 10);
+        const target = parseFloat(counter.dataset.target, 10);
+        const decimals = parseInt(counter.dataset.decimals || "0", 10);
 
         if (Number.isNaN(target)) return;
 
+        counter.textContent = formatCounterValue(0, decimals);
         animateCounter(counter, target, 1800, decimals);
         counterObserver.unobserve(counter);
       });
@@ -218,15 +242,21 @@
     { threshold: 0.5 }
   );
 
-  document.querySelectorAll(".stat-card__number[data-count]").forEach(function (counter) {
-    const decimals = parseInt(counter.getAttribute("data-decimals") || "0", 10);
+  document.querySelectorAll(".stat-card__number").forEach(function (counter) {
+    const raw = counter.textContent.trim();
+    const target = parseFloat(raw, 10);
+
+    if (Number.isNaN(target)) return;
+
+    const decimals = raw.includes(".") ? (raw.split(".")[1] || "").length : 0;
+    counter.dataset.target = String(target);
+    counter.dataset.decimals = String(decimals);
 
     if (prefersReducedMotion.matches) {
-      const target = parseFloat(counter.getAttribute("data-count"), 10);
-      counter.textContent = formatCounterValue(target, decimals);
-    } else {
-      counterObserver.observe(counter);
+      return;
     }
+
+    counterObserver.observe(counter);
   });
 
   /* ----------------------------------------------------------
