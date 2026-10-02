@@ -141,7 +141,7 @@
       var card = wrapper.querySelector(".project-card");
       if (!card) return;
       card.style.transform = "";
-      card.style.filter = "";
+      card.style.removeProperty("--stack-dim");
     });
   }
 
@@ -188,7 +188,7 @@
 
       if (!next) {
         card.style.transform = "scale(1)";
-        card.style.filter = "brightness(1)";
+        card.style.setProperty("--stack-dim", "0");
         return;
       }
 
@@ -200,10 +200,9 @@
       if (progress > 1) progress = 1;
 
       var scale = 1 - 0.1 * progress;
-      var brightness = 1 - 0.5 * progress;
 
       card.style.transform = "scale(" + scale + ")";
-      card.style.filter = "brightness(" + brightness + ")";
+      card.style.setProperty("--stack-dim", String(0.5 * progress));
     });
   }
 

@@ -21,6 +21,7 @@
      Mobile navigation toggle
      ---------------------------------------------------------- */
   function openMenu() {
+    if (!navToggle || !navMenu) return;
     navToggle.setAttribute("aria-expanded", "true");
     navToggle.setAttribute("aria-label", "Close navigation menu");
     navMenu.classList.add("is-open");
@@ -28,6 +29,7 @@
   }
 
   function closeMenu() {
+    if (!navToggle || !navMenu) return;
     navToggle.setAttribute("aria-expanded", "false");
     navToggle.setAttribute("aria-label", "Open navigation menu");
     navMenu.classList.remove("is-open");
@@ -39,7 +41,9 @@
     isOpen ? closeMenu() : openMenu();
   }
 
-  navToggle.addEventListener("click", toggleMenu);
+  if (navToggle && navMenu) {
+    navToggle.addEventListener("click", toggleMenu);
+  }
 
   /* Close menu when a nav link is clicked */
   navLinks.forEach(function (link) {
@@ -54,6 +58,7 @@
   document.addEventListener("keydown", function (event) {
     if (
       event.key === "Escape" &&
+      navToggle &&
       navToggle.getAttribute("aria-expanded") === "true"
     ) {
       closeMenu();
@@ -72,6 +77,8 @@
      Header scroll effect
      ---------------------------------------------------------- */
   function updateHeaderScroll() {
+    if (!header) return;
+
     if (window.scrollY > SCROLL_THRESHOLD) {
       header.classList.add("is-scrolled");
     } else {
@@ -79,8 +86,10 @@
     }
   }
 
-  window.addEventListener("scroll", updateHeaderScroll, { passive: true });
-  updateHeaderScroll();
+  if (header) {
+    window.addEventListener("scroll", updateHeaderScroll, { passive: true });
+    updateHeaderScroll();
+  }
 
   /* ----------------------------------------------------------
      Hero live clock — Asia/Karachi
@@ -108,12 +117,23 @@
   /* ----------------------------------------------------------
      Active nav link highlighting
      ---------------------------------------------------------- */
+  function getNavSectionId(href) {
+    if (!href || href === "#") return "";
+    const hashIndex = href.indexOf("#");
+    if (hashIndex === -1) return "";
+    return href.slice(hashIndex + 1);
+  }
+
   function setActiveLink() {
+    if (!header) return;
+
     const scrollPos = window.scrollY + header.offsetHeight + 48;
     let currentId = "home";
 
     navLinks.forEach(function (link) {
-      const targetId = link.getAttribute("href").slice(1);
+      const targetId = getNavSectionId(link.getAttribute("href"));
+      if (!targetId) return;
+
       const section = document.getElementById(targetId);
 
       if (section && section.offsetTop <= scrollPos) {
@@ -122,7 +142,8 @@
     });
 
     navLinks.forEach(function (link) {
-      const isActive = link.getAttribute("href") === "#" + currentId;
+      const targetId = getNavSectionId(link.getAttribute("href"));
+      const isActive = targetId === currentId;
       link.classList.toggle("nav-link--active", isActive);
     });
   }
@@ -291,13 +312,69 @@
   });
 
   /* ----------------------------------------------------------
-     MODULE 5 — Contact form validation
+     MODULE 5 — Contact quiz + form validation
      ---------------------------------------------------------- */
-  const contactForm  = document.getElementById("contact-form");
-  const formStatus   = document.getElementById("form-status");
+  const contactForm = document.getElementById("contact-form");
+  const formStatus = document.getElementById("form-status");
   const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const copyEmailBtn = document.getElementById("copy-email");
+  const copyEmailStatus = document.getElementById("copy-email-status");
+
+  if (copyEmailBtn) {
+    copyEmailBtn.addEventListener("click", function () {
+      const email = copyEmailBtn.getAttribute("data-email") || "";
+
+      function onCopied() {
+        copyEmailBtn.classList.add("is-copied");
+        const label = copyEmailBtn.querySelector(".contact__copy-label");
+        if (label) label.textContent = "Copied";
+        if (copyEmailStatus) copyEmailStatus.textContent = "Email copied to clipboard.";
+        copyEmailBtn.setAttribute("aria-label", "Email copied");
+
+        window.setTimeout(function () {
+          copyEmailBtn.classList.remove("is-copied");
+          if (label) label.textContent = "Copy";
+          if (copyEmailStatus) copyEmailStatus.textContent = "";
+          copyEmailBtn.setAttribute("aria-label", "Copy email address");
+        }, 2000);
+      }
+
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(email).then(onCopied).catch(function () {
+          if (copyEmailStatus) copyEmailStatus.textContent = "Could not copy. Select the email instead.";
+        });
+      } else {
+        const temp = document.createElement("input");
+        temp.value = email;
+        document.body.appendChild(temp);
+        temp.select();
+        try {
+          document.execCommand("copy");
+          onCopied();
+        } catch (err) {
+          if (copyEmailStatus) copyEmailStatus.textContent = "Could not copy. Select the email instead.";
+        }
+        document.body.removeChild(temp);
+      }
+    });
+  }
 
   if (contactForm) {
+    const steps = [
+      document.getElementById("quiz-step-1"),
+      document.getElementById("quiz-step-2"),
+      document.getElementById("quiz-step-3"),
+    ];
+    const stepLabel = document.getElementById("quiz-step-label");
+    const progressFill = document.getElementById("quiz-progress-fill");
+    const backBtn = document.getElementById("quiz-back");
+    const nextBtn = document.getElementById("quiz-next");
+    const submitBtn = document.getElementById("quiz-submit");
+    const needsError = document.getElementById("needs-error");
+    const budgetError = document.getElementById("budget-error");
+    const subjectInput = document.getElementById("contact-subject");
+    let currentStep = 1;
+
     const fields = {
       name: {
         input: document.getElementById("contact-name"),
@@ -327,49 +404,173 @@
     };
 
     function setFieldError(field, message) {
+      if (!field || !field.input) return;
       field.input.setAttribute("aria-invalid", message ? "true" : "false");
-      field.error.textContent = message;
+      if (field.error) field.error.textContent = message;
     }
 
     function clearFormStatus() {
+      if (!formStatus) return;
       formStatus.hidden = true;
       formStatus.textContent = "";
       formStatus.classList.remove("is-error");
     }
 
+    function getSelectedNeeds() {
+      return Array.prototype.map.call(
+        contactForm.querySelectorAll('input[name="needs"]:checked'),
+        function (input) {
+          return input.value;
+        }
+      );
+    }
+
+    function getSelectedBudget() {
+      const checked = contactForm.querySelector('input[name="budget"]:checked');
+      return checked ? checked.value : "";
+    }
+
+    function updateSubject() {
+      if (!subjectInput) return;
+      const needs = getSelectedNeeds().join(", ");
+      const budget = getSelectedBudget();
+      const parts = [];
+      if (needs) parts.push(needs);
+      if (budget) parts.push("Budget: " + budget);
+      subjectInput.value = parts.join(" — ");
+    }
+
+    function showStep(step, options) {
+      const opts = options || {};
+      currentStep = step;
+
+      steps.forEach(function (el, index) {
+        if (!el) return;
+        const active = index + 1 === step;
+        el.classList.toggle("is-active", active);
+        el.hidden = !active;
+      });
+
+      if (stepLabel) stepLabel.textContent = String(step);
+      if (progressFill) progressFill.style.transform = "scaleX(" + step / 3 + ")";
+
+      if (backBtn) backBtn.hidden = step === 1;
+      if (nextBtn) nextBtn.hidden = step === 3;
+      if (submitBtn) submitBtn.hidden = step !== 3;
+
+      if (opts.focus !== false) {
+        const activeStep = steps[step - 1];
+        if (activeStep) {
+          const focusTarget = activeStep.querySelector(
+            "input:not([type='hidden']), textarea, button"
+          );
+          if (focusTarget) {
+            window.setTimeout(function () {
+              focusTarget.focus();
+            }, 0);
+          }
+        }
+      }
+    }
+
+    function validateStep(step) {
+      clearFormStatus();
+
+      if (step === 1) {
+        const ok = getSelectedNeeds().length > 0;
+        if (needsError) needsError.textContent = ok ? "" : "Please select at least one option.";
+        return ok;
+      }
+
+      if (step === 2) {
+        const ok = Boolean(getSelectedBudget());
+        if (budgetError) budgetError.textContent = ok ? "" : "Please choose a budget range.";
+        return ok;
+      }
+
+      if (step === 3) {
+        let isValid = true;
+        let firstInvalid = null;
+
+        Object.keys(fields).forEach(function (key) {
+          const field = fields[key];
+          const message = field.validate(field.input.value);
+          setFieldError(field, message);
+          if (message) {
+            isValid = false;
+            if (!firstInvalid) firstInvalid = field.input;
+          }
+        });
+
+        if (!isValid && firstInvalid) firstInvalid.focus();
+        return isValid;
+      }
+
+      return true;
+    }
+
     Object.keys(fields).forEach(function (key) {
+      if (!fields[key].input) return;
       fields[key].input.addEventListener("input", function () {
         setFieldError(fields[key], "");
         clearFormStatus();
       });
     });
 
+    contactForm.querySelectorAll('input[name="needs"]').forEach(function (input) {
+      input.addEventListener("change", function () {
+        if (needsError) needsError.textContent = "";
+        updateSubject();
+      });
+    });
+
+    contactForm.querySelectorAll('input[name="budget"]').forEach(function (input) {
+      input.addEventListener("change", function () {
+        if (budgetError) budgetError.textContent = "";
+        updateSubject();
+      });
+    });
+
+    if (nextBtn) {
+      nextBtn.addEventListener("click", function () {
+        if (!validateStep(currentStep)) return;
+        updateSubject();
+        showStep(Math.min(3, currentStep + 1));
+      });
+    }
+
+    if (backBtn) {
+      backBtn.addEventListener("click", function () {
+        clearFormStatus();
+        showStep(Math.max(1, currentStep - 1));
+      });
+    }
+
     contactForm.addEventListener("submit", function (event) {
       event.preventDefault();
       clearFormStatus();
 
-      let isValid = true;
-      let firstInvalid = null;
-
-      Object.keys(fields).forEach(function (key) {
-        const field = fields[key];
-        const message = field.validate(field.input.value);
-
-        setFieldError(field, message);
-
-        if (message) {
-          isValid = false;
-          if (!firstInvalid) firstInvalid = field.input;
-        }
-      });
-
-      if (!isValid) {
-        formStatus.hidden = false;
-        formStatus.classList.add("is-error");
-        formStatus.textContent = "Please fix the errors below and try again.";
-        firstInvalid.focus();
+      if (currentStep !== 3) {
+        showStep(3);
         return;
       }
+
+      const step1Ok = validateStep(1);
+      const step2Ok = validateStep(2);
+      const step3Ok = validateStep(3);
+
+      if (!step1Ok || !step2Ok || !step3Ok) {
+        if (!step1Ok) showStep(1);
+        else if (!step2Ok) showStep(2);
+        if (formStatus) {
+          formStatus.hidden = false;
+          formStatus.classList.add("is-error");
+          formStatus.textContent = "Please fix the errors and try again.";
+        }
+        return;
+      }
+
+      updateSubject();
 
       /*
        * Backend hook: connect to Formspree or your API here.
@@ -386,12 +587,19 @@
       Object.keys(fields).forEach(function (key) {
         setFieldError(fields[key], "");
       });
+      if (needsError) needsError.textContent = "";
+      if (budgetError) budgetError.textContent = "";
+      contactForm.classList.add("is-success");
 
-      formStatus.hidden = false;
-      formStatus.classList.remove("is-error");
-      formStatus.textContent =
-        "Thanks for reaching out! Your message has been received — I'll get back to you soon.";
+      if (formStatus) {
+        formStatus.hidden = false;
+        formStatus.classList.remove("is-error");
+        formStatus.textContent =
+          "Thanks for reaching out! Your message has been received — I'll get back to you soon.";
+      }
     });
+
+    showStep(1, { focus: false });
   }
 
   /* ----------------------------------------------------------
@@ -453,6 +661,7 @@
         entries.forEach(function (entry) {
           if (entry.isIntersecting) {
             autoCycleInterval = setInterval(function () {
+              if (processTabs.length < 1) return;
               currentStep = (currentStep + 1) % processTabs.length;
               activateStep(currentStep);
             }, 3000);
