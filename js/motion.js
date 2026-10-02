@@ -243,21 +243,42 @@
   }
 
   /* ----------------------------------------------------------
-     4. Marquee — velocity + direction
+     4. Marquee — time-based, one-copy wrap
      ---------------------------------------------------------- */
   function initMarquee() {
     var track = document.querySelector(".hero__marquee-track");
     if (!track) return;
 
-    gsap.set(track, { xPercent: 0 });
-
-    var xPos = 0;
+    var x = 0;
     var dir = -1;
     var boost = 1;
     var targetBoost = 1;
     var BASE_PX_PER_SEC = 40;
     var MAX_BOOST = 1.6;
     var BOOST_EASE_SEC = 0.6;
+    var copyWidth = 0;
+
+    function measureCopyWidth() {
+      var first = track.querySelector(".hero__marquee-text");
+      if (!first) {
+        copyWidth = 0;
+        return;
+      }
+      var gap = parseFloat(window.getComputedStyle(track).columnGap || window.getComputedStyle(track).gap) || 0;
+      copyWidth = first.offsetWidth + gap;
+    }
+
+    function applyX() {
+      if (!copyWidth) {
+        gsap.set(track, { x: 0, xPercent: 0 });
+        return;
+      }
+      x = gsap.utils.wrap(-copyWidth, 0, x);
+      gsap.set(track, { x: x, xPercent: 0 });
+    }
+
+    measureCopyWidth();
+    gsap.set(track, { x: 0, xPercent: 0 });
 
     ScrollTrigger.create({
       onUpdate: function (self) {
@@ -270,7 +291,7 @@
 
     gsap.ticker.add(function (time, deltaTime) {
       var dt = deltaTime / 1000;
-      if (!dt || dt > 0.2) {
+      if (!dt || !isFinite(dt) || dt > 0.2) {
         dt = 1 / 60;
       }
 
@@ -288,14 +309,22 @@
       var blend = Math.min(1, dt / BOOST_EASE_SEC);
       boost += (targetBoost - boost) * blend;
 
-      var trackW = track.offsetWidth || 1;
-      var deltaPx = BASE_PX_PER_SEC * boost * dir * dt;
-      xPos += (deltaPx / trackW) * 100;
+      if (!copyWidth || !isFinite(boost)) return;
 
-      if (xPos <= -50) xPos += 50;
-      if (xPos >= 0) xPos -= 50;
-      gsap.set(track, { xPercent: xPos });
+      x += BASE_PX_PER_SEC * boost * dir * dt;
+      if (!isFinite(x)) x = 0;
+      applyX();
     });
+
+    function remeasure() {
+      measureCopyWidth();
+      applyX();
+    }
+
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(remeasure).catch(function () {});
+    }
+    window.addEventListener("resize", remeasure, { passive: true });
   }
 
   /* ----------------------------------------------------------
