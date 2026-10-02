@@ -315,8 +315,8 @@
             ease: "power3.out",
             scrollTrigger: {
               trigger: h2,
-              start: "top 88%",
-              toggleActions: "play none none none",
+              start: "top 85%",
+              once: true,
             },
           });
         },
@@ -327,7 +327,7 @@
           opacity: 0,
           duration: 0.7,
           ease: "power3.out",
-          scrollTrigger: { trigger: h2, start: "top 88%" },
+          scrollTrigger: { trigger: h2, start: "top 85%", once: true },
         });
       }
     });
@@ -500,7 +500,6 @@
     if (!section || !pin || !steps) return;
 
     if (window.innerWidth < DESKTOP_MIN) {
-      /* Mobile: simple stagger reveal */
       gsap.from(".process__step", {
         y: 40,
         opacity: 0,
@@ -510,6 +509,7 @@
         scrollTrigger: {
           trigger: steps,
           start: "top 85%",
+          once: true,
         },
       });
       return;
@@ -549,7 +549,7 @@
      11. Service cards stagger
      ---------------------------------------------------------- */
   function initServices() {
-    var items = gsap.utils.toArray(".services__grid > [data-reveal], .services__grid > li");
+    var items = gsap.utils.toArray(".services__grid > li");
     if (!items.length) {
       items = gsap.utils.toArray(".service-card");
     }
@@ -564,44 +564,33 @@
       ease: "power3.out",
       scrollTrigger: {
         trigger: ".services__grid",
-        start: "top 80%",
-      },
-      onComplete: function () {
-        items.forEach(function (el) {
-          el.classList.add("is-revealed");
-        });
+        start: "top 85%",
+        once: true,
       },
     });
   }
 
   /* ----------------------------------------------------------
-     Generic data-reveal (mobile + fallback sections)
+     Generic data-reveal — GSAP owns initial state
      ---------------------------------------------------------- */
   function initReveals() {
     document.querySelectorAll("[data-reveal]").forEach(function (el) {
-      if (el.closest(".services__grid") || el.closest(".process")) return;
+      if (el.closest(".services__grid")) return;
 
       var delay = parseFloat(el.getAttribute("data-reveal-delay") || "0", 10);
 
-      gsap.fromTo(
-        el,
-        { opacity: 0, y: 48 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.8,
-          delay: delay,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: el,
-            start: "top 88%",
-            toggleActions: "play none none none",
-          },
-          onComplete: function () {
-            el.classList.add("is-revealed");
-          },
-        }
-      );
+      gsap.from(el, {
+        opacity: 0,
+        y: 48,
+        duration: 0.8,
+        delay: delay,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: el,
+          start: "top 85%",
+          once: true,
+        },
+      });
     });
   }
 
@@ -623,7 +612,7 @@
         opacity: 0,
         duration: 0.7,
         ease: "power3.out",
-        scrollTrigger: { trigger: ".site-footer", start: "top 85%" },
+        scrollTrigger: { trigger: ".site-footer", start: "top 85%", once: true },
       });
       return;
     }
@@ -636,6 +625,7 @@
       scrollTrigger: {
         trigger: ".site-footer",
         start: "top 85%",
+        once: true,
       },
     });
   }
@@ -643,6 +633,10 @@
   /* ----------------------------------------------------------
      Boot
      ---------------------------------------------------------- */
+  function refreshTriggers() {
+    ScrollTrigger.refresh();
+  }
+
   function start() {
     initMarquee();
     initHeadings();
@@ -655,7 +649,12 @@
     initCursor();
     initMagnetic();
     initHero();
-    ScrollTrigger.refresh();
+    refreshTriggers();
+
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(refreshTriggers).catch(function () {});
+    }
+    window.addEventListener("load", refreshTriggers, { once: true });
   }
 
   runLoader().then(start);

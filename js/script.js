@@ -270,7 +270,7 @@
   /* ----------------------------------------------------------
      MODULE 4 — Project thumbnail fallback on missing images
      ---------------------------------------------------------- */
-  document.querySelectorAll(".project-card__img").forEach(function (img) {
+  document.querySelectorAll(".project-card__img, .work-index__img, .case-study__img").forEach(function (img) {
     function hideBrokenImage() {
       img.classList.add("is-hidden");
     }
