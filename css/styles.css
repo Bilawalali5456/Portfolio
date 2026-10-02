@@ -1399,20 +1399,53 @@ button:hover .btn-arrow,
 }
 
 .project-card__media {
+  --tint: rgba(198, 255, 61, 0.15);
   position: relative;
   margin: 0;
   min-height: 200px;
   border-radius: 18px;
   overflow: hidden;
-  background: var(--bg);
   border: 1px solid var(--border);
+  background:
+    radial-gradient(circle at 25% 30%, rgba(198, 255, 61, 0.22), transparent 55%),
+    radial-gradient(circle at 80% 75%, var(--tint), transparent 60%),
+    var(--surface);
 }
 
-.project-card__fallback {
+.project-card__media--vyva { --tint: rgba(91, 140, 255, 0.28); }
+.project-card__media--builders { --tint: rgba(245, 197, 66, 0.25); }
+.project-card__media--daichi { --tint: rgba(255, 90, 31, 0.22); }
+.project-card__media--appealmate { --tint: rgba(160, 120, 255, 0.25); }
+.project-card__media--solutions { --tint: rgba(61, 220, 200, 0.22); }
+.project-card__media--billing { --tint: rgba(255, 120, 170, 0.22); }
+
+.project-media__label {
   position: absolute;
   inset: 0;
-  background: var(--surface);
   z-index: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  padding: 1rem;
+  text-align: center;
+  pointer-events: none;
+}
+
+.project-media__name {
+  font-family: var(--font-hero);
+  font-weight: 600;
+  font-size: 28px;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  opacity: 0.7;
+}
+
+.project-media__platform {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--muted);
 }
 
 .project-card__img {
@@ -1425,10 +1458,6 @@ button:hover .btn-arrow,
   filter: none;
   z-index: 1;
   will-change: transform;
-}
-
-.project-card__img.is-hidden {
-  display: none;
 }
 
 @media (min-width: 48rem) {
@@ -2302,18 +2331,35 @@ button:hover .btn-arrow,
 }
 
 .case-study__media {
+  --tint: rgba(198, 255, 61, 0.15);
+  position: relative;
   margin: 0 0 var(--space-2xl);
+  aspect-ratio: 16 / 10;
   border: 1px solid var(--border);
   border-radius: 28px;
   overflow: hidden;
-  background: var(--surface);
+  background:
+    radial-gradient(circle at 25% 30%, rgba(198, 255, 61, 0.22), transparent 55%),
+    radial-gradient(circle at 80% 75%, var(--tint), transparent 60%),
+    var(--surface);
 }
 
+.case-study__media--vyva { --tint: rgba(91, 140, 255, 0.28); }
+.case-study__media--builders { --tint: rgba(245, 197, 66, 0.25); }
+.case-study__media--daichi { --tint: rgba(255, 90, 31, 0.22); }
+.case-study__media--appealmate { --tint: rgba(160, 120, 255, 0.25); }
+.case-study__media--solutions { --tint: rgba(61, 220, 200, 0.22); }
+.case-study__media--billing { --tint: rgba(255, 120, 170, 0.22); }
+
 .case-study__img {
+  position: absolute;
+  inset: 0;
   display: block;
   width: 100%;
-  height: auto;
-  vertical-align: middle;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+  z-index: 1;
 }
 
 .case-study__body {
@@ -2710,17 +2756,32 @@ button:hover .btn-arrow,
 }
 
 .work-index__media {
+  --tint: rgba(198, 255, 61, 0.15);
+  position: relative;
   margin: 0;
   aspect-ratio: 16 / 10;
-  background: var(--surface);
   overflow: hidden;
+  background:
+    radial-gradient(circle at 25% 30%, rgba(198, 255, 61, 0.22), transparent 55%),
+    radial-gradient(circle at 80% 75%, var(--tint), transparent 60%),
+    var(--surface);
 }
 
+.work-index__media--vyva { --tint: rgba(91, 140, 255, 0.28); }
+.work-index__media--builders { --tint: rgba(245, 197, 66, 0.25); }
+.work-index__media--daichi { --tint: rgba(255, 90, 31, 0.22); }
+.work-index__media--appealmate { --tint: rgba(160, 120, 255, 0.25); }
+.work-index__media--solutions { --tint: rgba(61, 220, 200, 0.22); }
+.work-index__media--billing { --tint: rgba(255, 120, 170, 0.22); }
+
 .work-index__img {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: top;
+  z-index: 1;
 }
 
 .work-index__body {

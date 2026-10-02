@@ -268,17 +268,17 @@
   });
 
   /* ----------------------------------------------------------
-     MODULE 4 — Project thumbnail fallback on missing images
+     MODULE 4 — Missing project images → show CSS placeholder
      ---------------------------------------------------------- */
   document.querySelectorAll(".project-card__img, .work-index__img, .case-study__img").forEach(function (img) {
-    function hideBrokenImage() {
-      img.classList.add("is-hidden");
+    function removeBrokenImage() {
+      img.remove();
     }
 
     if (img.complete && img.naturalWidth === 0) {
-      hideBrokenImage();
+      removeBrokenImage();
     } else {
-      img.addEventListener("error", hideBrokenImage);
+      img.addEventListener("error", removeBrokenImage);
     }
   });
 
