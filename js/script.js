@@ -170,10 +170,18 @@
         "(prefers-reduced-motion: reduce)"
       ).matches;
 
-      target.scrollIntoView({
-        behavior: prefersReducedMotion ? "auto" : "smooth",
-        block: "start",
-      });
+      if (
+        !prefersReducedMotion &&
+        window.__lenis &&
+        typeof window.__lenis.scrollTo === "function"
+      ) {
+        window.__lenis.scrollTo(target, { offset: 0 });
+      } else {
+        target.scrollIntoView({
+          behavior: prefersReducedMotion ? "auto" : "smooth",
+          block: "start",
+        });
+      }
 
       /* Move focus for accessibility when target exists */
       if (!target.hasAttribute("tabindex")) {
@@ -603,11 +611,12 @@
   }
 
   /* ----------------------------------------------------------
-     PROCESS — Laptop tab switcher
+     PROCESS — legacy tab switcher (no-op if tabs removed)
      ---------------------------------------------------------- */
   const processTabs = document.querySelectorAll(".process__tab");
   const processSlides = document.querySelectorAll(".process__slide");
 
+  if (processTabs.length && processSlides.length) {
   function activateStep(index) {
     processTabs.forEach(function (tab, i) {
       const active = i === index;
@@ -682,6 +691,7 @@
         clearInterval(autoCycleInterval);
       });
     });
+  }
   }
 
   /* ----------------------------------------------------------

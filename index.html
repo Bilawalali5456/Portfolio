@@ -18,7 +18,7 @@
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Space+Grotesk:wght@500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
 
   <!-- Open Graph -->
   <meta property="og:type" content="website">
@@ -35,6 +35,7 @@
   <meta name="twitter:image" content="https://bilawalali.vercel.app/assets/images/og-image.jpg">
 
   <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lenis@1.3.26/dist/lenis.css">
 
   <script type="application/ld+json">
   {
@@ -105,14 +106,6 @@
       },
       {
         "@type": "Question",
-        "name": "What do you need to get started?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Share your goals, a few examples you like, your content (or a plan for it), and access to the domain, hosting, or repo."
-        }
-      },
-      {
-        "@type": "Question",
         "name": "Do you provide support after launch?",
         "acceptedAnswer": {
           "@type": "Answer",
@@ -152,12 +145,9 @@
       </button>
 
       <ul class="nav-menu" id="nav-menu" role="list">
-        <li><a href="#home" class="nav-link nav-link--active">Home</a></li>
-        <li><a href="#about" class="nav-link">About</a></li>
-        <li><a href="#skills" class="nav-link">Skills</a></li>
+        <li><a href="#projects" class="nav-link">Work</a></li>
         <li><a href="#services" class="nav-link">Services</a></li>
-        <li><a href="#projects" class="nav-link">Projects</a></li>
-        <li><a href="#testimonials" class="nav-link">Testimonials</a></li>
+        <li><a href="#about" class="nav-link">About</a></li>
         <li><a href="#faq" class="nav-link">FAQ</a></li>
         <li><a href="#contact" class="nav-link">Contact</a></li>
       </ul>
@@ -258,456 +248,6 @@
       </div>
     </section>
 
-    <!-- ABOUT -->
-    <section class="section about" id="about" aria-labelledby="about-heading">
-      <figure class="about__portrait reveal" data-reveal>
-        <span class="about__portrait-frame">
-          <img
-            src="assets/images/1.JPG"
-            alt="Bilawal Ali — Web & WordPress Developer"
-            class="about__portrait-img"
-            width="480"
-            height="560"
-            loading="lazy"
-          >
-        </span>
-        <figcaption class="visually-hidden">Portrait of Bilawal Ali</figcaption>
-      </figure>
-
-      <article class="about__content reveal" data-reveal data-reveal-delay="0.2">
-        <header class="about__header">
-          <p class="section__eyebrow">About</p>
-          <h2 class="section__heading" id="about-heading">
-            I build websites that work as hard as you do.
-          </h2>
-        </header>
-
-        <p class="about__text">
-          I'm <strong>Bilawal Ali</strong>, a Web &amp; WordPress developer.
-          I've built live client websites across e-commerce, healthcare, legal,
-          and IT — sites that load fast and convert. I hand-code front-ends with
-          semantic HTML, modern CSS, and vanilla JavaScript — clean, maintainable
-          work I'd be proud to hand off to any team.
-        </p>
-        <p class="about__text">
-          I also deliver custom WordPress builds — custom themes, Elementor, and
-          page builders configured with restraint — always tuned for performance
-          and real client results. Every project I ship is built to rank, load
-          quickly, and turn visitors into customers.
-        </p>
-
-        <ul class="about__stats" role="list" aria-label="Career highlights">
-          <li class="stat-card reveal">
-            <p class="stat-card__value" aria-label="1 plus years of experience">
-              <span class="stat-card__number">1</span><span class="stat-card__suffix" aria-hidden="true">+</span>
-            </p>
-            <p class="stat-card__label">Years of Experience</p>
-          </li>
-          <li class="stat-card reveal">
-            <p class="stat-card__value" aria-label="15 plus live projects shipped">
-              <span class="stat-card__number">15</span><span class="stat-card__suffix" aria-hidden="true">+</span>
-            </p>
-            <p class="stat-card__label">Live Projects Shipped</p>
-          </li>
-          <li class="stat-card reveal">
-            <p class="stat-card__value" aria-label="100 percent client satisfaction">
-              <span class="stat-card__number">100</span><span class="stat-card__suffix" aria-hidden="true">%</span>
-            </p>
-            <p class="stat-card__label">Client Satisfaction</p>
-          </li>
-        </ul>
-
-        <a
-          href="assets/resume.pdf"
-          class="btn btn--primary about__resume"
-          download
-          aria-label="Download resume as PDF"
-        >
-          Download Resume
-        </a>
-      </article>
-    </section>
-
-    <!-- SKILLS -->
-    <section class="section skills" id="skills" aria-labelledby="skills-heading">
-      <header class="section__header reveal" data-reveal>
-        <p class="section__eyebrow">Skills</p>
-        <h2 class="section__heading" id="skills-heading">
-          A focused toolkit for modern web work
-        </h2>
-        <p class="section__intro">
-          From hand-coded front-ends to production WordPress builds — here's
-          what I bring to every project.
-        </p>
-      </header>
-
-      <ul class="skills__grid" role="list">
-        <li data-reveal data-reveal-delay="0">
-          <article class="skill-category">
-            <h3 class="skill-category__title">Front-End</h3>
-            <ul class="skill-pills" role="list">
-              <li><span class="skill-pill">HTML5 (semantic)</span></li>
-              <li><span class="skill-pill">CSS3 (Grid, Flexbox, custom properties, animations)</span></li>
-              <li><span class="skill-pill">JavaScript (ES6+, vanilla)</span></li>
-              <li><span class="skill-pill">Responsive Design</span></li>
-              <li><span class="skill-pill">Accessibility</span></li>
-            </ul>
-          </article>
-        </li>
-        <li data-reveal data-reveal-delay="0.05">
-          <article class="skill-category">
-            <h3 class="skill-category__title">React &amp; JavaScript</h3>
-            <ul class="skill-pills" role="list">
-              <li><span class="skill-pill">React.js</span></li>
-              <li><span class="skill-pill">Hooks</span></li>
-              <li><span class="skill-pill">React Router</span></li>
-              <li><span class="skill-pill">State Management</span></li>
-              <li><span class="skill-pill">Tailwind CSS</span></li>
-              <li><span class="skill-pill">Vite</span></li>
-            </ul>
-          </article>
-        </li>
-        <li data-reveal data-reveal-delay="0.1">
-          <article class="skill-category">
-            <h3 class="skill-category__title">WordPress</h3>
-            <ul class="skill-pills" role="list">
-              <li><span class="skill-pill">Custom Themes</span></li>
-              <li><span class="skill-pill">Elementor</span></li>
-              <li><span class="skill-pill">Page Builders</span></li>
-              <li><span class="skill-pill">WooCommerce basics</span></li>
-              <li><span class="skill-pill">Plugin Configuration</span></li>
-              <li><span class="skill-pill">Theme Customization</span></li>
-            </ul>
-          </article>
-        </li>
-        <li data-reveal data-reveal-delay="0.15">
-          <article class="skill-category">
-            <h3 class="skill-category__title">Shopify</h3>
-            <ul class="skill-pills" role="list">
-              <li><span class="skill-pill">Liquid Templating</span></li>
-              <li><span class="skill-pill">Dawn / OS 2.0 Themes</span></li>
-              <li><span class="skill-pill">Theme Customization</span></li>
-              <li><span class="skill-pill">Shopify CLI</span></li>
-              <li><span class="skill-pill">App Integration</span></li>
-              <li><span class="skill-pill">Store Setup & Config</span></li>
-            </ul>
-          </article>
-        </li>
-        <li data-reveal data-reveal-delay="0.2">
-          <article class="skill-category">
-            <h3 class="skill-category__title">APIs &amp; Integration</h3>
-            <ul class="skill-pills" role="list">
-              <li><span class="skill-pill">REST APIs</span></li>
-              <li><span class="skill-pill">Node.js / Express</span></li>
-              <li><span class="skill-pill">Fetch &amp; Axios</span></li>
-              <li><span class="skill-pill">Shopify Storefront API</span></li>
-              <li><span class="skill-pill">WordPress REST API</span></li>
-              <li><span class="skill-pill">Postman</span></li>
-            </ul>
-          </article>
-        </li>
-        <li data-reveal data-reveal-delay="0.25">
-          <article class="skill-category">
-            <h3 class="skill-category__title">Tools &amp; Workflow</h3>
-            <ul class="skill-pills" role="list">
-              <li><span class="skill-pill">Git / GitHub</span></li>
-              <li><span class="skill-pill">Cursor</span></li>
-              <li><span class="skill-pill">Figma to Code</span></li>
-              <li><span class="skill-pill">SEO Fundamentals</span></li>
-              <li><span class="skill-pill">Page Speed Optimization</span></li>
-              <li><span class="skill-pill">Cross-Browser Testing</span></li>
-            </ul>
-          </article>
-        </li>
-      </ul>
-    </section>
-
-    <!-- SERVICES -->
-    <section class="section services" id="services" aria-labelledby="services-heading">
-      <header class="section__header" data-reveal>
-        <p class="section__eyebrow">Services</p>
-        <h2 class="section__heading" id="services-heading">What I Do</h2>
-        <p class="section__intro">
-          Every project includes speed optimization, SEO basics, and post-launch support.
-        </p>
-      </header>
-
-      <ul class="services__grid" role="list">
-        <li data-reveal data-reveal-delay="0">
-          <article class="service-card" tabindex="0">
-            <span class="service-card__icon" aria-hidden="true">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M12 2L2 7l10 5 10-5-10-5z"/>
-                <path d="M2 17l10 5 10-5"/>
-                <path d="M2 12l10 5 10-5"/>
-              </svg>
-            </span>
-            <h3 class="service-card__title">Build</h3>
-            <ul class="service-card__list" role="list">
-              <li>Custom WordPress development</li>
-              <li>Custom themes from scratch</li>
-              <li>Elementor &amp; page builder sites</li>
-              <li>Clean, editable site structure</li>
-            </ul>
-          </article>
-        </li>
-        <li data-reveal data-reveal-delay="0.05">
-          <article class="service-card" tabindex="0">
-            <span class="service-card__icon" aria-hidden="true">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
-                <line x1="3" y1="6" x2="21" y2="6"/>
-                <path d="M16 10a4 4 0 0 1-8 0"/>
-              </svg>
-            </span>
-            <h3 class="service-card__title">Sell</h3>
-            <ul class="service-card__list" role="list">
-              <li>Shopify stores with Liquid</li>
-              <li>OS 2.0 / Dawn theme builds</li>
-              <li>WooCommerce store development</li>
-              <li>Conversion-focused product pages</li>
-            </ul>
-          </article>
-        </li>
-        <li data-reveal data-reveal-delay="0.1">
-          <article class="service-card" tabindex="0">
-            <span class="service-card__icon" aria-hidden="true">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="3" y="3" width="7" height="7" rx="1"/>
-                <rect x="14" y="3" width="7" height="7" rx="1"/>
-                <rect x="3" y="14" width="7" height="7" rx="1"/>
-                <rect x="14" y="14" width="7" height="7" rx="1"/>
-              </svg>
-            </span>
-            <h3 class="service-card__title">Apps</h3>
-            <ul class="service-card__list" role="list">
-              <li>React.js web apps</li>
-              <li>Interactive dashboards</li>
-              <li>Headless Shopify frontends</li>
-              <li>Headless WordPress frontends</li>
-            </ul>
-          </article>
-        </li>
-        <li data-reveal data-reveal-delay="0.15">
-          <article class="service-card" tabindex="0">
-            <span class="service-card__icon" aria-hidden="true">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
-                <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
-              </svg>
-            </span>
-            <h3 class="service-card__title">Connect</h3>
-            <ul class="service-card__list" role="list">
-              <li>REST API development</li>
-              <li>Payment gateway integrations</li>
-              <li>Shopify &amp; WooCommerce APIs</li>
-              <li>CRM &amp; third-party services</li>
-            </ul>
-          </article>
-        </li>
-      </ul>
-    </section>
-
-    <section class="section process" id="process" aria-labelledby="process-heading">
-      <header class="section__header reveal" data-reveal>
-        <p class="section__eyebrow">How I Work</p>
-        <h2 class="section__heading" id="process-heading">
-          From idea to launch — a clear, proven process.
-        </h2>
-        <p class="section__intro">
-          Every project follows the same structured approach so you always
-          know what's happening, what's next, and when it ships.
-        </p>
-      </header>
-
-      <div class="process__wrapper reveal" data-reveal data-reveal-delay="0.2">
-
-        <!-- Left: Step tabs -->
-        <ol class="process__tabs" role="list">
-          <li
-            class="process__tab is-active"
-            data-step="0"
-            role="button"
-            tabindex="0"
-            aria-selected="true"
-          >
-            <span class="process__tab-number" aria-hidden="true">01</span>
-            <div class="process__tab-content">
-              <h3 class="process__tab-title">Discovery</h3>
-              <p class="process__tab-desc">
-                We talk about your goals, audience, and competitors
-                before a single line of code is written.
-              </p>
-            </div>
-            <span class="process__tab-arrow" aria-hidden="true">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="9 18 15 12 9 6"/>
-              </svg>
-            </span>
-          </li>
-          <li
-            class="process__tab"
-            data-step="1"
-            role="button"
-            tabindex="0"
-            aria-selected="false"
-          >
-            <span class="process__tab-number" aria-hidden="true">02</span>
-            <div class="process__tab-content">
-              <h3 class="process__tab-title">Design</h3>
-              <p class="process__tab-desc">
-                Layout, structure, and visual direction mapped out
-                so you see it before development begins.
-              </p>
-            </div>
-            <span class="process__tab-arrow" aria-hidden="true">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="9 18 15 12 9 6"/>
-              </svg>
-            </span>
-          </li>
-          <li
-            class="process__tab"
-            data-step="2"
-            role="button"
-            tabindex="0"
-            aria-selected="false"
-          >
-            <span class="process__tab-number" aria-hidden="true">03</span>
-            <div class="process__tab-content">
-              <h3 class="process__tab-title">Build</h3>
-              <p class="process__tab-desc">
-                Clean, semantic code. Fast load times. Mobile-first
-                from day one, built to perform.
-              </p>
-            </div>
-            <span class="process__tab-arrow" aria-hidden="true">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="9 18 15 12 9 6"/>
-              </svg>
-            </span>
-          </li>
-          <li
-            class="process__tab"
-            data-step="3"
-            role="button"
-            tabindex="0"
-            aria-selected="false"
-          >
-            <span class="process__tab-number" aria-hidden="true">04</span>
-            <div class="process__tab-content">
-              <h3 class="process__tab-title">Launch</h3>
-              <p class="process__tab-desc">
-                Thorough testing across devices before go-live.
-                Support and updates available after launch.
-              </p>
-            </div>
-            <span class="process__tab-arrow" aria-hidden="true">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="9 18 15 12 9 6"/>
-              </svg>
-            </span>
-          </li>
-        </ol>
-
-        <!-- Right: Laptop mockup -->
-        <div class="process__laptop" aria-hidden="true">
-          <div class="process__laptop-body">
-            <div class="process__laptop-screen">
-              <div class="process__laptop-topbar">
-                <span class="process__dot process__dot--red"></span>
-                <span class="process__dot process__dot--yellow"></span>
-                <span class="process__dot process__dot--green"></span>
-              </div>
-              <div class="process__screen-content">
-
-                <!-- Slide 0: Discovery -->
-                <div class="process__slide is-active" data-slide="0">
-                  <div class="process__slide-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-                      stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                      <circle cx="11" cy="11" r="8"/>
-                      <line x1="21" y1="21" x2="16.65" y2="16.65"/>
-                    </svg>
-                  </div>
-                  <h4 class="process__slide-title">Discovery</h4>
-                  <p class="process__slide-text">Understanding your goals, target audience, and competitors to build the right solution.</p>
-                  <ul class="process__slide-list">
-                    <li>✦ Goals & requirements call</li>
-                    <li>✦ Competitor research</li>
-                    <li>✦ Project scope & timeline</li>
-                  </ul>
-                </div>
-
-                <!-- Slide 1: Design -->
-                <div class="process__slide" data-slide="1">
-                  <div class="process__slide-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-                      stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M12 20h9"/>
-                      <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
-                    </svg>
-                  </div>
-                  <h4 class="process__slide-title">Design</h4>
-                  <p class="process__slide-text">Layout, structure, and visual direction mapped before development begins — no surprises.</p>
-                  <ul class="process__slide-list">
-                    <li>✦ Wireframe & layout planning</li>
-                    <li>✦ Visual direction & colours</li>
-                    <li>✦ Your approval before build</li>
-                  </ul>
-                </div>
-
-                <!-- Slide 2: Build -->
-                <div class="process__slide" data-slide="2">
-                  <div class="process__slide-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-                      stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                      <polyline points="16 18 22 12 16 6"/>
-                      <polyline points="8 6 2 12 8 18"/>
-                    </svg>
-                  </div>
-                  <h4 class="process__slide-title">Build</h4>
-                  <p class="process__slide-text">Clean, semantic code. Fast load times. Mobile-first from day one — built to perform.</p>
-                  <ul class="process__slide-list">
-                    <li>✦ Semantic HTML & modern CSS</li>
-                    <li>✦ Mobile-first responsive</li>
-                    <li>✦ Speed & SEO optimised</li>
-                  </ul>
-                </div>
-
-                <!-- Slide 3: Launch -->
-                <div class="process__slide" data-slide="3">
-                  <div class="process__slide-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-                      stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
-                      <polyline points="22 4 12 14.01 9 11.01"/>
-                    </svg>
-                  </div>
-                  <h4 class="process__slide-title">Launch</h4>
-                  <p class="process__slide-text">Thorough testing across all devices and browsers before anything goes live.</p>
-                  <ul class="process__slide-list">
-                    <li>✦ Cross-browser testing</li>
-                    <li>✦ Live deployment</li>
-                    <li>✦ Post-launch support</li>
-                  </ul>
-                </div>
-
-              </div>
-            </div>
-          </div>
-          <div class="process__laptop-base">
-            <div class="process__laptop-notch"></div>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
     <!-- PROJECTS -->
     <section class="projects" id="projects" aria-labelledby="projects-heading">
       <div class="projects__inner">
@@ -722,24 +262,21 @@
           <div class="projects__sticky" style="--sticky-index: 0" data-reveal>
             <article class="project-card">
               <div class="project-card__content">
-                <p class="project-card__index">01 — Adforce Solutions</p>
-                <h3 class="project-card__title">Corporate WordPress site for a digital solutions agency</h3>
+                <p class="project-card__index">01 — Vyva Nutrition</p>
+                <h3 class="project-card__title">Shopify store selling supplements in 20+ countries</h3>
                 <p class="visually-hidden">
-                  A polished corporate website for a digital solutions and IT agency,
-                  presenting their services, case studies, and brand story. Built in
-                  WordPress with a clean, conversion-focused layout, smooth section
-                  animations, and a fast, fully responsive experience across devices.
+                  A premium wellness e-commerce store built on Shopify for Vyva Nutrition — selling 12+ supplement products across 20+ countries with multi-currency support. Features a clean product catalog, FAQ section, blog, and a conversion-focused mobile-first shopping experience.
                 </p>
                 <ul class="project-card__tags" role="list" aria-label="Technologies used">
-                  <li><span class="project-card__tag">WordPress</span></li>
-                  <li><span class="project-card__tag">Custom Theme</span></li>
-                  <li><span class="project-card__tag">Responsive</span></li>
-                  <li><span class="project-card__tag">SEO</span></li>
+                  <li><span class="project-card__tag">Shopify</span></li>
+                  <li><span class="project-card__tag">Liquid</span></li>
+                  <li><span class="project-card__tag">Wellness</span></li>
+                  <li><span class="project-card__tag">Multi-Currency</span></li>
                 </ul>
                 <a
-                  href="work/adforce-solutions.html"
+                  href="work/vyva-nutrition.html"
                   class="project-card__link"
-                  aria-label="View Adforce Solutions case study"
+                  aria-label="View Vyva Nutrition case study"
                 >
                   View case study
                   <svg class="btn-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -748,10 +285,10 @@
                   </svg>
                 </a>
               </div>
-              <figure class="project-card__media">
+              <figure class="project-card__media project-card__media--shopify">
                 <img
-                  src="assets/project-1.jpg"
-                  alt="Adforce Solutions WordPress website by Bilawal Ali"
+                  src="assets/project-7.jpg"
+                  alt="Vyva Nutrition Shopify website by Bilawal Ali"
                   class="project-card__img"
                   width="640"
                   height="400"
@@ -765,24 +302,21 @@
           <div class="projects__sticky" style="--sticky-index: 1" data-reveal data-reveal-delay="0.1">
             <article class="project-card">
               <div class="project-card__content">
-                <p class="project-card__index">02 — Adforce Billing</p>
-                <h3 class="project-card__title">Medical billing site built to earn trust from healthcare providers</h3>
+                <p class="project-card__index">02 — Mian Engineering</p>
+                <h3 class="project-card__title">WooCommerce store with hundreds of products and a mega menu</h3>
                 <p class="visually-hidden">
-                  A professional medical billing and revenue cycle management website
-                  designed to build trust with healthcare providers. Built with Elementor
-                  for easy content management, featuring a structured service layout,
-                  clear calls-to-action, and a modern, mobile-first design.
+                  A large-scale online store for IT, networking, security, and power solutions with hundreds of products across deep category trees. Built on WooCommerce with an advanced mega-menu, brand filtering, and a fast, organized browsing experience built to scale.
                 </p>
                 <ul class="project-card__tags" role="list" aria-label="Technologies used">
                   <li><span class="project-card__tag">WordPress</span></li>
-                  <li><span class="project-card__tag">Elementor</span></li>
-                  <li><span class="project-card__tag">Healthcare</span></li>
-                  <li><span class="project-card__tag">Responsive</span></li>
+                  <li><span class="project-card__tag">WooCommerce</span></li>
+                  <li><span class="project-card__tag">Mega Menu</span></li>
+                  <li><span class="project-card__tag">E-Commerce</span></li>
                 </ul>
                 <a
-                  href="work/adforce-billing.html"
+                  href="work/mian-engineering.html"
                   class="project-card__link"
-                  aria-label="View Adforce Billing case study"
+                  aria-label="View Mian Engineering case study"
                 >
                   View case study
                   <svg class="btn-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -791,10 +325,10 @@
                   </svg>
                 </a>
               </div>
-              <figure class="project-card__media project-card__media--billing">
+              <figure class="project-card__media project-card__media--mian">
                 <img
-                  src="assets/project-2.jpg"
-                  alt="Adforce Billing WordPress website by Bilawal Ali"
+                  src="assets/project-6.jpg"
+                  alt="Mian Engineering WooCommerce website by Bilawal Ali"
                   class="project-card__img"
                   width="640"
                   height="400"
@@ -811,10 +345,7 @@
                 <p class="project-card__index">03 — Daichi</p>
                 <h3 class="project-card__title">Home-appliance e-commerce built for fast mobile shopping</h3>
                 <p class="visually-hidden">
-                  A modern e-commerce store for a Pakistani home-appliance brand selling
-                  geysers, air purifiers, air curtains, and infrared cookers. Built on
-                  WooCommerce with a sleek product catalog, intuitive category navigation,
-                  and a fast, mobile-first shopping experience focused on conversions.
+                  A modern e-commerce store for a Pakistani home-appliance brand selling geysers, air purifiers, air curtains, and infrared cookers. Built on WooCommerce with a sleek product catalog, intuitive category navigation, and a fast, mobile-first shopping experience focused on conversions.
                 </p>
                 <ul class="project-card__tags" role="list" aria-label="Technologies used">
                   <li><span class="project-card__tag">WordPress</span></li>
@@ -854,10 +385,7 @@
                 <p class="project-card__index">04 — AppealMate</p>
                 <h3 class="project-card__title">Legal-tech site with an interactive savings calculator</h3>
                 <p class="visually-hidden">
-                  A technology-driven website for an appellate processing and printing
-                  service serving New York law firms. Features a clean, trust-focused layout,
-                  an interactive savings calculator, and clear service breakdowns designed
-                  to turn legal professionals into clients.
+                  A technology-driven website for an appellate processing and printing service serving New York law firms. Features a clean, trust-focused layout, an interactive savings calculator, and clear service breakdowns designed to turn legal professionals into clients.
                 </p>
                 <ul class="project-card__tags" role="list" aria-label="Technologies used">
                   <li><span class="project-card__tag">WordPress</span></li>
@@ -890,253 +418,317 @@
               </figure>
             </article>
           </div>
+        </div>
 
-          <div class="projects__sticky" style="--sticky-index: 4" data-reveal data-reveal-delay="0.1">
-            <article class="project-card">
-              <div class="project-card__content">
-                <p class="project-card__index">05 — Mian Engineering</p>
-                <h3 class="project-card__title">WooCommerce store with hundreds of products and a mega menu</h3>
-                <p class="visually-hidden">
-                  A large-scale online store for IT, networking, security, and power
-                  solutions with hundreds of products across deep category trees. Built on
-                  WooCommerce with an advanced mega-menu, brand filtering, and a fast,
-                  organized browsing experience built to scale.
-                </p>
-                <ul class="project-card__tags" role="list" aria-label="Technologies used">
-                  <li><span class="project-card__tag">WordPress</span></li>
-                  <li><span class="project-card__tag">WooCommerce</span></li>
-                  <li><span class="project-card__tag">Mega Menu</span></li>
-                  <li><span class="project-card__tag">E-Commerce</span></li>
-                </ul>
-                <a
-                  href="work/mian-engineering.html"
-                  class="project-card__link"
-                  aria-label="View Mian Engineering case study"
-                >
-                  View case study
-                  <svg class="btn-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                    <line x1="5" y1="12" x2="19" y2="12"/>
-                    <polyline points="12 5 19 12 12 19"/>
-                  </svg>
-                </a>
-              </div>
-              <figure class="project-card__media project-card__media--mian">
-                <img
-                  src="assets/project-6.jpg"
-                  alt="Mian Engineering WooCommerce website by Bilawal Ali"
-                  class="project-card__img"
-                  width="640"
-                  height="400"
-                  loading="lazy"
-                >
-                <span class="project-card__fallback" aria-hidden="true"></span>
-              </figure>
-            </article>
-          </div>
+        <p class="projects__all" data-reveal>
+          <a href="work/index.html" class="projects__all-link">
+            All projects
+            <svg class="btn-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <line x1="5" y1="12" x2="19" y2="12"/>
+              <polyline points="12 5 19 12 12 19"/>
+            </svg>
+          </a>
+        </p>
+      </div>
+    </section>
 
-          <div class="projects__sticky" style="--sticky-index: 5" data-reveal data-reveal-delay="0.1">
-            <article class="project-card">
-              <div class="project-card__content">
-                <p class="project-card__index">06 — Vyva Nutrition</p>
-                <h3 class="project-card__title">Shopify store selling supplements in 20+ countries</h3>
-                <p class="visually-hidden">
-                  A premium wellness e-commerce store built on Shopify for
-                  Vyva Nutrition — selling 12+ supplement products across
-                  20+ countries with multi-currency support. Features a
-                  clean product catalog, FAQ section, blog, and a
-                  conversion-focused mobile-first shopping experience.
-                </p>
-                <ul class="project-card__tags" role="list" aria-label="Technologies used">
-                  <li><span class="project-card__tag">Shopify</span></li>
-                  <li><span class="project-card__tag">Liquid</span></li>
-                  <li><span class="project-card__tag">Wellness</span></li>
-                  <li><span class="project-card__tag">Multi-Currency</span></li>
-                </ul>
-                <a
-                  href="work/vyva-nutrition.html"
-                  class="project-card__link"
-                  aria-label="View Vyva Nutrition case study"
-                >
-                  View case study
-                  <svg class="btn-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                    <line x1="5" y1="12" x2="19" y2="12"/>
-                    <polyline points="12 5 19 12 12 19"/>
-                  </svg>
-                </a>
-              </div>
-              <figure class="project-card__media project-card__media--shopify">
-                <img
-                  src="assets/project-7.jpg"
-                  alt="Vyva Nutrition Shopify website by Bilawal Ali"
-                  class="project-card__img"
-                  width="640"
-                  height="400"
-                  loading="lazy"
-                >
-                <span class="project-card__fallback" aria-hidden="true"></span>
-              </figure>
-            </article>
-          </div>
+    <!-- SERVICES -->
+    <section class="section services" id="services" aria-labelledby="services-heading">
+      <header class="section__header" data-reveal>
+        <p class="section__eyebrow">[ Services ]</p>
+        <h2 class="section__heading" id="services-heading">What I Do</h2>
+        <p class="section__intro">
+          Every project includes speed optimization, SEO basics, and post-launch support.
+        </p>
+      </header>
+
+      <ul class="services__grid" role="list">
+        <li data-reveal data-reveal-delay="0">
+          <article class="service-card" tabindex="0">
+            <span class="service-card__icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                <path d="M2 17l10 5 10-5"/>
+                <path d="M2 12l10 5 10-5"/>
+              </svg>
+            </span>
+            <h3 class="service-card__title">Build</h3>
+            <ul class="service-card__list" role="list">
+              <li>Custom WordPress development</li>
+              <li>Custom themes from scratch</li>
+              <li>Elementor &amp; page builder sites</li>
+              <li>Clean, editable site structure</li>
+            </ul>
+            <ul class="service-card__tools" role="list" aria-label="Tools">
+              <li><span class="service-card__chip">WordPress</span></li>
+              <li><span class="service-card__chip">Custom Themes</span></li>
+              <li><span class="service-card__chip">Elementor</span></li>
+              <li><span class="service-card__chip">HTML/CSS/JS</span></li>
+              <li><span class="service-card__chip">Figma to Code</span></li>
+            </ul>
+          </article>
+        </li>
+        <li data-reveal data-reveal-delay="0.05">
+          <article class="service-card" tabindex="0">
+            <span class="service-card__icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+                <line x1="3" y1="6" x2="21" y2="6"/>
+                <path d="M16 10a4 4 0 0 1-8 0"/>
+              </svg>
+            </span>
+            <h3 class="service-card__title">Sell</h3>
+            <ul class="service-card__list" role="list">
+              <li>Shopify stores with Liquid</li>
+              <li>OS 2.0 / Dawn theme builds</li>
+              <li>WooCommerce store development</li>
+              <li>Conversion-focused product pages</li>
+            </ul>
+            <ul class="service-card__tools" role="list" aria-label="Tools">
+              <li><span class="service-card__chip">Shopify</span></li>
+              <li><span class="service-card__chip">Liquid</span></li>
+              <li><span class="service-card__chip">OS 2.0</span></li>
+              <li><span class="service-card__chip">WooCommerce</span></li>
+              <li><span class="service-card__chip">Shopify CLI</span></li>
+            </ul>
+          </article>
+        </li>
+        <li data-reveal data-reveal-delay="0.1">
+          <article class="service-card" tabindex="0">
+            <span class="service-card__icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="3" width="7" height="7" rx="1"/>
+                <rect x="14" y="3" width="7" height="7" rx="1"/>
+                <rect x="3" y="14" width="7" height="7" rx="1"/>
+                <rect x="14" y="14" width="7" height="7" rx="1"/>
+              </svg>
+            </span>
+            <h3 class="service-card__title">Apps</h3>
+            <ul class="service-card__list" role="list">
+              <li>React.js web apps</li>
+              <li>Interactive dashboards</li>
+              <li>Headless Shopify frontends</li>
+              <li>Headless WordPress frontends</li>
+            </ul>
+            <ul class="service-card__tools" role="list" aria-label="Tools">
+              <li><span class="service-card__chip">React.js</span></li>
+              <li><span class="service-card__chip">Hooks</span></li>
+              <li><span class="service-card__chip">React Router</span></li>
+              <li><span class="service-card__chip">Tailwind CSS</span></li>
+              <li><span class="service-card__chip">Vite</span></li>
+            </ul>
+          </article>
+        </li>
+        <li data-reveal data-reveal-delay="0.15">
+          <article class="service-card" tabindex="0">
+            <span class="service-card__icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+                <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+              </svg>
+            </span>
+            <h3 class="service-card__title">Connect</h3>
+            <ul class="service-card__list" role="list">
+              <li>REST API development</li>
+              <li>Payment gateway integrations</li>
+              <li>Shopify &amp; WooCommerce APIs</li>
+              <li>CRM &amp; third-party services</li>
+            </ul>
+            <ul class="service-card__tools" role="list" aria-label="Tools">
+              <li><span class="service-card__chip">REST APIs</span></li>
+              <li><span class="service-card__chip">Node.js/Express</span></li>
+              <li><span class="service-card__chip">Storefront API</span></li>
+              <li><span class="service-card__chip">WordPress REST API</span></li>
+              <li><span class="service-card__chip">Postman</span></li>
+            </ul>
+          </article>
+        </li>
+      </ul>
+      <p class="services__also" data-reveal>Also: Git, SEO, page speed, accessibility, cross-browser testing.</p>
+    </section>
+
+    <!-- PROCESS -->
+    <section class="section process" id="process" aria-labelledby="process-heading">
+      <header class="section__header" data-reveal>
+        <p class="section__eyebrow">[ How I Work ]</p>
+        <h2 class="section__heading" id="process-heading">
+          From idea to launch — a clear, proven process.
+        </h2>
+        <p class="section__intro">
+          Every project follows the same structured approach so you always
+          know what's happening, what's next, and when it ships.
+        </p>
+      </header>
+
+      <div class="process__pin">
+        <div class="process__progress" aria-hidden="true">
+          <span class="process__progress-fill"></span>
+        </div>
+        <ol class="process__steps" role="list">
+          <li class="process__step">
+            <span class="process__step-num" aria-hidden="true">01</span>
+            <h3 class="process__step-title">Discovery</h3>
+            <p class="process__step-text">Goals, audience, and scope before any code.</p>
+          </li>
+          <li class="process__step">
+            <span class="process__step-num" aria-hidden="true">02</span>
+            <h3 class="process__step-title">Design</h3>
+            <p class="process__step-text">Structure and visuals that match the brand.</p>
+          </li>
+          <li class="process__step">
+            <span class="process__step-num" aria-hidden="true">03</span>
+            <h3 class="process__step-title">Build</h3>
+            <p class="process__step-text">Clean, fast front-end and CMS or app build.</p>
+          </li>
+          <li class="process__step">
+            <span class="process__step-num" aria-hidden="true">04</span>
+            <h3 class="process__step-title">Launch</h3>
+            <p class="process__step-text">QA, go-live, and a smooth handoff.</p>
+          </li>
+          <li class="process__step">
+            <span class="process__step-num" aria-hidden="true">05</span>
+            <h3 class="process__step-title">Support</h3>
+            <p class="process__step-text">Post-launch fixes and guidance when you need it.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="section about" id="about" aria-labelledby="about-heading">
+      <div class="about__layout" data-reveal>
+        <header class="about__header">
+          <p class="section__eyebrow">[ About ]</p>
+          <h2 class="section__heading" id="about-heading">
+            I build websites that work as hard as you do.
+          </h2>
+        </header>
+
+        <div class="about__content">
+          <p class="about__text">
+            I'm <strong>Bilawal Ali</strong>, a Web &amp; WordPress developer shipping live sites for e-commerce, healthcare, legal, and IT clients.
+          </p>
+          <p class="about__text">
+            I hand-code fast front-ends and deliver custom WordPress, Shopify, and React builds tuned to convert.
+          </p>
+
+          <ul class="about__stats" role="list" aria-label="Career highlights">
+            <li class="stat-card">
+              <p class="stat-card__value" aria-label="1 plus years of experience">
+                <span class="stat-card__number">1</span><span class="stat-card__suffix" aria-hidden="true">+</span>
+              </p>
+              <p class="stat-card__label">Years of Experience</p>
+            </li>
+            <li class="stat-card">
+              <p class="stat-card__value" aria-label="15 plus live projects shipped">
+                <span class="stat-card__number">15</span><span class="stat-card__suffix" aria-hidden="true">+</span>
+              </p>
+              <p class="stat-card__label">Live Projects Shipped</p>
+            </li>
+            <li class="stat-card">
+              <p class="stat-card__value" aria-label="100 percent client satisfaction">
+                <span class="stat-card__number">100</span><span class="stat-card__suffix" aria-hidden="true">%</span>
+              </p>
+              <p class="stat-card__label">Client Satisfaction</p>
+            </li>
+          </ul>
+
+          <a
+            href="assets/resume.pdf"
+            class="btn btn--primary about__resume"
+            download
+            aria-label="Download resume as PDF"
+          >
+            Download Resume
+          </a>
         </div>
       </div>
     </section>
 
-    <!-- TESTIMONIALS -->
-    <section class="section testimonials" id="testimonials" aria-labelledby="testimonials-heading">
-      <header class="section__header" data-reveal>
-        <p class="section__eyebrow">[ Testimonials ]</p>
-        <h2 class="section__heading" id="testimonials-heading">Clients speak louder</h2>
-      </header>
-
-      <ul class="testimonials__track" role="list">
-        <!-- TODO: replace with real testimonial -->
-        <li data-reveal data-reveal-delay="0">
-          <blockquote class="testimonial-card">
-            <p class="testimonial-card__quote">Testimonial text goes here.</p>
-            <footer class="testimonial-card__author">
-              <div class="testimonial-card__avatar" aria-hidden="true">
-                <!-- TODO: replace with real photo -->
-                <span class="testimonial-card__initials">CN</span>
-              </div>
-              <div class="testimonial-card__meta">
-                <cite class="testimonial-card__name">Client Name</cite>
-                <span class="testimonial-card__role">Role, Company</span>
-              </div>
-            </footer>
-          </blockquote>
-        </li>
-        <!-- TODO: replace with real testimonial -->
-        <li data-reveal data-reveal-delay="0.05">
-          <blockquote class="testimonial-card">
-            <p class="testimonial-card__quote">Testimonial text goes here.</p>
-            <footer class="testimonial-card__author">
-              <div class="testimonial-card__avatar" aria-hidden="true">
-                <!-- TODO: replace with real photo -->
-                <span class="testimonial-card__initials">CN</span>
-              </div>
-              <div class="testimonial-card__meta">
-                <cite class="testimonial-card__name">Client Name</cite>
-                <span class="testimonial-card__role">Role, Company</span>
-              </div>
-            </footer>
-          </blockquote>
-        </li>
-        <!-- TODO: replace with real testimonial -->
-        <li data-reveal data-reveal-delay="0.1">
-          <blockquote class="testimonial-card">
-            <p class="testimonial-card__quote">Testimonial text goes here.</p>
-            <footer class="testimonial-card__author">
-              <div class="testimonial-card__avatar" aria-hidden="true">
-                <!-- TODO: replace with real photo -->
-                <span class="testimonial-card__initials">CN</span>
-              </div>
-              <div class="testimonial-card__meta">
-                <cite class="testimonial-card__name">Client Name</cite>
-                <span class="testimonial-card__role">Role, Company</span>
-              </div>
-            </footer>
-          </blockquote>
-        </li>
-      </ul>
-    </section>
-
     <!-- FAQ -->
     <section class="section faq" id="faq" aria-labelledby="faq-heading">
-      <header class="section__header" data-reveal>
-        <p class="section__eyebrow">FAQ</p>
-        <h2 class="section__heading" id="faq-heading">Common questions</h2>
-      </header>
+      <div class="faq__layout">
+        <header class="faq__intro" data-reveal>
+          <p class="section__eyebrow">[ FAQ ]</p>
+          <h2 class="section__heading" id="faq-heading">Common questions</h2>
+        </header>
 
-      <div class="faq__list" data-reveal data-reveal-delay="0.1">
-        <details class="faq-item">
-          <summary class="faq-item__summary">
-            <span class="faq-item__question">Do you work with international clients?</span>
-            <span class="faq-item__icon" aria-hidden="true">
-              <span class="faq-item__icon-bar faq-item__icon-bar--h"></span>
-              <span class="faq-item__icon-bar faq-item__icon-bar--v"></span>
-            </span>
-          </summary>
-          <div class="faq-item__panel">
-            <p class="faq-item__answer">
-              Yes — I work remotely with clients worldwide and keep overlap hours for the US, UK, and EU.
-            </p>
-          </div>
-        </details>
+        <div class="faq__list" data-reveal data-reveal-delay="0.1">
+          <details class="faq-item">
+            <summary class="faq-item__summary">
+              <span class="faq-item__question">Do you work with international clients?</span>
+              <span class="faq-item__icon" aria-hidden="true">
+                <span class="faq-item__icon-bar faq-item__icon-bar--h"></span>
+                <span class="faq-item__icon-bar faq-item__icon-bar--v"></span>
+              </span>
+            </summary>
+            <div class="faq-item__panel">
+              <p class="faq-item__answer">
+                Yes — I work remotely with clients worldwide and keep overlap hours for the US, UK, and EU.
+              </p>
+            </div>
+          </details>
 
-        <details class="faq-item">
-          <summary class="faq-item__summary">
-            <span class="faq-item__question">How long does a website take?</span>
-            <span class="faq-item__icon" aria-hidden="true">
-              <span class="faq-item__icon-bar faq-item__icon-bar--h"></span>
-              <span class="faq-item__icon-bar faq-item__icon-bar--v"></span>
-            </span>
-          </summary>
-          <div class="faq-item__panel">
-            <p class="faq-item__answer">
-              Most sites take about 1–3 weeks, depending on scope and how quickly feedback comes back.
-            </p>
-          </div>
-        </details>
+          <details class="faq-item">
+            <summary class="faq-item__summary">
+              <span class="faq-item__question">How long does a website take?</span>
+              <span class="faq-item__icon" aria-hidden="true">
+                <span class="faq-item__icon-bar faq-item__icon-bar--h"></span>
+                <span class="faq-item__icon-bar faq-item__icon-bar--v"></span>
+              </span>
+            </summary>
+            <div class="faq-item__panel">
+              <p class="faq-item__answer">
+                Most sites take about 1–3 weeks, depending on scope and how quickly feedback comes back.
+              </p>
+            </div>
+          </details>
 
-        <details class="faq-item">
-          <summary class="faq-item__summary">
-            <span class="faq-item__question">Should I choose React or WordPress?</span>
-            <span class="faq-item__icon" aria-hidden="true">
-              <span class="faq-item__icon-bar faq-item__icon-bar--h"></span>
-              <span class="faq-item__icon-bar faq-item__icon-bar--v"></span>
-            </span>
-          </summary>
-          <div class="faq-item__panel">
-            <p class="faq-item__answer">
-              Choose WordPress when you need editable content and a CMS out of the box. Choose React when you want a custom app, dashboard, or headless storefront with a more interactive UI.
-            </p>
-          </div>
-        </details>
+          <details class="faq-item">
+            <summary class="faq-item__summary">
+              <span class="faq-item__question">Should I choose React or WordPress?</span>
+              <span class="faq-item__icon" aria-hidden="true">
+                <span class="faq-item__icon-bar faq-item__icon-bar--h"></span>
+                <span class="faq-item__icon-bar faq-item__icon-bar--v"></span>
+              </span>
+            </summary>
+            <div class="faq-item__panel">
+              <p class="faq-item__answer">
+                Choose WordPress when you need editable content and a CMS out of the box. Choose React when you want a custom app, dashboard, or headless storefront with a more interactive UI.
+              </p>
+            </div>
+          </details>
 
-        <details class="faq-item">
-          <summary class="faq-item__summary">
-            <span class="faq-item__question">Can you integrate an API into my existing site?</span>
-            <span class="faq-item__icon" aria-hidden="true">
-              <span class="faq-item__icon-bar faq-item__icon-bar--h"></span>
-              <span class="faq-item__icon-bar faq-item__icon-bar--v"></span>
-            </span>
-          </summary>
-          <div class="faq-item__panel">
-            <p class="faq-item__answer">
-              Yes — I can connect REST APIs and third-party services into your existing site.
-            </p>
-          </div>
-        </details>
+          <details class="faq-item">
+            <summary class="faq-item__summary">
+              <span class="faq-item__question">Can you integrate an API into my existing site?</span>
+              <span class="faq-item__icon" aria-hidden="true">
+                <span class="faq-item__icon-bar faq-item__icon-bar--h"></span>
+                <span class="faq-item__icon-bar faq-item__icon-bar--v"></span>
+              </span>
+            </summary>
+            <div class="faq-item__panel">
+              <p class="faq-item__answer">
+                Yes — I can connect REST APIs and third-party services into your existing site.
+              </p>
+            </div>
+          </details>
 
-        <details class="faq-item">
-          <summary class="faq-item__summary">
-            <span class="faq-item__question">What do you need to get started?</span>
-            <span class="faq-item__icon" aria-hidden="true">
-              <span class="faq-item__icon-bar faq-item__icon-bar--h"></span>
-              <span class="faq-item__icon-bar faq-item__icon-bar--v"></span>
-            </span>
-          </summary>
-          <div class="faq-item__panel">
-            <p class="faq-item__answer">
-              Share your goals, a few examples you like, your content (or a plan for it), and access to the domain, hosting, or repo.
-            </p>
-          </div>
-        </details>
-
-        <details class="faq-item">
-          <summary class="faq-item__summary">
-            <span class="faq-item__question">Do you provide support after launch?</span>
-            <span class="faq-item__icon" aria-hidden="true">
-              <span class="faq-item__icon-bar faq-item__icon-bar--h"></span>
-              <span class="faq-item__icon-bar faq-item__icon-bar--v"></span>
-            </span>
-          </summary>
-          <div class="faq-item__panel">
-            <p class="faq-item__answer">
-              Yes — every project includes post-launch support so you're not left guessing after go-live.
-            </p>
-          </div>
-        </details>
+          <details class="faq-item">
+            <summary class="faq-item__summary">
+              <span class="faq-item__question">Do you provide support after launch?</span>
+              <span class="faq-item__icon" aria-hidden="true">
+                <span class="faq-item__icon-bar faq-item__icon-bar--h"></span>
+                <span class="faq-item__icon-bar faq-item__icon-bar--v"></span>
+              </span>
+            </summary>
+            <div class="faq-item__panel">
+              <p class="faq-item__answer">
+                Yes — every project includes post-launch support so you're not left guessing after go-live.
+              </p>
+            </div>
+          </details>
+        </div>
       </div>
     </section>
 
@@ -1337,6 +929,7 @@
        SITE FOOTER
        ============================================================ -->
   <footer class="site-footer">
+    <p class="site-footer__giant" aria-hidden="true">BILAWAL ALI</p>
     <div class="site-footer__inner">
       <div class="site-footer__brand">
         <a href="#home" class="site-footer__logo">Bilawal Ali</a>
@@ -1345,12 +938,10 @@
 
       <nav class="site-footer__nav" aria-label="Footer navigation">
         <ul class="site-footer__nav-list" role="list">
-          <li><a href="#home" class="site-footer__link">Home</a></li>
-          <li><a href="#about" class="site-footer__link">About</a></li>
-          <li><a href="#skills" class="site-footer__link">Skills</a></li>
+          <li><a href="#projects" class="site-footer__link">Work</a></li>
           <li><a href="#services" class="site-footer__link">Services</a></li>
-          <li><a href="#projects" class="site-footer__link">Projects</a></li>
-          <li><a href="#testimonials" class="site-footer__link">Testimonials</a></li>
+          <li><a href="#about" class="site-footer__link">About</a></li>
+          <li><a href="#faq" class="site-footer__link">FAQ</a></li>
           <li><a href="#contact" class="site-footer__link">Contact</a></li>
         </ul>
       </nav>
@@ -1397,7 +988,11 @@
     </svg>
   </a>
 
-  <script src="js/script.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/ScrollTrigger.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/SplitText.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.3.26/dist/lenis.min.js" defer></script>
+  <script src="js/script.js" defer></script>
   <script src="js/motion.js" defer></script>
 </body>
 </html>
