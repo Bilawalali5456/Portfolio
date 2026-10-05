@@ -704,62 +704,23 @@
             });
           });
         }
-      }
-
-      if (
-        !prefersReducedMotion &&
-        detail &&
-        detailImg &&
-        detailImg.getAttribute("data-scroll-fallback") === "1"
-      ) {
-        var setupMobileScroll = function () {
-          if (detailImg.getAttribute("data-fallback-applied") !== "1") return;
-          detailImg.setAttribute("data-scrolling", "1");
-          var cardH = detail.clientHeight;
-          var imgH = detailImg.offsetHeight;
-          if (!imgH && detailImg.naturalHeight && detailImg.naturalWidth) {
-            imgH =
-              (detailImg.clientWidth / detailImg.naturalWidth) *
-              detailImg.naturalHeight;
-          }
-          var dist = Math.max(0, imgH - cardH);
-          if (dist <= 0) return;
-
-          gsap.set(detailImg, { y: 0 });
-          var scrollAnim = gsap.to(detailImg, {
-            y: -dist,
-            duration: 14,
-            ease: "none",
-            yoyo: true,
-            repeat: -1,
-            paused: true,
+      } else if (media && img && hasFinePointer && !isMobile) {
+        media.addEventListener("mouseenter", function () {
+          gsap.to(img, {
+            scale: 1.03,
+            duration: 0.6,
+            ease: "power2.out",
+            overwrite: "auto",
           });
-
-          ScrollTrigger.create({
-            trigger: row,
-            start: "top bottom",
-            end: "bottom top",
-            onEnter: function () {
-              scrollAnim.play();
-            },
-            onEnterBack: function () {
-              scrollAnim.play();
-            },
-            onLeave: function () {
-              scrollAnim.pause();
-            },
-            onLeaveBack: function () {
-              scrollAnim.pause();
-            },
-          });
-        };
-
-        detailImg.addEventListener("load", function () {
-          if (detailImg.getAttribute("data-fallback-applied") === "1") {
-            setupMobileScroll();
-          }
         });
-        setTimeout(setupMobileScroll, 400);
+        media.addEventListener("mouseleave", function () {
+          gsap.to(img, {
+            scale: 1,
+            duration: 0.6,
+            ease: "power2.out",
+            overwrite: "auto",
+          });
+        });
       }
 
       if (cta && media) {

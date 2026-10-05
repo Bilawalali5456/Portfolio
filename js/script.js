@@ -274,7 +274,7 @@
      ---------------------------------------------------------- */
   document
     .querySelectorAll(
-      ".whatido__fly img, .whatido__grid-card img, .work-row__img, .work-index__img, .case-study__img, .results-card__thumb, .cta__shot"
+      ".whatido__fly img, .whatido__grid-card img, .work-index__img, .results-card__thumb, .cta__shot"
     )
     .forEach(function (img) {
       function removeBrokenImage() {
@@ -320,6 +320,61 @@
     }
   });
 
+  /* ----------------------------------------------------------
+     Cover videos — play in view; poster-only under reduced motion / Save-Data
+     ---------------------------------------------------------- */
+  (function initCoverVideos() {
+    var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var saveData =
+      (navigator.connection && navigator.connection.saveData) ||
+      false;
+
+    document.querySelectorAll("video.js-cover-video").forEach(function (video) {
+      var poster = video.getAttribute("poster");
+      if (reduceMotion || saveData) {
+        if (poster) {
+          var img = document.createElement("img");
+          img.src = poster;
+          img.alt = video.getAttribute("aria-label") || "";
+          img.width = video.width || 1600;
+          img.height = video.height || 1200;
+          img.loading = "lazy";
+          img.decoding = "async";
+          img.className = video.className
+            .replace(/\bjs-cover-video\b/g, "")
+            .replace(/\bwork-row__video\b/g, "work-row__img")
+            .replace(/\bcase-study__video\b/g, "case-study__img")
+            .trim();
+          video.replaceWith(img);
+        } else {
+          video.removeAttribute("autoplay");
+          video.pause();
+        }
+        return;
+      }
+
+      video.muted = true;
+      video.playsInline = true;
+      video.setAttribute("playsinline", "");
+
+      var observer = new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              var playPromise = video.play();
+              if (playPromise && playPromise.catch) {
+                playPromise.catch(function () {});
+              }
+            } else {
+              video.pause();
+            }
+          });
+        },
+        { threshold: 0.35 }
+      );
+      observer.observe(video);
+    });
+  })();
   /* ----------------------------------------------------------
      MODULE 5 — Contact quiz modal + form validation
      ---------------------------------------------------------- */

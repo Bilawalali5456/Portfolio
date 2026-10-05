@@ -1,4 +1,6 @@
 node_modules/
 assets/_raw/
+assets/raw/
+/raw/
 .DS_Store
 *.log
