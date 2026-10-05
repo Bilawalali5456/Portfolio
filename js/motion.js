@@ -371,20 +371,20 @@
     }
 
     var flies = gsap.utils.toArray(".whatido__fly");
-    /* fill 35% + 6 staggered full-pass cards (~45% overlap) */
-    var cardDur = 2;
-    var cardGap = cardDur * 0.45;
+    /* fill 30% + 6 staggered full-pass cards (~55% handoff) */
+    var cardDur = 1;
+    var cardGap = cardDur * 0.55;
     var flySpan = cardDur + (flies.length - 1) * cardGap;
-    var totalDur = flySpan / 0.65;
-    var fillDur = totalDur * 0.35;
+    var totalDur = flySpan / 0.7;
+    var fillDur = totalDur * 0.3;
 
     var tl = gsap.timeline({
       scrollTrigger: {
         trigger: stage,
         start: "top top",
-        end: "+=300%",
+        end: "+=600%",
         pin: true,
-        scrub: 1,
+        scrub: 1.5,
         anticipatePin: 1,
       },
     });
@@ -441,6 +441,8 @@
         );
       }
     });
+
+    ScrollTrigger.refresh();
   }
 
   /* ----------------------------------------------------------
