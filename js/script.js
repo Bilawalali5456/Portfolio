@@ -270,11 +270,11 @@
   });
 
   /* ----------------------------------------------------------
-     MODULE 4 — Missing / detail project images
+     MODULE 4 — Missing / detail / optional images
      ---------------------------------------------------------- */
   document
     .querySelectorAll(
-      ".whatido__fly img, .whatido__grid-card img, .work-row__img, .work-index__img, .case-study__img"
+      ".whatido__fly img, .whatido__grid-card img, .work-row__img, .work-index__img, .case-study__img, .results-card__thumb, .cta__shot"
     )
     .forEach(function (img) {
       function removeBrokenImage() {
@@ -288,7 +288,7 @@
       }
     });
 
-  document.querySelectorAll(".work-row__detail-img").forEach(function (img) {
+  document.querySelectorAll(".work-row__detail-img, .about-photo img").forEach(function (img) {
     function useFallback() {
       var fallback = img.getAttribute("data-fallback");
       if (fallback && img.getAttribute("src") !== fallback) {
@@ -306,50 +306,113 @@
     }
   });
 
+  document.querySelectorAll("img[data-optional]").forEach(function (img) {
+    function skipMissing() {
+      var shot = img.closest(".about-life__shot");
+      if (shot) shot.classList.add("is-missing");
+      img.remove();
+    }
+
+    if (img.complete && img.naturalWidth === 0) {
+      skipMissing();
+    } else {
+      img.addEventListener("error", skipMissing);
+    }
+  });
+
   /* ----------------------------------------------------------
-     MODULE 5 — Contact quiz + form validation
+     MODULE 5 — Contact quiz modal + form validation
      ---------------------------------------------------------- */
   const contactForm = document.getElementById("contact-form");
   const formStatus = document.getElementById("form-status");
   const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const copyEmailBtn = document.getElementById("copy-email");
   const copyEmailStatus = document.getElementById("copy-email-status");
+  const quizDialog = document.getElementById("project-quiz");
+  const openQuizBtn = document.getElementById("open-quiz");
+  const closeQuizBtn = document.getElementById("close-quiz");
+
+  function copyText(value, statusEl, btn) {
+    function onCopied() {
+      if (btn) {
+        const prev = btn.textContent;
+        btn.textContent = "Copied!";
+        window.setTimeout(function () {
+          btn.textContent = prev;
+        }, 1800);
+      }
+      if (statusEl) {
+        statusEl.textContent = "Copied!";
+        window.setTimeout(function () {
+          statusEl.textContent = "";
+        }, 1800);
+      }
+    }
+
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(value).then(onCopied).catch(function () {
+        if (statusEl) statusEl.textContent = "Could not copy.";
+      });
+      return;
+    }
+
+    const temp = document.createElement("input");
+    temp.value = value;
+    document.body.appendChild(temp);
+    temp.select();
+    try {
+      document.execCommand("copy");
+      onCopied();
+    } catch (err) {
+      if (statusEl) statusEl.textContent = "Could not copy.";
+    }
+    document.body.removeChild(temp);
+  }
 
   if (copyEmailBtn) {
     copyEmailBtn.addEventListener("click", function () {
-      const email = copyEmailBtn.getAttribute("data-email") || "";
+      copyText(
+        copyEmailBtn.getAttribute("data-email") || "",
+        copyEmailStatus,
+        copyEmailBtn
+      );
+    });
+  }
 
-      function onCopied() {
-        copyEmailBtn.classList.add("is-copied");
-        const label = copyEmailBtn.querySelector(".contact__copy-label");
-        if (label) label.textContent = "Copied";
-        if (copyEmailStatus) copyEmailStatus.textContent = "Email copied to clipboard.";
-        copyEmailBtn.setAttribute("aria-label", "Email copied");
+  document.querySelectorAll(".site-footer__copy").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      copyText(
+        btn.getAttribute("data-copy") || "",
+        document.getElementById("footer-copy-status"),
+        btn
+      );
+    });
+  });
 
-        window.setTimeout(function () {
-          copyEmailBtn.classList.remove("is-copied");
-          if (label) label.textContent = "Copy";
-          if (copyEmailStatus) copyEmailStatus.textContent = "";
-          copyEmailBtn.setAttribute("aria-label", "Copy email address");
-        }, 2000);
-      }
-
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(email).then(onCopied).catch(function () {
-          if (copyEmailStatus) copyEmailStatus.textContent = "Could not copy. Select the email instead.";
-        });
+  if (quizDialog && openQuizBtn) {
+    openQuizBtn.addEventListener("click", function () {
+      if (typeof quizDialog.showModal === "function") {
+        quizDialog.showModal();
       } else {
-        const temp = document.createElement("input");
-        temp.value = email;
-        document.body.appendChild(temp);
-        temp.select();
-        try {
-          document.execCommand("copy");
-          onCopied();
-        } catch (err) {
-          if (copyEmailStatus) copyEmailStatus.textContent = "Could not copy. Select the email instead.";
-        }
-        document.body.removeChild(temp);
+        quizDialog.setAttribute("open", "");
+      }
+    });
+  }
+
+  if (quizDialog && closeQuizBtn) {
+    closeQuizBtn.addEventListener("click", function () {
+      if (typeof quizDialog.close === "function") {
+        quizDialog.close();
+      } else {
+        quizDialog.removeAttribute("open");
+      }
+    });
+  }
+
+  if (quizDialog) {
+    quizDialog.addEventListener("click", function (event) {
+      if (event.target === quizDialog) {
+        if (typeof quizDialog.close === "function") quizDialog.close();
       }
     });
   }

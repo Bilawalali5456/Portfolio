@@ -18,7 +18,7 @@
     document.querySelectorAll("[data-reveal]").forEach(function (el) {
       el.classList.add("is-revealed");
     });
-    document.querySelectorAll(".whatido__word").forEach(function (el) {
+    document.querySelectorAll(".whatido__word, .fill-statement__word").forEach(function (el) {
       el.style.color = "#d0c5ab";
     });
   }
@@ -600,36 +600,163 @@
   }
 
   /* ----------------------------------------------------------
-     10. Process horizontal pin (desktop)
+     Shared statement color-fill
      ---------------------------------------------------------- */
-  function initProcess() {
-    var section = document.querySelector(".process");
-    var pin = document.querySelector(".process__pin");
-    var steps = document.querySelector(".process__steps");
-    var fill = document.querySelector(".process__progress-fill");
+  function initFillStatements() {
+    document.querySelectorAll("[data-fill-statement]").forEach(function (statement) {
+      var labelText =
+        statement.getAttribute("aria-label") || statement.textContent.trim();
+      statement.setAttribute("aria-label", labelText);
+      var words = labelText.split(/\s+/).filter(Boolean);
+      statement.textContent = "";
+      words.forEach(function (word) {
+        var span = document.createElement("span");
+        span.className = "fill-statement__word";
+        span.setAttribute("aria-hidden", "true");
+        span.textContent = word;
+        statement.appendChild(span);
+        statement.appendChild(document.createTextNode(" "));
+      });
 
-    if (!section || !pin || !steps) return;
+      var wordEls = statement.querySelectorAll(".fill-statement__word");
+      gsap.set(wordEls, { color: "#2a2822" });
+      gsap.to(wordEls, {
+        color: "#d0c5ab",
+        ease: "none",
+        stagger: 0.04,
+        scrollTrigger: {
+          trigger: statement,
+          start: "top 75%",
+          end: "center 40%",
+          scrub: 1,
+        },
+      });
+    });
+  }
 
-    if (window.innerWidth < DESKTOP_MIN) {
-      gsap.from(".process__step", {
+  /* ----------------------------------------------------------
+     Results — pinned card stack
+     ---------------------------------------------------------- */
+  function initResults() {
+    var section = document.querySelector(".results");
+    var stage = document.querySelector(".results__stage");
+    if (!section || !stage) return;
+
+    var words = section.querySelectorAll(".results__bg-word");
+    if (words.length) {
+      gsap.from(words, {
+        yPercent: 110,
+        duration: 0.9,
+        stagger: 0.04,
+        ease: "expo.out",
+        scrollTrigger: {
+          trigger: stage,
+          start: "top 80%",
+          once: true,
+        },
+      });
+    }
+
+    var cards = gsap.utils.toArray(".results-card");
+    if (!cards.length) return;
+
+    if (window.innerWidth < 810) {
+      gsap.set(cards, { clearProps: "transform" });
+      return;
+    }
+
+    cards.forEach(function (card, i) {
+      var rot = parseFloat(card.getAttribute("data-rot") || "0") || 0;
+      gsap.set(card, {
+        y: "110vh",
+        rotation: rot,
+        scale: 1,
+        zIndex: i + 1,
+        force3D: true,
+      });
+    });
+
+    var tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: stage,
+        start: "top top",
+        end: "+=300%",
+        pin: true,
+        scrub: 1,
+        anticipatePin: 1,
+      },
+    });
+
+    cards.forEach(function (card, i) {
+      var at = i * 1.1;
+      tl.to(
+        card,
+        {
+          y: 0,
+          rotation: 0,
+          duration: 1,
+          ease: "power2.out",
+        },
+        at
+      );
+      if (i > 0) {
+        tl.to(
+          cards[i - 1],
+          {
+            scale: 0.94,
+            y: -20,
+            duration: 1,
+            ease: "power2.out",
+          },
+          at
+        );
+      }
+    });
+  }
+
+  /* ----------------------------------------------------------
+     About — photos + life slider
+     ---------------------------------------------------------- */
+  function initAbout() {
+    document.querySelectorAll(".about-photo").forEach(function (photo) {
+      gsap.fromTo(
+        photo,
+        { clipPath: "inset(100% 0 0 0)" },
+        {
+          clipPath: "inset(0% 0% 0% 0%)",
+          duration: 1.1,
+          ease: "expo.out",
+          scrollTrigger: {
+            trigger: photo,
+            start: "top 80%",
+            once: true,
+          },
+        }
+      );
+    });
+
+    document.querySelectorAll(".about-part--start .about-part__body").forEach(function (text) {
+      gsap.from(text, {
         y: 40,
         opacity: 0,
-        stagger: 0.08,
-        duration: 0.6,
+        duration: 0.7,
         ease: "power2.out",
         scrollTrigger: {
-          trigger: steps,
+          trigger: text,
           start: "top 85%",
           once: true,
         },
       });
-      return;
-    }
+    });
 
-    var track = steps;
+    var lifePart = document.querySelector(".about-part--life");
+    var stage = document.querySelector(".about-life__stage");
+    var track = document.querySelector(".about-life__track");
+    if (!lifePart || !stage || !track) return;
+    if (window.innerWidth < 810) return;
 
     var getTravel = function () {
-      return Math.max(0, track.scrollWidth - window.innerWidth);
+      return Math.max(0, track.scrollWidth - stage.clientWidth);
     };
 
     gsap.to(track, {
@@ -638,56 +765,81 @@
       },
       ease: "none",
       scrollTrigger: {
-        trigger: section,
+        trigger: lifePart,
         start: "top top",
         end: function () {
-          return "+=" + getTravel() * 1.5;
+          return "+=" + Math.max(getTravel(), 200);
         },
         pin: true,
         scrub: 1,
         anticipatePin: 1,
         invalidateOnRefresh: true,
-        onUpdate: function (self) {
-          if (fill) {
-            gsap.set(fill, { scaleX: self.progress });
-          }
-        },
       },
     });
   }
 
   /* ----------------------------------------------------------
-     11. Service cards stagger
+     CTA scatter + heading
      ---------------------------------------------------------- */
-  function initServices() {
-    var items = gsap.utils.toArray(".services__grid > li");
-    if (!items.length) {
-      items = gsap.utils.toArray(".service-card");
-    }
-    if (!items.length) return;
+  function initCta() {
+    var section = document.querySelector(".cta");
+    if (!section) return;
 
-    gsap.from(items, {
-      y: 60,
-      rotate: 2,
-      opacity: 0,
-      duration: 0.75,
-      stagger: 0.1,
-      ease: "power3.out",
-      scrollTrigger: {
-        trigger: ".services__grid",
-        start: "top 85%",
-        once: true,
-      },
+    var heading = section.querySelector(".cta__heading");
+    if (heading) {
+      var text = heading.textContent.trim();
+      heading.setAttribute("aria-label", text);
+      heading.textContent = "";
+      text.split(/\s+/).forEach(function (word) {
+        var mask = document.createElement("span");
+        mask.className = "cta__word-mask";
+        mask.setAttribute("aria-hidden", "true");
+        var span = document.createElement("span");
+        span.className = "cta__word";
+        span.textContent = word;
+        mask.appendChild(span);
+        heading.appendChild(mask);
+        heading.appendChild(document.createTextNode(" "));
+      });
+
+      gsap.from(heading.querySelectorAll(".cta__word"), {
+        yPercent: 110,
+        duration: 0.85,
+        stagger: 0.04,
+        ease: "expo.out",
+        scrollTrigger: {
+          trigger: heading,
+          start: "top 85%",
+          once: true,
+        },
+      });
+    }
+
+    section.querySelectorAll(".cta__shot").forEach(function (shot) {
+      if (window.getComputedStyle(shot).display === "none") return;
+      var speed = parseFloat(shot.getAttribute("data-speed") || "1") || 1;
+      gsap.fromTo(
+        shot,
+        { y: 80 * speed },
+        {
+          y: -80 * speed,
+          ease: "none",
+          scrollTrigger: {
+            trigger: section,
+            start: "top bottom",
+            end: "bottom top",
+            scrub: true,
+          },
+        }
+      );
     });
   }
 
   /* ----------------------------------------------------------
-     Generic data-reveal — GSAP owns initial state
+     Generic data-reveal
      ---------------------------------------------------------- */
   function initReveals() {
     document.querySelectorAll("[data-reveal]").forEach(function (el) {
-      if (el.closest(".services__grid")) return;
-
       var delay = parseFloat(el.getAttribute("data-reveal-delay") || "0", 10);
 
       gsap.from(el, {
@@ -706,39 +858,41 @@
   }
 
   /* ----------------------------------------------------------
-     12. Footer giant letters
+     Footer reveal
      ---------------------------------------------------------- */
   function initFooter() {
-    var giant = document.querySelector(".site-footer__giant");
-    if (!giant) return;
+    var footer = document.querySelector(".site-footer");
+    if (!footer) return;
 
-    var split = splitCreate(giant, {
-      type: "chars",
-      mask: "chars",
-    });
+    var inner = footer.querySelector(".site-footer__inner");
+    var logoWords = footer.querySelectorAll(".site-footer__logo-word");
 
-    if (!split || !split.chars) {
-      gsap.from(giant, {
-        y: 40,
-        opacity: 0,
-        duration: 0.7,
+    if (inner) {
+      gsap.from(inner, {
+        y: 100,
+        duration: 1,
         ease: "power3.out",
-        scrollTrigger: { trigger: ".site-footer", start: "top 85%", once: true },
+        scrollTrigger: {
+          trigger: footer,
+          start: "top 90%",
+          once: true,
+        },
       });
-      return;
     }
 
-    gsap.from(split.chars, {
-      yPercent: 110,
-      duration: 0.7,
-      stagger: 0.03,
-      ease: "power3.out",
-      scrollTrigger: {
-        trigger: ".site-footer",
-        start: "top 85%",
-        once: true,
-      },
-    });
+    if (logoWords.length) {
+      gsap.from(logoWords, {
+        yPercent: 110,
+        duration: 0.9,
+        stagger: 0.06,
+        ease: "expo.out",
+        scrollTrigger: {
+          trigger: footer,
+          start: "top 85%",
+          once: true,
+        },
+      });
+    }
   }
 
   /* ----------------------------------------------------------
@@ -750,7 +904,7 @@
 
   function refreshAfterImages() {
     var imgs = document.querySelectorAll(
-      ".whatido img, .work-row img, .hero__bg-img"
+      ".whatido img, .work-row img, .hero__bg-img, .results img, .about img, .cta img"
     );
     var pending = 0;
 
@@ -774,8 +928,10 @@
     initHeadings();
     initWhatIDo();
     initWork();
-    initServices();
-    initProcess();
+    initFillStatements();
+    initResults();
+    initAbout();
+    initCta();
     initReveals();
     initFooter();
     initCursor();
