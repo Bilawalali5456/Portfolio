@@ -830,10 +830,12 @@
     var cursor = document.createElement("div");
     cursor.className = "cursor-dot";
     cursor.innerHTML =
-      '<span class="cursor-dot__inner" aria-hidden="true"></span>';
+      '<span class="cursor-dot__inner" aria-hidden="true"></span>' +
+      '<span class="cursor-dot__label" aria-hidden="true"></span>';
     cursor.setAttribute("aria-hidden", "true");
     document.body.appendChild(cursor);
 
+    var labelEl = cursor.querySelector(".cursor-dot__label");
     var pos = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
     var mouse = { x: pos.x, y: pos.y };
 
@@ -852,6 +854,103 @@
       pos.x += (mouse.x - pos.x) * 0.18;
       pos.y += (mouse.y - pos.y) * 0.18;
       gsap.set(cursor, { x: pos.x, y: pos.y });
+    });
+
+    function setHover(on, label) {
+      cursor.classList.toggle("is-hover", !!on);
+      if (labelEl) labelEl.textContent = label || "";
+    }
+
+    document
+      .querySelectorAll(
+        "a, button, .work-row__detail, .work-row__media, .hero__nav-cta, .chip-btn"
+      )
+      .forEach(function (el) {
+        el.addEventListener("mouseenter", function () {
+          var label = el.getAttribute("data-cursor") || "";
+          if (!label && el.classList.contains("work-row__media")) label = "VIEW";
+          if (!label && el.classList.contains("work-row__detail")) label = "VIEW";
+          setHover(true, label);
+        });
+        el.addEventListener("mouseleave", function () {
+          setHover(false, "");
+        });
+      });
+  }
+
+  /* ----------------------------------------------------------
+     FAQ — smooth open / close
+     ---------------------------------------------------------- */
+  function initFaq() {
+    var items = gsap.utils.toArray(".faq-item");
+    if (!items.length) return;
+
+    items.forEach(function (item) {
+      var summary = item.querySelector(".faq-item__summary");
+      var panel = item.querySelector(".faq-item__panel");
+      if (!summary || !panel) return;
+
+      if (item.hasAttribute("open")) {
+        gsap.set(panel, { height: "auto", opacity: 1 });
+      } else {
+        gsap.set(panel, { height: 0, opacity: 0, displayProps: "display" });
+      }
+
+      summary.addEventListener("click", function (e) {
+        e.preventDefault();
+        var isOpen = item.hasAttribute("open");
+        item.classList.add("is-animating");
+
+        if (isOpen) {
+          gsap.to(panel, {
+            height: 0,
+            opacity: 0,
+            duration: 0.35,
+            ease: "power2.inOut",
+            onComplete: function () {
+              item.removeAttribute("open");
+              item.classList.remove("is-animating");
+              panel.style.display = "none";
+            },
+          });
+        } else {
+          item.setAttribute("open", "");
+          panel.style.display = "block";
+          gsap.fromTo(
+            panel,
+            { height: 0, opacity: 0 },
+            {
+              height: "auto",
+              opacity: 1,
+              duration: 0.4,
+              ease: "power2.out",
+              onComplete: function () {
+                item.classList.remove("is-animating");
+              },
+            }
+          );
+        }
+      });
+    });
+  }
+
+  /* ----------------------------------------------------------
+     About skills stagger
+     ---------------------------------------------------------- */
+  function initAboutSkills() {
+    var items = gsap.utils.toArray(".about-skills__grid > li");
+    if (!items.length) return;
+    gsap.from(items, {
+      y: 36,
+      opacity: 0,
+      duration: 0.7,
+      stagger: 0.08,
+      ease: "power2.out",
+      scrollTrigger: {
+        trigger: ".about-skills",
+        start: "top 80%",
+        once: true,
+      },
     });
   }
 
@@ -1021,14 +1120,17 @@
     var section = document.querySelector(".cta");
     if (!section) return;
 
-    section.querySelectorAll(".cta__shot").forEach(function (shot) {
+    section.querySelectorAll(".cta__shot").forEach(function (shot, i) {
       if (window.getComputedStyle(shot).display === "none") return;
       var speed = parseFloat(shot.getAttribute("data-speed") || "1") || 1;
+      var rot = (i % 2 === 0 ? -1 : 1) * (4 + (i % 3) * 2);
       gsap.fromTo(
         shot,
-        { y: 80 * speed },
+        { y: 100 * speed, rotation: rot * 0.4, scale: 0.92 },
         {
-          y: -80 * speed,
+          y: -100 * speed,
+          rotation: -rot * 0.4,
+          scale: 1.04,
           ease: "none",
           scrollTrigger: {
             trigger: section,
@@ -1072,6 +1174,7 @@
 
     var inner = footer.querySelector(".site-footer__inner");
     var logoWords = footer.querySelectorAll(".site-footer__logo-word");
+    var chips = footer.querySelectorAll(".site-footer__chip");
 
     if (inner) {
       gsap.from(inner, {
@@ -1095,6 +1198,21 @@
         scrollTrigger: {
           trigger: footer,
           start: "top 85%",
+          once: true,
+        },
+      });
+    }
+
+    if (chips.length) {
+      gsap.from(chips, {
+        y: 40,
+        opacity: 0,
+        duration: 0.7,
+        stagger: 0.1,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: footer.querySelector(".site-footer__chips") || footer,
+          start: "top 90%",
           once: true,
         },
       });
@@ -1145,6 +1263,8 @@
       initResults();
       initTextFill();
       initAbout();
+      initAboutSkills();
+      initFaq();
       initCta();
       initReveals();
       initFooter();

@@ -746,12 +746,43 @@ p {
   font-variant-numeric: tabular-nums;
 }
 
-.hero__scroll-hint {
+.hero__scroll-col {
   justify-self: end;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+}
+
+.hero__pixel {
   margin: 0;
   font-size: 14px;
   font-weight: 400;
   color: var(--text-muted);
+}
+
+.hero__scroll-hint {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--text-muted);
+  will-change: transform, opacity;
+}
+
+.js-motion:not(.reduced-motion) .hero__scroll-hint {
+  animation: scroll-hint-bounce 1.8s var(--ease-out) infinite;
+}
+
+@keyframes scroll-hint-bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.55;
+  }
+  50% {
+    transform: translateY(6px);
+    opacity: 1;
+  }
 }
 
 .hero__nav-pill {
@@ -975,7 +1006,7 @@ p {
   }
 
   .hero__clock,
-  .hero__scroll-hint {
+  .hero__scroll-col {
     display: none;
   }
 
@@ -1120,11 +1151,30 @@ p {
 .whatido__fly[data-col="right-alt"] { right: 4%; left: auto; }
 
 .whatido__fly img {
+  position: relative;
+  z-index: 1;
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: top;
   display: block;
+}
+
+.whatido__fly .project-media__label {
+  z-index: 2;
+  align-items: flex-start;
+  justify-content: flex-end;
+  text-align: left;
+  background: linear-gradient(180deg, transparent 40%, rgba(17, 16, 13, 0.72) 100%);
+}
+
+.whatido__fly .project-media__name {
+  font-size: clamp(16px, 1.4vw, 22px);
+  opacity: 0.95;
+}
+
+.whatido__fly .project-media__platform {
+  color: var(--text-muted);
 }
 
 .whatido__fly.is-fallback,
@@ -2270,6 +2320,15 @@ html:not(.js-motion) .whatido__grid,
 
 .faq-item__panel {
   padding: 0 0 28px;
+  overflow: hidden;
+}
+
+.faq-item:not([open]) .faq-item__panel {
+  display: none;
+}
+
+.faq-item.is-animating .faq-item__panel {
+  display: block;
 }
 
 .faq-item__answer {
@@ -2806,6 +2865,13 @@ html:not(.js-motion) .whatido__grid,
   letter-spacing: 0.04em;
   text-transform: uppercase;
   color: var(--text-muted);
+  transition: transform var(--duration-normal) var(--ease-out), color var(--duration-fast) var(--ease-out);
+  will-change: transform;
+}
+
+.site-footer__chip:hover {
+  transform: translateY(-10px);
+  color: var(--text-strong);
 }
 
 .site-footer__bar {
@@ -3292,6 +3358,16 @@ body.is-loading {
   will-change: transform;
 }
 
+.cursor-dot.is-hover .cursor-dot__inner {
+  transform: scale(4.2);
+  background: rgba(207, 196, 170, 0.35);
+  border: 1px solid rgba(207, 196, 170, 0.55);
+}
+
+.cursor-dot.is-hover .cursor-dot__label {
+  opacity: 1;
+}
+
 .cursor-dot__inner {
   position: absolute;
   width: 10px;
@@ -3299,6 +3375,7 @@ body.is-loading {
   border-radius: 50%;
   background: var(--accent);
   will-change: transform;
+  transition: transform 0.35s var(--ease-out), background 0.25s ease, border 0.25s ease;
 }
 
 .cursor-dot__label {
