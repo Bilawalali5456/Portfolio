@@ -7,7 +7,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, "..");
 const src = path.join(
   process.env.USERPROFILE || "",
-  ".cursor/projects/d-My-Portfolio/assets/c__Users_USER_AppData_Roaming_Cursor_User_workspaceStorage_91938c46af3684b16220d7ee9cf32362_images_IMG_5582-6b824c14-6b1a-439e-9ce4-df6a92de5a1b.jpg"
+  ".cursor/projects/d-My-Portfolio/assets/c__Users_USER_AppData_Roaming_Cursor_User_workspaceStorage_91938c46af3684b16220d7ee9cf32362_images_ChatGPT_Image_Oct_1__2026__06_00_37_PM-5619f536-61af-44a3-b714-0a3c32686fd4.jpg"
 );
 const outDir = path.join(root, "assets", "images");
 
@@ -23,10 +23,10 @@ const w = meta.width;
 const h = meta.height;
 console.log("source", w, h);
 
-/* Tight head crop — face fills most of the square at 16–32px */
-const side = Math.min(w, Math.round(h * 0.26));
+/* Already square — crop upper face/shoulders so it reads at 16–32px */
+const side = Math.round(Math.min(w, h) * 0.55);
 const left = Math.round((w - side) / 2);
-const top = Math.round(h * 0.22);
+const top = Math.round(h * 0.04);
 const topClamped = Math.min(Math.max(0, top), h - side);
 
 console.log("crop", { left, top: topClamped, side });
@@ -62,14 +62,12 @@ await cropped
   .png()
   .toFile(path.join(outDir, "favicon-16.png"));
 
-/* Multi-size ICO via PNG pack — browsers also accept PNG as icon */
 await cropped
   .clone()
   .resize(48, 48)
   .png()
   .toFile(path.join(outDir, "favicon.png"));
 
-/* Build a simple ICO (PNG-in-ICO for 16 + 32 + 48) */
 async function pngToIco(pngPaths, icoPath) {
   const pngs = [];
   for (const p of pngPaths) {
@@ -125,5 +123,11 @@ await pngToIco(
   ],
   path.join(outDir, "favicon.ico")
 );
+
+/* Also keep a clean square source copy in assets for reuse */
+await sharp(src)
+  .resize(512, 512, { fit: "cover" })
+  .jpeg({ quality: 90 })
+  .toFile(path.join(outDir, "favicon-portrait.jpg"));
 
 console.log("Wrote favicon.ico, favicon.png, apple-touch-icon.png to", outDir);
