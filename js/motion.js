@@ -607,14 +607,14 @@
       var col = fly.getAttribute("data-col") || "";
       var centered = col === "center" || col === "center-alt";
       var startAt = fillDur + i * cardGap;
-      var setVars = { y: "95vh", rotation: 0, force3D: true, autoAlpha: 1 };
+      var setVars = { y: "80vh", rotation: 0, force3D: true, autoAlpha: 1 };
       if (centered) setVars.xPercent = -50;
       gsap.set(fly, setVars);
 
       tl.to(
         fly,
         {
-          y: "-95vh",
+          y: "-80vh",
           duration: cardDur,
           ease: "none",
         },
