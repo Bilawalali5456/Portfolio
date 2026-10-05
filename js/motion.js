@@ -382,9 +382,9 @@
       scrollTrigger: {
         trigger: stage,
         start: "top top",
-        end: "+=600%",
+        end: "+=800%",
         pin: true,
-        scrub: 1.5,
+        scrub: 2,
         anticipatePin: 1,
       },
     });
