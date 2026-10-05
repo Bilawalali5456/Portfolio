@@ -1120,6 +1120,7 @@ p {
   inset: 0;
   z-index: 2;
   pointer-events: none;
+  overflow: hidden;
 }
 
 .js-motion:not(.reduced-motion) .whatido__flies {
