@@ -570,20 +570,20 @@
     }
 
     var flies = gsap.utils.toArray(".whatido__fly");
-    /* fill 30% + 6 staggered full-pass cards (~55% handoff) */
-    var cardDur = 1;
-    var cardGap = cardDur * 0.55;
+    /* fill ~28% then staggered cards; longer pin = slower feel */
+    var cardDur = 1.15;
+    var cardGap = cardDur * 0.5;
     var flySpan = cardDur + (flies.length - 1) * cardGap;
-    var totalDur = flySpan / 0.7;
-    var fillDur = totalDur * 0.3;
+    var totalDur = flySpan / 0.68;
+    var fillDur = totalDur * 0.28;
 
     var tl = gsap.timeline({
       scrollTrigger: {
         trigger: section,
         start: "top top",
-        end: "+=800%",
+        end: "+=1200%",
         pin: true,
-        scrub: 2,
+        scrub: 2.75,
         anticipatePin: 1,
       },
     });

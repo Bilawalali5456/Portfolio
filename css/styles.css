@@ -1130,7 +1130,7 @@ p {
   position: absolute;
   top: 0;
   margin: 0;
-  width: min(26vw, 480px);
+  width: min(34vw, 560px);
   aspect-ratio: 1 / 1;
   height: auto;
   border-radius: 8px;
@@ -1140,15 +1140,15 @@ p {
   will-change: transform;
 }
 
-.whatido__fly[data-col="left"] { left: 4%; right: auto; }
-.whatido__fly[data-col="left-alt"] { left: 6%; right: auto; }
+.whatido__fly[data-col="left"] { left: 8%; right: auto; }
+.whatido__fly[data-col="left-alt"] { left: 10%; right: auto; }
 .whatido__fly[data-col="center"],
 .whatido__fly[data-col="center-alt"] {
   left: 50%;
   right: auto;
 }
-.whatido__fly[data-col="right"] { right: 5%; left: auto; }
-.whatido__fly[data-col="right-alt"] { right: 4%; left: auto; }
+.whatido__fly[data-col="right"] { right: 8%; left: auto; }
+.whatido__fly[data-col="right-alt"] { right: 10%; left: auto; }
 
 .whatido__fly img {
   position: relative;
@@ -1252,8 +1252,14 @@ html:not(.js-motion) .whatido__grid,
 
 @media (max-width: 1259px) {
   .whatido__fly {
-    width: min(26vw, 480px);
+    width: min(36vw, 480px);
   }
+
+  .whatido__fly[data-col="left"],
+  .whatido__fly[data-col="left-alt"] { left: 6%; }
+
+  .whatido__fly[data-col="right"],
+  .whatido__fly[data-col="right-alt"] { right: 6%; }
 
   .whatido__layout {
     padding-inline: clamp(24px, 5vw, 64px);
