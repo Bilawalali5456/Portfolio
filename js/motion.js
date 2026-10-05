@@ -572,7 +572,7 @@
     var flies = gsap.utils.toArray(".whatido__fly");
     /* fill ~28% then staggered cards; longer pin = slower feel */
     var cardDur = 1.15;
-    var cardGap = cardDur * 0.5;
+    var cardGap = cardDur * 0.32;
     var flySpan = cardDur + (flies.length - 1) * cardGap;
     var totalDur = flySpan / 0.68;
     var fillDur = totalDur * 0.28;
@@ -607,14 +607,14 @@
       var col = fly.getAttribute("data-col") || "";
       var centered = col === "center" || col === "center-alt";
       var startAt = fillDur + i * cardGap;
-      var setVars = { y: "110vh", rotation: 0, force3D: true, autoAlpha: 1 };
+      var setVars = { y: "95vh", rotation: 0, force3D: true, autoAlpha: 1 };
       if (centered) setVars.xPercent = -50;
       gsap.set(fly, setVars);
 
       tl.to(
         fly,
         {
-          y: "-110vh",
+          y: "-95vh",
           duration: cardDur,
           ease: "none",
         },
