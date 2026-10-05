@@ -270,34 +270,40 @@
   });
 
   /* ----------------------------------------------------------
-     MODULE 4 — Missing project images → show CSS placeholder
+     MODULE 4 — Missing / detail project images
      ---------------------------------------------------------- */
-  document.querySelectorAll(".project-card__img, .work-index__img, .case-study__img").forEach(function (img) {
-    function removeBrokenImage() {
+  document
+    .querySelectorAll(
+      ".whatido__fly img, .whatido__grid-card img, .work-row__img, .work-index__img, .case-study__img"
+    )
+    .forEach(function (img) {
+      function removeBrokenImage() {
+        img.remove();
+      }
+
+      if (img.complete && img.naturalWidth === 0) {
+        removeBrokenImage();
+      } else {
+        img.addEventListener("error", removeBrokenImage);
+      }
+    });
+
+  document.querySelectorAll(".work-row__detail-img").forEach(function (img) {
+    function useFallback() {
+      var fallback = img.getAttribute("data-fallback");
+      if (fallback && img.getAttribute("src") !== fallback) {
+        img.setAttribute("src", fallback);
+        img.style.objectPosition = "top";
+        return;
+      }
       img.remove();
     }
 
     if (img.complete && img.naturalWidth === 0) {
-      removeBrokenImage();
+      useFallback();
     } else {
-      img.addEventListener("error", removeBrokenImage);
+      img.addEventListener("error", useFallback);
     }
-  });
-
-  /* ----------------------------------------------------------
-     MODULE 4 — Project card details toggle
-     ---------------------------------------------------------- */
-  document.querySelectorAll(".project-card").forEach(function (card) {
-    const detailsBtn = card.querySelector(".project-card__details-btn");
-
-    if (!detailsBtn) return;
-
-    detailsBtn.setAttribute("aria-expanded", "true");
-
-    detailsBtn.addEventListener("click", function () {
-      const isClosed = card.classList.toggle("is-details-closed");
-      detailsBtn.setAttribute("aria-expanded", isClosed ? "false" : "true");
-    });
   });
 
   /* ----------------------------------------------------------

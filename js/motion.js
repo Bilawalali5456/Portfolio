@@ -18,8 +18,8 @@
     document.querySelectorAll("[data-reveal]").forEach(function (el) {
       el.classList.add("is-revealed");
     });
-    document.querySelectorAll(".statement__word").forEach(function (el) {
-      el.classList.add("is-lit");
+    document.querySelectorAll(".whatido__word").forEach(function (el) {
+      el.style.color = "#d0c5ab";
     });
   }
 
@@ -286,7 +286,7 @@
      5. H2 line reveals
      ---------------------------------------------------------- */
   function initHeadings() {
-    document.querySelectorAll("h2").forEach(function (h2) {
+    document.querySelectorAll("h2:not(.work__heading)").forEach(function (h2) {
       var split = splitCreate(h2, {
         type: "lines",
         mask: "lines",
@@ -318,46 +318,162 @@
   }
 
   /* ----------------------------------------------------------
-     6. Statement word lighting (scrub)
+     6. What I do — word fill + flying images
      ---------------------------------------------------------- */
-  function initStatement() {
-    var text = document.querySelector(".statement__text");
-    var section = document.querySelector(".statement");
-    if (!text || !section) return;
+  function initWhatIDo() {
+    var section = document.querySelector(".whatido");
+    var stage = document.querySelector(".whatido__stage");
+    var statement = document.querySelector(".whatido__statement");
+    if (!section || !stage || !statement) return;
 
-    var split = splitCreate(text, {
-      type: "words",
-      wordsClass: "statement__word",
+    var labelText =
+      statement.getAttribute("aria-label") || statement.textContent.trim();
+    statement.setAttribute("aria-label", labelText);
+
+    var words = labelText.split(/\s+/).filter(Boolean);
+    statement.textContent = "";
+    words.forEach(function (word) {
+      var span = document.createElement("span");
+      span.className = "whatido__word";
+      span.setAttribute("aria-hidden", "true");
+      span.textContent = word;
+      statement.appendChild(span);
+      statement.appendChild(document.createTextNode(" "));
     });
 
-    if (!split || !split.words) return;
+    var wordEls = statement.querySelectorAll(".whatido__word");
+    gsap.set(wordEls, { color: "#2a2822" });
 
-    gsap.set(split.words, { opacity: 0.18 });
+    var canPin =
+      window.innerWidth >= 810 &&
+      !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-    gsap.to(split.words, {
-      opacity: 1,
-      stagger: 0.05,
-      ease: "none",
+    if (!canPin) {
+      gsap.to(wordEls, {
+        color: "#d0c5ab",
+        stagger: 0.04,
+        ease: "none",
+        scrollTrigger: {
+          trigger: section,
+          start: "top 75%",
+          end: "center 40%",
+          scrub: 1,
+        },
+      });
+      return;
+    }
+
+    var flies = gsap.utils.toArray(".whatido__fly");
+    var tl = gsap.timeline({
       scrollTrigger: {
-        trigger: section,
-        start: "top 75%",
-        end: "center 35%",
-        scrub: true,
+        trigger: stage,
+        start: "top top",
+        end: "+=250%",
+        pin: true,
+        scrub: 1,
+        anticipatePin: 1,
       },
+    });
+
+    var fillDur = 4;
+    var flyWindow = 6;
+    var wordDur = fillDur / Math.max(wordEls.length, 1);
+
+    wordEls.forEach(function (word, i) {
+      tl.to(
+        word,
+        {
+          color: "#d0c5ab",
+          duration: wordDur,
+          ease: "none",
+        },
+        i * wordDur
+      );
+    });
+
+    flies.forEach(function (fly) {
+      var speed = parseFloat(fly.getAttribute("data-speed") || "1") || 1;
+      var rot = parseFloat(fly.getAttribute("data-rot") || "0") || 0;
+      var offset = fly.getAttribute("data-offset") === "1";
+      var startY = offset ? "170vh" : "110vh";
+      var duration = flyWindow / speed;
+
+      gsap.set(fly, { y: startY, rotation: rot, force3D: true });
+
+      tl.to(
+        fly,
+        {
+          y: "-110vh",
+          rotation: 0,
+          duration: duration,
+          ease: "none",
+        },
+        fillDur
+      );
     });
   }
 
   /* ----------------------------------------------------------
-     7. Featured work stack + image parallax
+     7. Featured work rows
      ---------------------------------------------------------- */
-  function initProjects() {
-    var stickies = gsap.utils.toArray(".projects__sticky");
-    if (!stickies.length) return;
+  function initWork() {
+    var section = document.querySelector(".work");
+    if (!section) return;
 
-    stickies.forEach(function (wrapper, index) {
-      var card = wrapper.querySelector(".project-card");
-      var img = wrapper.querySelector(".project-card__img");
-      var next = stickies[index + 1];
+    var heading = section.querySelector(".work__heading");
+    if (heading) {
+      var text = heading.textContent;
+      heading.textContent = "";
+      Array.from(text).forEach(function (ch) {
+        var mask = document.createElement("span");
+        mask.className = "work__letter-mask";
+        mask.setAttribute("aria-hidden", "true");
+        var letter = document.createElement("span");
+        letter.className = "work__letter";
+        letter.textContent = ch;
+        mask.appendChild(letter);
+        heading.appendChild(mask);
+      });
+      heading.setAttribute("aria-label", text.trim());
+
+      var letters = heading.querySelectorAll(".work__letter");
+      gsap.from(letters, {
+        yPercent: 110,
+        duration: 0.85,
+        stagger: 0.03,
+        ease: "expo.out",
+        scrollTrigger: {
+          trigger: heading,
+          start: "top 85%",
+          once: true,
+        },
+      });
+    }
+
+    gsap.utils.toArray(".work-row").forEach(function (row) {
+      var main = row.querySelector(".work-row__main");
+      var img = row.querySelector(".work-row__img");
+      var detail = row.querySelector(".work-row__detail");
+      var infoBits = row.querySelectorAll(
+        ".work-row__num, .work-row__title, .work-row__tags, .work-row__next"
+      );
+
+      if (main) {
+        gsap.fromTo(
+          main,
+          { clipPath: "inset(100% 0 0 0)" },
+          {
+            clipPath: "inset(0% 0% 0% 0%)",
+            duration: 1.1,
+            ease: "expo.out",
+            scrollTrigger: {
+              trigger: main,
+              start: "top 80%",
+              once: true,
+            },
+          }
+        );
+      }
 
       if (img) {
         gsap.fromTo(
@@ -367,7 +483,7 @@
             yPercent: 8,
             ease: "none",
             scrollTrigger: {
-              trigger: wrapper,
+              trigger: row,
               start: "top bottom",
               end: "bottom top",
               scrub: true,
@@ -376,26 +492,37 @@
         );
       }
 
-      if (!card || !next || window.innerWidth < DESKTOP_MIN) return;
-
-      gsap.fromTo(
-        card,
-        { scale: 1 },
-        {
-          scale: 0.9,
-          ease: "none",
-          transformOrigin: "center top",
-          scrollTrigger: {
-            trigger: next,
-            start: "top bottom",
-            end: "top 20%",
-            scrub: 1,
-            onUpdate: function (self) {
-              card.style.setProperty("--stack-dim", String(self.progress * 0.5));
+      if (detail && window.innerWidth >= 810) {
+        gsap.fromTo(
+          detail,
+          { y: 60 },
+          {
+            y: -60,
+            ease: "none",
+            scrollTrigger: {
+              trigger: row,
+              start: "top bottom",
+              end: "bottom top",
+              scrub: true,
             },
+          }
+        );
+      }
+
+      if (infoBits.length) {
+        gsap.from(infoBits, {
+          y: 40,
+          opacity: 0,
+          duration: 0.7,
+          stagger: 0.08,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: row,
+            start: "top 75%",
+            once: true,
           },
-        }
-      );
+        });
+      }
     });
   }
 
@@ -437,7 +564,7 @@
       gsap.set(cursor, { x: pos.x, y: pos.y });
     });
 
-    document.querySelectorAll(".project-card").forEach(function (card) {
+    document.querySelectorAll(".work-row__media").forEach(function (card) {
       card.addEventListener("mouseenter", function () {
         cursor.classList.add("is-view");
         gsap.to(inner, { scale: 9, duration: 0.35, ease: "power3.out" });
@@ -621,11 +748,32 @@
     ScrollTrigger.refresh();
   }
 
+  function refreshAfterImages() {
+    var imgs = document.querySelectorAll(
+      ".whatido img, .work-row img, .hero__bg-img"
+    );
+    var pending = 0;
+
+    function done() {
+      pending -= 1;
+      if (pending <= 0) refreshTriggers();
+    }
+
+    imgs.forEach(function (img) {
+      if (img.complete) return;
+      pending += 1;
+      img.addEventListener("load", done, { once: true });
+      img.addEventListener("error", done, { once: true });
+    });
+
+    if (pending === 0) refreshTriggers();
+  }
+
   function start() {
     initMarquee();
     initHeadings();
-    initStatement();
-    initProjects();
+    initWhatIDo();
+    initWork();
     initServices();
     initProcess();
     initReveals();
@@ -634,6 +782,7 @@
     initMagnetic();
     initHero();
     refreshTriggers();
+    refreshAfterImages();
 
     if (document.fonts && document.fonts.ready) {
       document.fonts.ready.then(refreshTriggers).catch(function () {});
