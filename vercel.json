@@ -1,8 +1,25 @@
 {
+  "cleanUrls": true,
+  "trailingSlash": false,
   "redirects": [
     {
       "source": "/work/mian-engineering.html",
-      "destination": "/work/adforce-builders.html",
+      "destination": "/work/adforce-builders",
+      "permanent": true
+    },
+    {
+      "source": "/index.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/work/index.html",
+      "destination": "/work",
+      "permanent": true
+    },
+    {
+      "source": "/work/:slug.html",
+      "destination": "/work/:slug",
       "permanent": true
     }
   ]

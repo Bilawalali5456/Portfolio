@@ -8,7 +8,7 @@
   <meta name="theme-color" content="#11100d">
 
   <title>AppealMate — Legal-Tech Website by Bilawal Ali</title>
-  <link rel="canonical" href="https://bilawalali.vercel.app/work/appealmate.html">
+  <link rel="canonical" href="https://bilawalali.vercel.app/work/appealmate">
 
   <link rel="icon" href="../assets/images/favicon.ico" sizes="any">
   <link rel="apple-touch-icon" href="../assets/images/apple-touch-icon.png">
@@ -20,7 +20,7 @@
   <meta property="og:type" content="article">
   <meta property="og:title" content="AppealMate — Legal-Tech Website by Bilawal Ali">
   <meta property="og:description" content="Case study: AppealMate — a legal-tech WordPress site with an interactive savings calculator by Bilawal Ali.">
-  <meta property="og:url" content="https://bilawalali.vercel.app/work/appealmate.html">
+  <meta property="og:url" content="https://bilawalali.vercel.app/work/appealmate">
   <meta property="og:image" content="https://bilawalali.vercel.app/assets/images/og-image.jpg">
   <meta property="og:locale" content="en_US">
 
@@ -34,12 +34,11 @@
 </head>
 <body>
 
-  <a href="#main" class="skip-link">Skip to main content</a>
+    <a href="#main" class="skip-link">Skip to main content</a>
 
-  <header class="site-header" id="site-header">
-    <nav class="site-nav" aria-label="Primary navigation">
-      <a href="../index.html" class="site-logo" aria-label="Bilawal Ali — Home">
-        <span class="site-logo__mark" aria-hidden="true"></span>
+  <header class="site-header site-header--mobile" id="site-header">
+    <nav class="site-nav" aria-label="Mobile navigation">
+      <a href="/" class="site-logo" aria-label="Bilawal Ali — Home">
         <span class="site-logo__text">Bilawal Ali</span>
       </a>
 
@@ -57,14 +56,28 @@
       </button>
 
       <ul class="nav-menu" id="nav-menu" role="list">
-        <li><a href="index.html" class="nav-link nav-link--active">Work</a></li>
-        <li><a href="../index.html#services" class="nav-link">Services</a></li>
-        <li><a href="../index.html#about" class="nav-link">About</a></li>
-        <li><a href="../index.html#faq" class="nav-link">FAQ</a></li>
-        <li><a href="../index.html#contact" class="nav-link">Contact</a></li>
+        <li><a href="/work" class="nav-link nav-link--active">Work</a></li>
+        <li><a href="/#about" class="nav-link">About</a></li>
+        <li><a href="/#faq" class="nav-link">FAQ</a></li>
+        <li><a href="/#contact" class="nav-link">Contact</a></li>
       </ul>
     </nav>
   </header>
+
+  <header class="page-top" id="page-top">
+    <a class="hero__brand" href="/">BILAWAL ALI</a>
+    <a class="hero__email" href="mailto:bilawalali5456@gmail.com">bilawalali5456@gmail.com</a>
+  </header>
+
+  <nav class="hero__nav-pill is-fixed" id="site-nav-pill" aria-label="Primary navigation">
+    <a href="/#work" class="hero__nav-link">WORK</a>
+    <a href="/#about" class="hero__nav-link">ABOUT</a>
+    <a href="/#faq" class="hero__nav-link">FAQ</a>
+    <a href="/#contact" class="hero__nav-cta">
+      <span class="hero__nav-badge" aria-hidden="true">BA</span>
+      LET'S TALK
+    </a>
+  </nav>
 
   <main id="main">
     <article class="case-study">
@@ -80,7 +93,7 @@
             target="_blank"
             rel="noopener noreferrer"
           >Visit live site</a>
-          <a href="index.html" class="btn btn--secondary">All projects</a>
+          <a href="/work" class="btn btn--secondary">All projects</a>
         </div>
       </header>
 
@@ -186,7 +199,7 @@
 
       <nav class="case-study__next" data-reveal aria-label="Next project">
         <p class="case-study__next-label">Next project</p>
-        <a class="case-study__next-link" href="adforce-builders.html">
+        <a class="case-study__next-link" href="/work/adforce-builders">
           <span class="case-study__next-name">Adforce Builders<span class="case-study__title-dot">.</span></span>
           <span class="case-study__next-type">Construction company site with house-design pages for every plot size</span>
         </a>
@@ -194,7 +207,7 @@
     </article>
   </main>
 
-    <footer class="site-footer site-footer--simple">
+      <footer class="site-footer" id="site-footer">
     <div class="site-footer__inner">
       <div class="site-footer__top">
         <p class="site-footer__logo" aria-label="Bilawal Ali">
@@ -205,22 +218,26 @@
           <p class="site-footer__ready-title">Ready to start?</p>
           <div class="site-footer__contact-line">
             <a href="mailto:bilawalali5456@gmail.com">bilawalali5456@gmail.com</a>
+            <button type="button" class="site-footer__copy" data-copy="bilawalali5456@gmail.com" aria-label="Copy email">Copy</button>
           </div>
           <div class="site-footer__contact-line">
             <a href="https://wa.me/923087224354" target="_blank" rel="noopener noreferrer">+92 308 7224354</a>
+            <button type="button" class="site-footer__copy" data-copy="+923087224354" aria-label="Copy WhatsApp number">Copy</button>
           </div>
+          <span class="site-footer__copy-status" id="footer-copy-status" role="status" aria-live="polite"></span>
         </div>
       </div>
+
       <div class="site-footer__mid">
         <div class="site-footer__cols">
           <nav class="site-footer__col" aria-label="Site">
             <p class="site-footer__col-label">SITE</p>
             <ul class="site-footer__links" role="list">
-              <li><a href="../index.html">Home</a></li>
-              <li><a href="index.html">Work</a></li>
-              <li><a href="../index.html#about">About</a></li>
-              <li><a href="../index.html#faq">FAQ</a></li>
-              <li><a href="../index.html#contact">Contact</a></li>
+              <li><a href="/">Home</a></li>
+              <li><a href="/#work">Work</a></li>
+              <li><a href="/#about">About</a></li>
+              <li><a href="/#faq">FAQ</a></li>
+              <li><a href="/#contact">Contact</a></li>
             </ul>
           </nav>
           <nav class="site-footer__col" aria-label="Follow">
@@ -237,6 +254,7 @@
           <div class="site-footer__chip">REAL SALES</div>
         </div>
       </div>
+
       <div class="site-footer__bar">
         <p class="site-footer__copy">&copy; 2026 Bilawal Ali</p>
         <a href="#main" class="site-footer__top-link" id="back-to-top">Back to top ↑</a>

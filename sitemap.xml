@@ -2,85 +2,73 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://bilawalali.vercel.app/</loc>
-    <lastmod>2026-10-02</lastmod>
+    <lastmod>2026-10-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://bilawalali.vercel.app/#projects</loc>
-    <lastmod>2026-10-02</lastmod>
+    <loc>https://bilawalali.vercel.app/#work</loc>
+    <lastmod>2026-10-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://bilawalali.vercel.app/#services</loc>
-    <lastmod>2026-10-02</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://bilawalali.vercel.app/#about</loc>
-    <lastmod>2026-10-02</lastmod>
+    <lastmod>2026-10-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://bilawalali.vercel.app/#faq</loc>
-    <lastmod>2026-10-02</lastmod>
+    <lastmod>2026-10-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://bilawalali.vercel.app/#contact</loc>
-    <lastmod>2026-10-02</lastmod>
+    <lastmod>2026-10-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://bilawalali.vercel.app/work/</loc>
-    <lastmod>2026-10-02</lastmod>
+    <loc>https://bilawalali.vercel.app/work</loc>
+    <lastmod>2026-10-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://bilawalali.vercel.app/work/index.html</loc>
-    <lastmod>2026-10-02</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://bilawalali.vercel.app/work/vyva-nutrition.html</loc>
-    <lastmod>2026-10-02</lastmod>
+    <loc>https://bilawalali.vercel.app/work/vyva-nutrition</loc>
+    <lastmod>2026-10-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://bilawalali.vercel.app/work/adforce-builders.html</loc>
-    <lastmod>2026-10-03</lastmod>
+    <loc>https://bilawalali.vercel.app/work/adforce-builders</loc>
+    <lastmod>2026-10-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://bilawalali.vercel.app/work/daichi.html</loc>
-    <lastmod>2026-10-02</lastmod>
+    <loc>https://bilawalali.vercel.app/work/daichi</loc>
+    <lastmod>2026-10-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://bilawalali.vercel.app/work/appealmate.html</loc>
-    <lastmod>2026-10-02</lastmod>
+    <loc>https://bilawalali.vercel.app/work/appealmate</loc>
+    <lastmod>2026-10-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://bilawalali.vercel.app/work/adforce-solutions.html</loc>
-    <lastmod>2026-10-02</lastmod>
+    <loc>https://bilawalali.vercel.app/work/adforce-solutions</loc>
+    <lastmod>2026-10-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://bilawalali.vercel.app/work/adforce-billing.html</loc>
-    <lastmod>2026-10-02</lastmod>
+    <loc>https://bilawalali.vercel.app/work/adforce-billing</loc>
+    <lastmod>2026-10-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
