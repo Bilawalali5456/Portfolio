@@ -306,20 +306,6 @@
     }
   });
 
-  document.querySelectorAll("img[data-optional]").forEach(function (img) {
-    function skipMissing() {
-      var shot = img.closest(".about-life__shot");
-      if (shot) shot.classList.add("is-missing");
-      img.remove();
-    }
-
-    if (img.complete && img.naturalWidth === 0) {
-      skipMissing();
-    } else {
-      img.addEventListener("error", skipMissing);
-    }
-  });
-
   /* ----------------------------------------------------------
      Cover videos — play in view; poster-only under reduced motion / Save-Data
      ---------------------------------------------------------- */

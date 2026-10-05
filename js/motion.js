@@ -947,7 +947,7 @@
   }
 
   /* ----------------------------------------------------------
-     About — photos + life slider
+     About — portrait reveals
      ---------------------------------------------------------- */
   function initAbout() {
     document.querySelectorAll(".about-photo").forEach(function (photo) {
@@ -979,34 +979,6 @@
           once: true,
         },
       });
-    });
-
-    var lifePart = document.querySelector(".about-part--life");
-    var stage = document.querySelector(".about-life__stage");
-    var track = document.querySelector(".about-life__track");
-    if (!lifePart || !stage || !track) return;
-    if (window.innerWidth < 810) return;
-
-    var getTravel = function () {
-      return Math.max(0, track.scrollWidth - stage.clientWidth);
-    };
-
-    gsap.to(track, {
-      x: function () {
-        return -getTravel();
-      },
-      ease: "none",
-      scrollTrigger: {
-        trigger: lifePart,
-        start: "top top",
-        end: function () {
-          return "+=" + Math.max(getTravel(), 200);
-        },
-        pin: true,
-        scrub: 1,
-        anticipatePin: 1,
-        invalidateOnRefresh: true,
-      },
     });
   }
 

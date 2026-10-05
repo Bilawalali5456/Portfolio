@@ -1924,7 +1924,11 @@ html:not(.js-motion) .whatido__grid,
 .about-part--start {
   margin-top: 120px;
   padding-top: 0;
-  padding-bottom: 120px;
+  padding-bottom: 80px;
+}
+
+.about-part--focus {
+  padding-top: 80px;
 }
 
 .about-part__layout--three {
@@ -1975,62 +1979,6 @@ html:not(.js-motion) .whatido__grid,
   display: block;
 }
 
-.about-life {
-  display: grid;
-  grid-template-columns: 30% 70%;
-  gap: 32px;
-  padding-inline: 112px;
-  min-height: 100svh;
-  align-items: stretch;
-}
-
-.about-life__aside {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding-block: 40px;
-  min-height: 480px;
-}
-
-.about-life__stage {
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-}
-
-.about-life__track {
-  display: flex;
-  align-items: center;
-  gap: 40px;
-  width: max-content;
-  will-change: transform;
-}
-
-.about-life__shot {
-  margin: 0;
-  height: 480px;
-  border-radius: 6px;
-  overflow: hidden;
-  background: var(--surface);
-  flex-shrink: 0;
-}
-
-.about-life__shot--sm { width: 290px; }
-.about-life__shot--lg { width: 480px; }
-
-.about-life__shot img {
-  width: 100%;
-  height: 100%;
-  aspect-ratio: 1 / 1;
-  object-fit: cover;
-  object-position: 50% 15%;
-  display: block;
-}
-
-.about-life__shot.is-missing {
-  display: none;
-}
-
 .about-skills {
   padding-inline: 112px;
 }
@@ -2078,7 +2026,6 @@ html:not(.js-motion) .whatido__grid,
 
 @media (max-width: 1259px) {
   .about-part__layout,
-  .about-life,
   .about-skills {
     padding-inline: clamp(24px, 5vw, 64px);
   }
@@ -2103,16 +2050,22 @@ html:not(.js-motion) .whatido__grid,
 
   .about-part__layout,
   .about-part__layout--three,
-  .about-part__layout--focus,
-  .about-life {
+  .about-part__layout--focus {
     grid-template-columns: 1fr;
     padding-inline: 20px;
     min-height: 0;
   }
 
-  .about-part__body,
-  .about-life__text {
+  .about-part__body {
     font-size: 16px;
+  }
+
+  .about-part--start {
+    padding-bottom: 48px;
+  }
+
+  .about-part--focus {
+    padding-top: 48px;
   }
 
   .about-photo {
@@ -2123,30 +2076,6 @@ html:not(.js-motion) .whatido__grid,
   .about-part__layout--focus .about-photo {
     width: 100%;
   }
-
-  .about-life__aside {
-    min-height: 0;
-    gap: 32px;
-    padding-block: 0;
-  }
-
-  .about-life__stage {
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-  }
-
-  .about-life__track {
-    padding-bottom: 8px;
-  }
-
-  .about-life__shot {
-    height: 320px;
-    scroll-snap-align: start;
-  }
-
-  .about-life__shot--sm { width: 200px; }
-  .about-life__shot--lg { width: 320px; }
 
   .about-skills {
     padding-inline: 20px;
@@ -2165,10 +2094,6 @@ html:not(.js-motion) .whatido__grid,
   .fill-statement .fill-statement__word,
   .fill-statement {
     color: var(--text) !important;
-  }
-
-  .about-life__stage {
-    overflow-x: auto;
   }
 }
 
