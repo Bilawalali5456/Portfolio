@@ -904,7 +904,7 @@
 
   function refreshAfterImages() {
     var imgs = document.querySelectorAll(
-      ".whatido img, .work-row img, .hero__bg-img, .results img, .about img, .cta img"
+      ".whatido img, .work-row img, .hero__bg-img, .results img, .about img, .cta img, .case-study img, .work-index img"
     );
     var pending = 0;
 

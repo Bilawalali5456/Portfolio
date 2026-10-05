@@ -1,0 +1,29 @@
+{
+  "name": "my-portfolio",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "playwright": "^1.49.0",
+    "playwright-core": "^1.49.0"
+  },
+  "devDependencies": {
+    "sharp": "^0.35.5"
+  },
+  "scripts": {
+    "optimize-images": "node scripts/optimize-images.mjs",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Bilawalali5456/Portfolio.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Bilawalali5456/Portfolio/issues"
+  },
+  "homepage": "https://github.com/Bilawalali5456/Portfolio#readme"
+}

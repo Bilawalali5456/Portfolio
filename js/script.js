@@ -661,6 +661,49 @@
   }
 
   /* ----------------------------------------------------------
+     Case study hover-scroll frames (desktop); native scroll on touch
+     ---------------------------------------------------------- */
+  (function initHoverScroll() {
+    var coarse = window.matchMedia("(hover: none), (pointer: coarse)").matches;
+    if (coarse) return;
+
+    document.querySelectorAll(".js-hover-scroll").forEach(function (viewport) {
+      var img = viewport.querySelector(".js-hover-scroll__img");
+      if (!img) return;
+
+      function measure() {
+        var overflow = Math.max(0, img.offsetHeight - viewport.clientHeight);
+        var duration = Math.max(8, Math.min(20, overflow / 180));
+        viewport.style.setProperty("--scroll-duration", duration + "s");
+        img.style.setProperty("--scroll-y", "-" + overflow + "px");
+        return overflow;
+      }
+
+      function enter() {
+        var overflow = measure();
+        if (overflow <= 0) return;
+        viewport.classList.add("is-hovering");
+        img.style.transition = "transform var(--scroll-duration, 12s) linear";
+        img.style.transform = "translateY(var(--scroll-y))";
+      }
+
+      function leave() {
+        viewport.classList.remove("is-hovering");
+        img.style.transition = "transform 0.8s ease";
+        img.style.transform = "translateY(0)";
+      }
+
+      if (img.complete) measure();
+      else img.addEventListener("load", measure, { once: true });
+
+      viewport.addEventListener("mouseenter", enter);
+      viewport.addEventListener("mouseleave", leave);
+      viewport.addEventListener("focus", enter);
+      viewport.addEventListener("blur", leave);
+    });
+  })();
+
+  /* ----------------------------------------------------------
      MODULE 5 — Back to top button
      ---------------------------------------------------------- */
   const backToTop = document.getElementById("back-to-top");
