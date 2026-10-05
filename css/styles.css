@@ -500,12 +500,29 @@ p {
 
 .hero {
   position: relative;
+  z-index: 1;
   height: 100svh;
   min-height: 720px;
   overflow: hidden;
   background: var(--bg);
   color: var(--text);
   isolation: isolate;
+}
+
+.hero__curtain-dim {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  background: rgba(17, 16, 13, 0.6);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.hero__scale {
+  position: absolute;
+  inset: 0;
+  transform-origin: center center;
+  will-change: transform;
 }
 
 .hero__bg {
@@ -1001,6 +1018,7 @@ p {
 
 .whatido {
   position: relative;
+  z-index: 2;
   background: var(--bg);
   color: var(--text);
   overflow: clip;
@@ -1010,7 +1028,7 @@ p {
   position: relative;
   min-height: 100svh;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   overflow: hidden;
 }
 
@@ -1021,8 +1039,9 @@ p {
   grid-template-columns: 30% 70%;
   align-items: start;
   width: 100%;
-  padding: 120px 112px;
+  padding: 200px 112px 160px;
   pointer-events: none;
+  will-change: transform;
 }
 
 .whatido__label {
@@ -1049,14 +1068,15 @@ p {
   color: var(--text);
 }
 
-.whatido__statement .whatido__word {
+.whatido__statement .whatido__word,
+.whatido__statement .fill-unit {
   display: inline-block;
   color: #2a2822;
   will-change: color;
 }
 
 .whatido__trust {
-  margin: 56px 0 0;
+  margin: 40px 0 0;
   font-size: 18px;
   font-weight: 400;
   line-height: 1.5;
@@ -1208,7 +1228,7 @@ html:not(.js-motion) .whatido__grid,
   }
 
   .whatido__trust {
-    margin-top: 32px;
+    margin-top: 40px;
     font-size: 14px;
   }
 
@@ -1320,6 +1340,7 @@ html:not(.js-motion) .whatido__grid,
   align-items: center;
   transform-origin: center center;
   will-change: transform;
+  overflow: visible;
 }
 
 .work-row__dim {
@@ -1335,20 +1356,23 @@ html:not(.js-motion) .whatido__grid,
   display: grid;
   grid-template-columns: 60% 40%;
   gap: 48px;
-  align-items: center;
+  align-items: stretch;
   width: 100%;
+  overflow: visible;
 }
 
 .work-row__media {
   position: relative;
+  z-index: 2;
   display: block;
   min-width: 0;
+  overflow: visible;
 }
 
 .work-row__main {
   --tint: rgba(207, 196, 170, 0.15);
   position: relative;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 1.05 / 1;
   border-radius: 8px;
   overflow: hidden;
   background: var(--surface);
@@ -1380,15 +1404,18 @@ html:not(.js-motion) .whatido__grid,
 .work-row__detail {
   --tint: rgba(207, 196, 170, 0.18);
   position: absolute;
-  right: -2%;
-  bottom: 12%;
-  z-index: 3;
+  top: 0;
+  left: calc(100% - 125px);
+  right: auto;
+  bottom: auto;
+  z-index: 6;
   width: 250px;
   height: 250px;
   border-radius: 6px;
   overflow: hidden;
   background: var(--surface);
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+  will-change: transform;
 }
 
 .work-row__detail-img {
@@ -1413,8 +1440,8 @@ html:not(.js-motion) .whatido__grid,
 
 .work-row__cta {
   position: absolute;
-  left: 0;
-  top: 0;
+  left: 50%;
+  top: 50%;
   z-index: 5;
   display: inline-flex;
   align-items: center;
@@ -1431,8 +1458,10 @@ html:not(.js-motion) .whatido__grid,
   letter-spacing: 0.02em;
   text-transform: uppercase;
   pointer-events: none;
-  opacity: 0;
-  will-change: transform, opacity;
+  opacity: 1;
+  transform: translate(-50%, -50%);
+  transition: transform var(--duration-fast) var(--ease-out);
+  will-change: transform;
 }
 
 .work-row__cta-arrow {
@@ -1441,16 +1470,25 @@ html:not(.js-motion) .whatido__grid,
   transition: transform var(--duration-fast) var(--ease-out);
 }
 
-.work-row__media:hover .work-row__cta-arrow,
-.work-row__media:focus-visible .work-row__cta-arrow {
+.work-row__detail:hover .work-row__cta,
+.work-row__detail:focus-within .work-row__cta {
+  transform: translate(-50%, -50%) scale(1.05);
+}
+
+.work-row__detail:hover .work-row__cta-arrow,
+.work-row__detail:focus-within .work-row__cta-arrow {
   transform: translateX(5px);
 }
 
 .work-row__info {
   position: relative;
+  z-index: 1;
   top: auto;
   padding-top: 8px;
   min-width: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
 }
 
 .work-row__num {
@@ -1466,14 +1504,14 @@ html:not(.js-motion) .whatido__grid,
   margin: 40px 0 0;
   max-width: 420px;
   font-family: var(--font-body);
-  font-weight: 400;
-  font-size: 32px;
-  line-height: 1.2;
+  font-weight: 300;
+  font-size: 40px;
+  line-height: 1.15;
   color: var(--text);
 }
 
 .work-row__tags {
-  margin: 20px 0 0;
+  margin: auto 0 0;
   font-size: 18px;
   line-height: 1.45;
   color: var(--text-muted);
@@ -1481,7 +1519,7 @@ html:not(.js-motion) .whatido__grid,
 
 .work-row__next {
   display: inline-block;
-  margin-top: 40px;
+  margin-top: 20px;
   font-size: 14px;
   font-weight: 500;
   color: var(--text-muted);
@@ -1513,12 +1551,13 @@ html:not(.js-motion) .whatido__grid,
   }
 
   .work-row__detail {
-    width: 180px;
-    height: 180px;
+    width: 200px;
+    height: 200px;
+    left: calc(100% - 100px);
   }
 
   .work-row__title {
-    font-size: 26px;
+    font-size: 40px;
   }
 
   .work-row__tags {
@@ -1579,21 +1618,24 @@ html:not(.js-motion) .whatido__grid,
 
   .work-row__detail {
     position: relative;
+    left: auto;
     right: auto;
+    top: auto;
     bottom: auto;
     width: 60%;
     height: auto;
     aspect-ratio: 1;
     margin-top: 16px;
     box-shadow: none;
+    transform: none !important;
   }
 
   .work-row__cta {
-    left: auto;
-    top: auto;
-    right: 12px;
-    bottom: 12px;
-    transform: none;
+    left: 50%;
+    top: 50%;
+    right: auto;
+    bottom: auto;
+    transform: translate(-50%, -50%);
     opacity: 1;
     pointer-events: none;
     font-size: 13px;
@@ -1608,6 +1650,14 @@ html:not(.js-motion) .whatido__grid,
   .work-row__title {
     margin-top: 20px;
     font-size: 22px;
+  }
+
+  .work-row__info {
+    min-height: 0;
+  }
+
+  .work-row__tags {
+    margin-top: 20px;
   }
 
   .work-row__tags {
@@ -1658,10 +1708,28 @@ html:not(.js-motion) .whatido__grid,
   color: var(--text);
 }
 
-.fill-statement .fill-statement__word {
+.fill-statement .fill-statement__word,
+.fill-unit {
   display: inline-block;
-  color: #2a2822;
   will-change: color;
+}
+
+.fill-unit {
+  color: inherit;
+}
+
+[data-fill].is-fill-lit,
+[data-fill].is-fill-lit .fill-unit {
+  color: inherit !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fill-unit,
+  .whatido__word,
+  .fill-statement__word,
+  [data-fill] .fill-unit {
+    color: inherit !important;
+  }
 }
 
 .chip-btn {

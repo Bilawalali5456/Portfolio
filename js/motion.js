@@ -100,8 +100,8 @@
     document.querySelectorAll("[data-reveal]").forEach(function (el) {
       el.classList.add("is-revealed");
     });
-    document.querySelectorAll(".whatido__word, .fill-statement__word").forEach(function (el) {
-      el.style.color = "#d0c5ab";
+    document.querySelectorAll("[data-fill]").forEach(function (el) {
+      el.classList.add("is-fill-lit");
     });
   }
 
@@ -227,15 +227,123 @@
     return new SplitText(target, vars);
   }
 
+  function resolveFillMode(el) {
+    var attr = (el.getAttribute("data-fill") || "").toLowerCase();
+    if (attr === "letters" || attr === "letter") return "letters";
+    if (attr === "words" || attr === "word") return "words";
+    var text = (el.getAttribute("aria-label") || el.textContent || "")
+      .replace(/\s+/g, " ")
+      .trim();
+    return text.split(/\s+/).filter(Boolean).length <= 1 ? "letters" : "words";
+  }
+
+  function getUnlitColor(el) {
+    var size = parseFloat(window.getComputedStyle(el).fontSize) || 16;
+    return size < 24 ? "rgba(208,197,171,.25)" : "#2a2822";
+  }
+
+  function prepareFill(el) {
+    if (!el || el.dataset.fillReady === "1") {
+      return {
+        el: el,
+        units: el ? el.querySelectorAll(".fill-unit") : [],
+        lit: el ? el.dataset.fillLit || window.getComputedStyle(el).color : "",
+        unlit: el ? el.dataset.fillUnlit || getUnlitColor(el) : "",
+      };
+    }
+
+    var mode = resolveFillMode(el);
+    var text = (el.getAttribute("aria-label") || el.textContent || "")
+      .replace(/\s+/g, " ")
+      .trim();
+    el.setAttribute("aria-label", text);
+
+    var lit = window.getComputedStyle(el).color;
+    var unlit = getUnlitColor(el);
+    el.dataset.fillLit = lit;
+    el.dataset.fillUnlit = unlit;
+    el.textContent = "";
+
+    var units = [];
+    if (mode === "letters") {
+      Array.from(text).forEach(function (ch) {
+        var span = document.createElement("span");
+        span.className = "fill-unit";
+        span.setAttribute("aria-hidden", "true");
+        if (ch === " ") {
+          span.textContent = "\u00A0";
+        } else {
+          span.textContent = ch;
+        }
+        el.appendChild(span);
+        units.push(span);
+      });
+    } else {
+      text.split(/\s+/).filter(Boolean).forEach(function (word, i, arr) {
+        var span = document.createElement("span");
+        span.className = "fill-unit";
+        if (el.classList.contains("whatido__statement")) {
+          span.className += " whatido__word";
+        }
+        if (el.classList.contains("fill-statement")) {
+          span.className += " fill-statement__word";
+        }
+        span.setAttribute("aria-hidden", "true");
+        span.textContent = word;
+        el.appendChild(span);
+        if (i < arr.length - 1) {
+          el.appendChild(document.createTextNode(" "));
+        }
+        units.push(span);
+      });
+    }
+
+    el.dataset.fillReady = "1";
+    gsap.set(units, { color: unlit });
+    return { el: el, units: units, lit: lit, unlit: unlit };
+  }
+
+  function scrubFill(prep, trigger) {
+    if (!prep || !prep.units || !prep.units.length) return;
+    gsap.to(prep.units, {
+      color: prep.lit,
+      ease: "none",
+      stagger: 0.04,
+      scrollTrigger: {
+        trigger: trigger || prep.el,
+        start: "top 80%",
+        end: "bottom 45%",
+        scrub: 1,
+      },
+    });
+  }
+
+  function timelineFill(tl, prep, startAt, duration) {
+    if (!tl || !prep || !prep.units || !prep.units.length) return;
+    var wordDur = duration / Math.max(prep.units.length, 1);
+    prep.units.forEach(function (unit, i) {
+      tl.to(
+        unit,
+        {
+          color: prep.lit,
+          duration: wordDur,
+          ease: "none",
+        },
+        startAt + i * wordDur
+      );
+    });
+  }
+
   /* ----------------------------------------------------------
-     3. Hero entrance + scroll (editorial)
+     3. Hero entrance + curtain (editorial)
      ---------------------------------------------------------- */
   function initHero() {
     var section = document.querySelector(".hero");
     if (!section) return;
 
     var bgImg = section.querySelector(".hero__bg-img");
-    var words = section.querySelector(".hero__words");
+    var scaleWrap = section.querySelector(".hero__scale");
+    var curtainDim = section.querySelector(".hero__curtain-dim");
     var chips = section.querySelectorAll(".hero__chip");
     var heading = section.querySelector(".hero__heading");
     var mobileStats = section.querySelector(".hero__mobile-stats");
@@ -244,6 +352,7 @@
     var bottom = section.querySelector(".hero__bottom");
     var navPill = document.getElementById("site-nav-pill");
     var wordEls = section.querySelectorAll("[data-split]");
+    var canCurtain = window.innerWidth >= 810;
 
     if (prefersReducedMotion) {
       if (bgImg) gsap.set(bgImg, { scale: 1 });
@@ -320,32 +429,48 @@
     tl.to([heading, mobileStats].filter(Boolean), { y: 0, opacity: 1, duration: 0.6, ease: "back.out(1.4)" }, 2.9);
     tl.to([topBar, bottom, navPill].filter(Boolean), { opacity: 1, duration: 0.8, ease: "power2.out" }, 3.1);
 
-    /* Scroll parallax — desktop */
-    if (window.innerWidth >= DESKTOP_MIN) {
-      if (words) {
-        gsap.to(words, {
-          y: -80,
-          opacity: 0.3,
-          ease: "none",
-          scrollTrigger: {
-            trigger: section,
-            start: "top top",
-            end: "bottom top",
-            scrub: 1,
-          },
-        });
+    /* Hero stays put; #what-i-do curtains over it (desktop + tablet) */
+    if (canCurtain) {
+      ScrollTrigger.create({
+        trigger: section,
+        start: "top top",
+        end: "bottom top",
+        pin: true,
+        pinSpacing: false,
+      });
+
+      if (scaleWrap) {
+        gsap.fromTo(
+          scaleWrap,
+          { scale: 1 },
+          {
+            scale: 0.95,
+            ease: "none",
+            scrollTrigger: {
+              trigger: section,
+              start: "top top",
+              end: "bottom top",
+              scrub: 1,
+            },
+          }
+        );
       }
-      if (bgImg) {
-        gsap.to(bgImg, {
-          y: 120,
-          ease: "none",
-          scrollTrigger: {
-            trigger: section,
-            start: "top top",
-            end: "bottom top",
-            scrub: 1,
-          },
-        });
+
+      if (curtainDim) {
+        gsap.fromTo(
+          curtainDim,
+          { opacity: 0 },
+          {
+            opacity: 1,
+            ease: "none",
+            scrollTrigger: {
+              trigger: section,
+              start: "top top",
+              end: "bottom top",
+              scrub: 1,
+            },
+          }
+        );
       }
     }
 
@@ -372,10 +497,11 @@
   }
 
   /* ----------------------------------------------------------
-     5. H2 line reveals
+     5. H2 line reveals (skip data-fill headings)
      ---------------------------------------------------------- */
   function initHeadings() {
-    document.querySelectorAll("h2:not(.work__heading)").forEach(function (h2) {
+    document.querySelectorAll("h2:not([data-fill])").forEach(function (h2) {
+      if (h2.querySelector("[data-fill]")) return;
       var split = splitCreate(h2, {
         type: "lines",
         mask: "lines",
@@ -413,42 +539,17 @@
     var section = document.querySelector(".whatido");
     var stage = document.querySelector(".whatido__stage");
     var statement = document.querySelector(".whatido__statement");
+    var layout = section ? section.querySelector(".whatido__layout") : null;
     if (!section || !stage || !statement) return;
 
-    var labelText =
-      statement.getAttribute("aria-label") || statement.textContent.trim();
-    statement.setAttribute("aria-label", labelText);
-
-    var words = labelText.split(/\s+/).filter(Boolean);
-    statement.textContent = "";
-    words.forEach(function (word) {
-      var span = document.createElement("span");
-      span.className = "whatido__word";
-      span.setAttribute("aria-hidden", "true");
-      span.textContent = word;
-      statement.appendChild(span);
-      statement.appendChild(document.createTextNode(" "));
-    });
-
-    var wordEls = statement.querySelectorAll(".whatido__word");
-    gsap.set(wordEls, { color: "#2a2822" });
+    var fill = prepareFill(statement);
 
     var canPin =
       window.innerWidth >= 810 &&
       !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     if (!canPin) {
-      gsap.to(wordEls, {
-        color: "#d0c5ab",
-        stagger: 0.04,
-        ease: "none",
-        scrollTrigger: {
-          trigger: section,
-          start: "top 75%",
-          end: "center 40%",
-          scrub: 1,
-        },
-      });
+      scrubFill(fill, section);
 
       var gridCards = section.querySelectorAll(".whatido__grid-card");
       if (gridCards.length) {
@@ -478,7 +579,7 @@
 
     var tl = gsap.timeline({
       scrollTrigger: {
-        trigger: stage,
+        trigger: section,
         start: "top top",
         end: "+=800%",
         pin: true,
@@ -487,19 +588,20 @@
       },
     });
 
-    var wordDur = fillDur / Math.max(wordEls.length, 1);
+    timelineFill(tl, fill, 0, fillDur);
 
-    wordEls.forEach(function (word, i) {
-      tl.to(
-        word,
+    if (layout) {
+      tl.fromTo(
+        layout,
+        { y: 0 },
         {
-          color: "#d0c5ab",
-          duration: wordDur,
+          y: "-18vh",
+          duration: flySpan,
           ease: "none",
         },
-        i * wordDur
+        fillDur
       );
-    });
+    }
 
     flies.forEach(function (fly, i) {
       var col = fly.getAttribute("data-col") || "";
@@ -530,36 +632,6 @@
     var section = document.querySelector(".work");
     if (!section) return;
 
-    var heading = section.querySelector(".work__heading");
-    if (heading) {
-      var text = heading.textContent;
-      heading.textContent = "";
-      Array.from(text).forEach(function (ch) {
-        var mask = document.createElement("span");
-        mask.className = "work__letter-mask";
-        mask.setAttribute("aria-hidden", "true");
-        var letter = document.createElement("span");
-        letter.className = "work__letter";
-        letter.textContent = ch;
-        mask.appendChild(letter);
-        heading.appendChild(mask);
-      });
-      heading.setAttribute("aria-label", text.trim());
-
-      var letters = heading.querySelectorAll(".work__letter");
-      gsap.from(letters, {
-        yPercent: 110,
-        duration: 0.85,
-        stagger: 0.03,
-        ease: "expo.out",
-        scrollTrigger: {
-          trigger: heading,
-          start: "top 85%",
-          once: true,
-        },
-      });
-    }
-
     var rows = gsap.utils.toArray(".work-row");
     var desktopStack = window.innerWidth >= 810 && !prefersReducedMotion;
 
@@ -568,8 +640,6 @@
       var main = row.querySelector(".work-row__main");
       var img = row.querySelector(".work-row__img, .work-row__video");
       var detail = row.querySelector(".work-row__detail");
-      var detailImg = row.querySelector(".work-row__detail-img");
-      var cta = row.querySelector(".work-row__cta");
       var panel = row.querySelector(".work-row__panel");
       var dim = row.querySelector(".work-row__dim");
       var infoBits = row.querySelectorAll(
@@ -579,7 +649,7 @@
       if (!desktopStack) {
         if (main) gsap.set(main, { clipPath: "inset(100% 0 0 0)" });
         if (img) gsap.set(img, { scale: 1.2, transformOrigin: "center center" });
-        if (detail) gsap.set(detail, { y: 120 });
+        if (detail) gsap.set(detail, { y: 40, opacity: 0 });
         if (infoBits.length) gsap.set(infoBits, { y: 40, opacity: 0 });
 
         var reveal = gsap.timeline({
@@ -601,7 +671,11 @@
           reveal.to(img, { scale: 1, duration: 1.2, ease: "expo.out" }, 0);
         }
         if (detail) {
-          reveal.to(detail, { y: 0, duration: 0.9, ease: "expo.out" }, 0.25);
+          reveal.to(
+            detail,
+            { y: 0, opacity: 1, duration: 0.9, ease: "expo.out" },
+            0.25
+          );
         }
         if (infoBits.length) {
           reveal.to(
@@ -616,34 +690,56 @@
             0.55
           );
         }
-      } else if (index < rows.length - 1 && panel) {
-        var next = rows[index + 1];
-        gsap.fromTo(
-          panel,
-          { scale: 1 },
-          {
-            scale: 0.92,
-            ease: "none",
-            scrollTrigger: {
-              trigger: next,
-              start: "top bottom",
-              end: "top top",
-              scrub: 1,
-            },
-          }
-        );
-        if (dim) {
+      } else {
+        if (index < rows.length - 1 && panel) {
+          var next = rows[index + 1];
           gsap.fromTo(
-            dim,
-            { opacity: 0 },
+            panel,
+            { scale: 1 },
             {
-              opacity: 1,
+              scale: 0.92,
               ease: "none",
               scrollTrigger: {
                 trigger: next,
                 start: "top bottom",
                 end: "top top",
                 scrub: 1,
+              },
+            }
+          );
+          if (dim) {
+            gsap.fromTo(
+              dim,
+              { opacity: 0 },
+              {
+                opacity: 1,
+                ease: "none",
+                scrollTrigger: {
+                  trigger: next,
+                  start: "top bottom",
+                  end: "top top",
+                  scrub: 1,
+                },
+              }
+            );
+          }
+        }
+
+        if (detail && main) {
+          gsap.fromTo(
+            detail,
+            { y: 0 },
+            {
+              y: function () {
+                return Math.max(0, main.offsetHeight - detail.offsetHeight);
+              },
+              ease: "none",
+              scrollTrigger: {
+                trigger: row,
+                start: "top top",
+                end: "bottom top",
+                scrub: 1,
+                invalidateOnRefresh: true,
               },
             }
           );
@@ -722,45 +818,6 @@
           });
         });
       }
-
-      if (cta && media) {
-        if (hasFinePointer && !isMobile) {
-          gsap.set(cta, {
-            xPercent: -50,
-            yPercent: -50,
-            x: 0,
-            y: 0,
-            scale: 0.6,
-            opacity: 0,
-          });
-          var xTo = gsap.quickTo(cta, "x", { duration: 0.4, ease: "power3" });
-          var yTo = gsap.quickTo(cta, "y", { duration: 0.4, ease: "power3" });
-
-          media.addEventListener("mouseenter", function () {
-            gsap.to(cta, {
-              scale: 1,
-              opacity: 1,
-              duration: 0.35,
-              ease: "power3.out",
-            });
-          });
-          media.addEventListener("mousemove", function (e) {
-            var r = media.getBoundingClientRect();
-            xTo(e.clientX - r.left);
-            yTo(e.clientY - r.top);
-          });
-          media.addEventListener("mouseleave", function () {
-            gsap.to(cta, {
-              scale: 0.6,
-              opacity: 0,
-              duration: 0.3,
-              ease: "power3.in",
-            });
-          });
-        } else {
-          gsap.set(cta, { clearProps: "transform", opacity: 1, scale: 1 });
-        }
-      }
     });
   }
 
@@ -820,37 +877,15 @@
   }
 
   /* ----------------------------------------------------------
-     Shared statement color-fill
+     Shared scroll color-fill (data-fill)
      ---------------------------------------------------------- */
-  function initFillStatements() {
-    document.querySelectorAll("[data-fill-statement]").forEach(function (statement) {
-      var labelText =
-        statement.getAttribute("aria-label") || statement.textContent.trim();
-      statement.setAttribute("aria-label", labelText);
-      var words = labelText.split(/\s+/).filter(Boolean);
-      statement.textContent = "";
-      words.forEach(function (word) {
-        var span = document.createElement("span");
-        span.className = "fill-statement__word";
-        span.setAttribute("aria-hidden", "true");
-        span.textContent = word;
-        statement.appendChild(span);
-        statement.appendChild(document.createTextNode(" "));
-      });
-
-      var wordEls = statement.querySelectorAll(".fill-statement__word");
-      gsap.set(wordEls, { color: "#2a2822" });
-      gsap.to(wordEls, {
-        color: "#d0c5ab",
-        ease: "none",
-        stagger: 0.04,
-        scrollTrigger: {
-          trigger: statement,
-          start: "top 75%",
-          end: "center 40%",
-          scrub: 1,
-        },
-      });
+  function initTextFill() {
+    var pinResults = window.innerWidth >= 810;
+    document.querySelectorAll("[data-fill]").forEach(function (el) {
+      if (el.classList.contains("whatido__statement")) return;
+      if (el.classList.contains("results__bg-word")) return;
+      if (pinResults && el.classList.contains("results-card__text")) return;
+      scrubFill(prepareFill(el));
     });
   }
 
@@ -862,25 +897,18 @@
     var stage = document.querySelector(".results__stage");
     if (!section || !stage) return;
 
-    var words = section.querySelectorAll(".results__bg-word");
-    if (words.length) {
-      gsap.from(words, {
-        yPercent: 110,
-        duration: 0.9,
-        stagger: 0.04,
-        ease: "expo.out",
-        scrollTrigger: {
-          trigger: stage,
-          start: "top 80%",
-          once: true,
-        },
-      });
-    }
+    var bgWords = gsap.utils.toArray(section.querySelectorAll(".results__bg-word"));
+    var bgFills = bgWords.map(function (word) {
+      return prepareFill(word);
+    });
 
     var cards = gsap.utils.toArray(".results-card");
     if (!cards.length) return;
 
     if (window.innerWidth < 810) {
+      bgFills.forEach(function (prep) {
+        scrubFill(prep, stage);
+      });
       gsap.set(cards, { clearProps: "transform" });
       gsap.from(cards, {
         y: 40,
@@ -919,8 +947,23 @@
       },
     });
 
+    var fillDur = 1.2;
+    var allUnits = [];
+    var fillLit = bgFills[0] ? bgFills[0].lit : "#d0c5ab";
+    bgFills.forEach(function (prep) {
+      prep.units.forEach(function (unit) {
+        allUnits.push(unit);
+      });
+    });
+    if (allUnits.length) {
+      timelineFill(tl, { units: allUnits, lit: fillLit }, 0, fillDur);
+    }
+
     cards.forEach(function (card, i) {
-      var at = i * 1.1;
+      var at = fillDur * 0.55 + i * 1.1;
+      var textEl = card.querySelector(".results-card__text[data-fill]");
+      var textFill = textEl ? prepareFill(textEl) : null;
+
       tl.to(
         card,
         {
@@ -931,6 +974,9 @@
         },
         at
       );
+      if (textFill) {
+        timelineFill(tl, textFill, at, 0.7);
+      }
       if (i > 0) {
         tl.to(
           cards[i - 1],
@@ -966,58 +1012,14 @@
         }
       );
     });
-
-    document.querySelectorAll(".about-part--start .about-part__body").forEach(function (text) {
-      gsap.from(text, {
-        y: 40,
-        opacity: 0,
-        duration: 0.7,
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: text,
-          start: "top 85%",
-          once: true,
-        },
-      });
-    });
   }
 
   /* ----------------------------------------------------------
-     CTA scatter + heading
+     CTA scatter
      ---------------------------------------------------------- */
   function initCta() {
     var section = document.querySelector(".cta");
     if (!section) return;
-
-    var heading = section.querySelector(".cta__heading");
-    if (heading) {
-      var text = heading.textContent.trim();
-      heading.setAttribute("aria-label", text);
-      heading.textContent = "";
-      text.split(/\s+/).forEach(function (word) {
-        var mask = document.createElement("span");
-        mask.className = "cta__word-mask";
-        mask.setAttribute("aria-hidden", "true");
-        var span = document.createElement("span");
-        span.className = "cta__word";
-        span.textContent = word;
-        mask.appendChild(span);
-        heading.appendChild(mask);
-        heading.appendChild(document.createTextNode(" "));
-      });
-
-      gsap.from(heading.querySelectorAll(".cta__word"), {
-        yPercent: 110,
-        duration: 0.85,
-        stagger: 0.04,
-        ease: "expo.out",
-        scrollTrigger: {
-          trigger: heading,
-          start: "top 85%",
-          once: true,
-        },
-      });
-    }
 
     section.querySelectorAll(".cta__shot").forEach(function (shot) {
       if (window.getComputedStyle(shot).display === "none") return;
@@ -1140,8 +1142,8 @@
       initHeadings();
       initWhatIDo();
       initWork();
-      initFillStatements();
       initResults();
+      initTextFill();
       initAbout();
       initCta();
       initReveals();

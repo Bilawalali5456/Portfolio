@@ -156,71 +156,74 @@
 
     <!-- HERO -->
     <section class="hero" id="home" aria-labelledby="hero-heading">
-      <div class="hero__bg" aria-hidden="true">
-        <img
-            src="assets/images/hero-portrait.webp"
-            alt=""
-            class="hero__bg-img"
-            width="2400"
-            height="1350"
-            loading="eager"
-            fetchpriority="high"
-            decoding="async"
-          >
-        <div class="hero__bg-overlay"></div>
-      </div>
-
-      <div class="hero__top">
-        <p class="hero__brand">BILAWAL ALI</p>
-        <a class="hero__email" href="mailto:bilawalali5456@gmail.com">bilawalali5456@gmail.com</a>
-      </div>
-
-      <div class="hero__words">
-        <div class="hero__row hero__row--1" aria-hidden="true">
-          <span class="hero__word" data-split>WEBSITES</span>
-          <span class="hero__chip">
-            <span class="hero__chip-text">15+ PROJECTS SHIPPED</span>
-          </span>
-          <span class="hero__word hero__word--amp" data-split>&amp;</span>
+      <div class="hero__curtain-dim" aria-hidden="true"></div>
+      <div class="hero__scale">
+        <div class="hero__bg" aria-hidden="true">
+          <img
+              src="assets/images/hero-portrait.webp"
+              alt=""
+              class="hero__bg-img"
+              width="2400"
+              height="1350"
+              loading="eager"
+              fetchpriority="high"
+              decoding="async"
+            >
+          <div class="hero__bg-overlay"></div>
         </div>
 
-        <div class="hero__row hero__row--2">
-          <div class="hero__intro">
-            <h1 class="hero__heading" id="hero-heading">
-              Hey, I'm Bilawal Ali — a React, WordPress &amp; Shopify developer building fast sites and stores that sell.
-            </h1>
-            <p class="hero__mobile-stats" aria-hidden="true">15+ PROJECTS SHIPPED · 20+ COUNTRIES REACHED</p>
+        <div class="hero__top">
+          <p class="hero__brand">BILAWAL ALI</p>
+          <a class="hero__email" href="mailto:bilawalali5456@gmail.com">bilawalali5456@gmail.com</a>
+        </div>
+
+        <div class="hero__words">
+          <div class="hero__row hero__row--1" aria-hidden="true">
+            <span class="hero__word" data-split>WEBSITES</span>
+            <span class="hero__chip">
+              <span class="hero__chip-text">15+ PROJECTS SHIPPED</span>
+            </span>
+            <span class="hero__word hero__word--amp" data-split>&amp;</span>
           </div>
-          <span class="hero__word hero__word--stores" data-split aria-hidden="true">STORES</span>
+
+          <div class="hero__row hero__row--2">
+            <div class="hero__intro">
+              <h1 class="hero__heading" id="hero-heading">
+                Hey, I'm Bilawal Ali — a React, WordPress &amp; Shopify developer building fast sites and stores that sell.
+              </h1>
+              <p class="hero__mobile-stats" aria-hidden="true">15+ PROJECTS SHIPPED · 20+ COUNTRIES REACHED</p>
+            </div>
+            <span class="hero__word hero__word--stores" data-split aria-hidden="true">STORES</span>
+          </div>
+
+          <div class="hero__row hero__row--3" aria-hidden="true">
+            <span class="hero__word" data-split>THAT SELL</span>
+            <span class="hero__chip">
+              <span class="hero__chip-text">20+ COUNTRIES REACHED</span>
+            </span>
+            <span class="hero__arrow">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none" aria-hidden="true">
+                <path d="M60 12v78M32 64l28 28 28-28" stroke="currentColor" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+          </div>
         </div>
 
-        <div class="hero__row hero__row--3" aria-hidden="true">
-          <span class="hero__word" data-split>THAT SELL</span>
-          <span class="hero__chip">
-            <span class="hero__chip-text">20+ COUNTRIES REACHED</span>
-          </span>
-          <span class="hero__arrow">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none" aria-hidden="true">
-              <path d="M60 12v78M32 64l28 28 28-28" stroke="currentColor" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </span>
+        <div class="hero__bottom">
+          <time class="hero__clock" id="hero-clock" datetime="">Lahore, PK — --:-- --</time>
+
+          <nav class="hero__nav-pill" id="site-nav-pill" aria-label="Primary navigation">
+            <a href="#work" class="hero__nav-link">WORK</a>
+            <a href="#about" class="hero__nav-link">ABOUT</a>
+            <a href="#faq" class="hero__nav-link">FAQ</a>
+            <a href="#contact" class="hero__nav-cta">
+              <span class="hero__nav-badge" aria-hidden="true">BA</span>
+              LET'S TALK
+            </a>
+          </nav>
+
+          <p class="hero__scroll-hint">Scroll</p>
         </div>
-      </div>
-
-      <div class="hero__bottom">
-        <time class="hero__clock" id="hero-clock" datetime="">Lahore, PK — --:-- --</time>
-
-        <nav class="hero__nav-pill" id="site-nav-pill" aria-label="Primary navigation">
-          <a href="#work" class="hero__nav-link">WORK</a>
-          <a href="#about" class="hero__nav-link">ABOUT</a>
-          <a href="#faq" class="hero__nav-link">FAQ</a>
-          <a href="#contact" class="hero__nav-cta">
-            <span class="hero__nav-badge" aria-hidden="true">BA</span>
-            LET'S TALK
-          </a>
-        </nav>
-
-        <p class="hero__scroll-hint">Scroll</p>
       </div>
     </section>
 
@@ -232,6 +235,7 @@
           <div class="whatido__copy">
             <p
               class="whatido__statement"
+              data-fill
               aria-label="Fast websites, Shopify stores and React apps, built for brands that want every visitor to count."
             >Fast websites, Shopify stores and React apps, built for brands that want every visitor to count.</p>
             <p class="whatido__trust">Trusted by brands selling in 20+ countries.</p>
@@ -364,7 +368,7 @@
     <section class="work" id="work" aria-labelledby="work-heading">
       <div class="work__inner">
         <header class="work__header">
-          <h2 class="work__heading" id="work-heading">FEATURED.</h2>
+          <h2 class="work__heading" id="work-heading" data-fill>FEATURED.</h2>
           <p class="work__eyebrow">[ CASE STUDIES ]</p>
         </header>
 
@@ -402,8 +406,8 @@
                     loading="lazy"
                     decoding="async"
                   >
+                  <span class="work-row__cta">VIEW CASE <span class="work-row__cta-arrow" aria-hidden="true">→</span></span>
                 </div>
-                <span class="work-row__cta">VIEW CASE <span class="work-row__cta-arrow" aria-hidden="true">→</span></span>
               </a>
               <div class="work-row__info">
                 <p class="work-row__num" aria-hidden="true">1</p>
@@ -449,8 +453,8 @@
                     loading="lazy"
                     decoding="async"
                   >
+                  <span class="work-row__cta">VIEW CASE <span class="work-row__cta-arrow" aria-hidden="true">→</span></span>
                 </div>
-                <span class="work-row__cta">VIEW CASE <span class="work-row__cta-arrow" aria-hidden="true">→</span></span>
               </a>
               <div class="work-row__info">
                 <p class="work-row__num" aria-hidden="true">2</p>
@@ -496,8 +500,8 @@
                     loading="lazy"
                     decoding="async"
                   >
+                  <span class="work-row__cta">VIEW CASE <span class="work-row__cta-arrow" aria-hidden="true">→</span></span>
                 </div>
-                <span class="work-row__cta">VIEW CASE <span class="work-row__cta-arrow" aria-hidden="true">→</span></span>
               </a>
               <div class="work-row__info">
                 <p class="work-row__num" aria-hidden="true">3</p>
@@ -543,8 +547,8 @@
                     loading="lazy"
                     decoding="async"
                   >
+                  <span class="work-row__cta">VIEW CASE <span class="work-row__cta-arrow" aria-hidden="true">→</span></span>
                 </div>
-                <span class="work-row__cta">VIEW CASE <span class="work-row__cta-arrow" aria-hidden="true">→</span></span>
               </a>
               <div class="work-row__info">
                 <p class="work-row__num" aria-hidden="true">4</p>
@@ -562,9 +566,9 @@
     <section class="results" id="results" aria-labelledby="results-heading">
       <div class="results__stage">
         <h2 class="results__bg" id="results-heading" aria-label="Results speak louder">
-          <span class="results__bg-line"><span class="results__bg-word">RESULTS</span></span>
-          <span class="results__bg-line"><span class="results__bg-word">SPEAK</span></span>
-          <span class="results__bg-line"><span class="results__bg-word">LOUDER</span></span>
+          <span class="results__bg-line"><span class="results__bg-word" data-fill="letters">RESULTS</span></span>
+          <span class="results__bg-line"><span class="results__bg-word" data-fill="letters">SPEAK</span></span>
+          <span class="results__bg-line"><span class="results__bg-word" data-fill="letters">LOUDER</span></span>
         </h2>
 
         <div class="results__cards" aria-live="polite">
@@ -583,7 +587,7 @@
           -->
           <article class="results-card" data-type="result" data-rot="-2">
             <p class="results-card__num" aria-hidden="true">1</p>
-            <p class="results-card__text">A Shopify store that now sells supplements in 20+ countries, with multi-currency checkout and a fast mobile experience.</p>
+            <p class="results-card__text" data-fill>A Shopify store that now sells supplements in 20+ countries, with multi-currency checkout and a fast mobile experience.</p>
             <div class="results-card__meta">
               <img class="results-card__thumb" src="assets/projects/vyva-nutrition-square.webp" alt="" width="1200" height="1200" loading="lazy" decoding="async">
               <div>
@@ -595,7 +599,7 @@
 
           <article class="results-card" data-type="result" data-rot="1.5">
             <p class="results-card__num" aria-hidden="true">2</p>
-            <p class="results-card__text">A construction firm's services organised the way homeowners search: one page for every plot size, from 8 Marla to 2 Kanal.</p>
+            <p class="results-card__text" data-fill>A construction firm's services organised the way homeowners search: one page for every plot size, from 8 Marla to 2 Kanal.</p>
             <div class="results-card__meta">
               <img class="results-card__thumb" src="assets/projects/adforce-builders-square.webp" alt="" width="1200" height="1200" loading="lazy" decoding="async">
               <div>
@@ -607,7 +611,7 @@
 
           <article class="results-card" data-type="result" data-rot="-1">
             <p class="results-card__num" aria-hidden="true">3</p>
-            <p class="results-card__text">A legal-tech site with an interactive savings calculator that turns law firms into clients.</p>
+            <p class="results-card__text" data-fill>A legal-tech site with an interactive savings calculator that turns law firms into clients.</p>
             <div class="results-card__meta">
               <img class="results-card__thumb" src="assets/projects/appealmate-square.webp" alt="" width="1200" height="1200" loading="lazy" decoding="async">
               <div>
@@ -628,7 +632,7 @@
           <p class="section-label" id="about-label">[ ABOUT ]</p>
           <p
             class="fill-statement"
-            data-fill-statement
+            data-fill
             aria-label="I'm Bilawal, a web developer from Lahore building fast websites and stores for brands around the world."
           >I'm Bilawal, a web developer from Lahore building fast websites and stores for brands around the world.</p>
         </div>
@@ -648,7 +652,7 @@
               decoding="async"
             >
           </figure>
-          <p class="about-part__body">
+          <p class="about-part__body" data-fill>
             I started by taking websites apart to see how they worked. That curiosity turned into building them: first hand-coded pages, then WordPress themes, Shopify stores and React apps for real clients.
           </p>
         </div>
@@ -660,7 +664,7 @@
           <div class="about-part__copy">
             <p
               class="fill-statement"
-              data-fill-statement
+              data-fill
               aria-label="Today my focus is clear: websites, stores and web apps for brands that want them to load fast and sell."
             >Today my focus is clear: websites, stores and web apps for brands that want them to load fast and sell.</p>
           </div>
@@ -730,7 +734,7 @@
       <div class="faq__layout">
         <header class="faq__intro">
           <p class="section-label">[ FAQ ]</p>
-          <h2 class="faq__heading" id="faq-heading">FAQ.</h2>
+          <h2 class="faq__heading" id="faq-heading" data-fill>FAQ.</h2>
         </header>
 
         <div class="faq__list">
@@ -830,7 +834,7 @@
       </div>
 
       <div class="cta__content">
-        <h2 class="cta__heading" id="cta-heading">Let's build something together.</h2>
+        <h2 class="cta__heading" id="cta-heading" data-fill>Let's build something together.</h2>
         <div class="cta__actions">
           <a
             class="hero__nav-cta cta__talk"
@@ -994,7 +998,7 @@
           <span class="site-footer__logo-line"><span class="site-footer__logo-word">ALI</span></span>
         </p>
         <div class="site-footer__ready">
-          <p class="site-footer__ready-title">Ready to start?</p>
+          <p class="site-footer__ready-title" data-fill>Ready to start?</p>
           <div class="site-footer__contact-line">
             <a href="mailto:bilawalali5456@gmail.com">bilawalali5456@gmail.com</a>
             <button type="button" class="site-footer__copy" data-copy="bilawalali5456@gmail.com" aria-label="Copy email">Copy</button>
