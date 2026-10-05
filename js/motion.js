@@ -83,58 +83,14 @@
   }
 
   function resolveWorkMedia() {
-    var jobs = [];
-    document.querySelectorAll(".work-row__main").forEach(function (main) {
-      var img = main.querySelector(".work-row__img");
-      if (!img) return;
-      var videoUrl = img.getAttribute("data-video");
-      var poster = img.getAttribute("data-poster") || img.getAttribute("src");
-      var fallback = img.getAttribute("data-fallback");
-
-      jobs.push(
-        probeVideo(videoUrl).then(function (okVideo) {
-          if (okVideo) {
-            var video = document.createElement("video");
-            video.className = "work-row__video";
-            video.src = videoUrl;
-            video.muted = true;
-            video.loop = true;
-            video.playsInline = true;
-            video.autoplay = true;
-            video.setAttribute("playsinline", "");
-            video.setAttribute("muted", "");
-            video.poster = poster;
-            img.replaceWith(video);
-            video.play().catch(function () {});
-            return;
-          }
-          noteMissing(videoUrl);
-          return probeImage(poster).then(function (okPoster) {
-            if (!okPoster && fallback) {
-              noteMissing(poster, fallback);
-              img.src = fallback;
-              img.removeAttribute("data-fallback");
-            } else if (!okPoster) {
-              noteMissing(poster);
-            } else {
-              wireImageFallback(img);
-            }
-          });
-        })
-      );
-    });
-
-    document.querySelectorAll(".work-row__detail-img").forEach(function (img) {
-      wireImageFallback(img);
-    });
-
-    return Promise.all(jobs);
+    /* Cover/detail assets are wired directly in HTML — no video/fallback probe. */
+    return Promise.resolve();
   }
 
   function wireHomepageFallbacks() {
     document
       .querySelectorAll(
-        ".whatido__fly img[data-fallback], .whatido__grid-card img[data-fallback], .about-photo img[data-fallback]"
+        ".whatido__fly img[data-fallback], .whatido__grid-card img[data-fallback], .about-photo img[data-fallback], .work-row img[data-fallback]"
       )
       .forEach(wireImageFallback);
     return resolveWorkMedia();
