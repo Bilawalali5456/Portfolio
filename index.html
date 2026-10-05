@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Bilawal Ali is a freelance web developer in Lahore building React apps, REST APIs, and fast WordPress & Shopify stores for brands worldwide.">
   <meta name="author" content="Bilawal Ali">
-  <meta name="theme-color" content="#0f1115">
+  <meta name="theme-color" content="#11100d">
 
   <title>Bilawal Ali — Freelance React, WordPress & Shopify Developer</title>
   <link rel="canonical" href="https://bilawalali.vercel.app/">
@@ -18,7 +18,7 @@
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
 
   <!-- Open Graph -->
   <meta property="og:type" content="website">
@@ -121,13 +121,10 @@
   <!-- Skip link for keyboard users -->
   <a href="#main" class="skip-link">Skip to main content</a>
 
-  <!-- ============================================================
-       SITE HEADER & NAVIGATION
-       ============================================================ -->
-  <header class="site-header" id="site-header">
-    <nav class="site-nav" aria-label="Primary navigation">
+  <!-- Mobile-only header -->
+  <header class="site-header site-header--mobile" id="site-header">
+    <nav class="site-nav" aria-label="Mobile navigation">
       <a href="#home" class="site-logo" aria-label="Bilawal Ali — Home">
-        <span class="site-logo__mark" aria-hidden="true"></span>
         <span class="site-logo__text">Bilawal Ali</span>
       </a>
 
@@ -154,8 +151,6 @@
     </nav>
   </header>
 
-
-  
   <!-- ============================================================
        MAIN CONTENT
        ============================================================ -->
@@ -163,78 +158,70 @@
 
     <!-- HERO -->
     <section class="hero" id="home" aria-labelledby="hero-heading">
-      <div class="hero__inner">
-        <div class="hero__content">
-          <div class="hero__meta">
-            <span class="hero__badge">
-              <span class="hero__badge-dot" aria-hidden="true"></span>
-              Available for new projects
-            </span>
-            <time class="hero__clock" id="hero-clock" datetime="">Lahore, PK — --:-- --</time>
-          </div>
+      <div class="hero__bg" aria-hidden="true">
+        <img
+          src="assets/images/1.JPG"
+          alt=""
+          class="hero__bg-img"
+          width="1920"
+          height="1080"
+          loading="eager"
+          fetchpriority="high"
+        >
+        <div class="hero__bg-overlay"></div>
+      </div>
 
-          <h1 class="hero__heading" id="hero-heading">
-            <span class="hero__name">Bilawal Ali<span class="hero__name-dot">.</span></span>
-            <span class="hero__role">
-              <span class="hero__role-accent">React</span>, WordPress &amp; Shopify Developer
-            </span>
-          </h1>
+      <div class="hero__top">
+        <p class="hero__brand">BILAWAL ALI</p>
+        <a class="hero__email" href="mailto:bilawalali5456@gmail.com">bilawalali5456@gmail.com</a>
+      </div>
 
-          <p class="hero__tagline">
-            I build fast websites, Shopify stores, React apps, and API integrations for brands that want to grow.
-          </p>
-
-          <nav class="hero__actions" aria-label="Hero call to action">
-            <a href="#projects" class="hero__btn hero__btn--primary">
-              See my work
-              <svg class="btn-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <line x1="5" y1="12" x2="19" y2="12"/>
-                <polyline points="12 5 19 12 12 19"/>
-              </svg>
-            </a>
-            <a href="#contact" class="hero__btn hero__btn--outline">Get in touch</a>
-            <a
-              href="https://wa.me/923087224354"
-              class="hero__btn hero__btn--link"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Chat on WhatsApp
-            </a>
-          </nav>
+      <div class="hero__words">
+        <div class="hero__row hero__row--1" aria-hidden="true">
+          <span class="hero__word" data-split>WEBSITES</span>
+          <span class="hero__chip">
+            <span class="hero__chip-text">15+ PROJECTS SHIPPED</span>
+          </span>
+          <span class="hero__word hero__word--amp" data-split>&amp;</span>
         </div>
 
-        <div class="hero__media">
-          <figure class="hero__portrait">
-            <img
-              src="assets/images/1.JPG"
-              alt="Portrait of Bilawal Ali"
-              class="hero__portrait-img"
-              width="640"
-              height="800"
-              loading="eager"
-              fetchpriority="high"
-            >
-            <aside class="hero__float hero__float--clients">
-              <p class="hero__float-label">Live client websites</p>
-              <p class="hero__float-value">6+</p>
-              <p class="hero__float-meta">E-commerce · Healthcare · Legal · Construction</p>
-            </aside>
-            <aside class="hero__float hero__float--countries">
-              <p class="hero__float-label">Shipped to</p>
-              <p class="hero__float-value">20+ countries</p>
-            </aside>
-          </figure>
+        <div class="hero__row hero__row--2">
+          <div class="hero__intro">
+            <h1 class="hero__heading" id="hero-heading">
+              Hey, I'm Bilawal Ali — a React, WordPress &amp; Shopify developer building fast sites and stores that sell.
+            </h1>
+            <p class="hero__mobile-stats" aria-hidden="true">15+ PROJECTS SHIPPED · 20+ COUNTRIES REACHED</p>
+          </div>
+          <span class="hero__word hero__word--stores" data-split aria-hidden="true">STORES</span>
+        </div>
+
+        <div class="hero__row hero__row--3" aria-hidden="true">
+          <span class="hero__word" data-split>THAT SELL</span>
+          <span class="hero__chip">
+            <span class="hero__chip-text">20+ COUNTRIES REACHED</span>
+          </span>
+          <span class="hero__arrow">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none" aria-hidden="true">
+              <path d="M60 12v78M32 64l28 28 28-28" stroke="currentColor" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
         </div>
       </div>
 
-      <div class="hero__marquee" aria-hidden="true">
-        <div class="hero__marquee-track">
-          <span class="hero__marquee-text">REACT <span class="hero__marquee-dot">·</span> WORDPRESS <span class="hero__marquee-dot">·</span> SHOPIFY <span class="hero__marquee-dot">·</span> APIs <span class="hero__marquee-dot">·</span></span>
-          <span class="hero__marquee-text">REACT <span class="hero__marquee-dot">·</span> WORDPRESS <span class="hero__marquee-dot">·</span> SHOPIFY <span class="hero__marquee-dot">·</span> APIs <span class="hero__marquee-dot">·</span></span>
-          <span class="hero__marquee-text">REACT <span class="hero__marquee-dot">·</span> WORDPRESS <span class="hero__marquee-dot">·</span> SHOPIFY <span class="hero__marquee-dot">·</span> APIs <span class="hero__marquee-dot">·</span></span>
-          <span class="hero__marquee-text">REACT <span class="hero__marquee-dot">·</span> WORDPRESS <span class="hero__marquee-dot">·</span> SHOPIFY <span class="hero__marquee-dot">·</span> APIs <span class="hero__marquee-dot">·</span></span>
-        </div>
+      <div class="hero__bottom">
+        <time class="hero__clock" id="hero-clock" datetime="">Lahore, PK — --:-- --</time>
+
+        <nav class="hero__nav-pill" id="site-nav-pill" aria-label="Primary navigation">
+          <a href="#projects" class="hero__nav-link">WORK</a>
+          <a href="#services" class="hero__nav-link">SERVICES</a>
+          <a href="#about" class="hero__nav-link">ABOUT</a>
+          <a href="#contact" class="hero__nav-cta">
+            <span class="hero__nav-badge" aria-hidden="true">BA</span>
+            LET'S TALK
+          </a>
+        </nav>
+
+        <p class="hero__scroll-hint">Scroll</p>
       </div>
     </section>
 

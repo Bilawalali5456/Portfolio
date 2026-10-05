@@ -146,185 +146,140 @@
   }
 
   /* ----------------------------------------------------------
-     3. Hero entrance + scroll
+     3. Hero entrance + scroll (editorial)
      ---------------------------------------------------------- */
   function initHero() {
-    var name = document.querySelector(".hero__name");
-    var role = document.querySelector(".hero__role");
-    var tagline = document.querySelector(".hero__tagline");
-    var actions = document.querySelector(".hero__actions");
-    var badge = document.querySelector(".hero__badge");
-    var clock = document.querySelector(".hero__clock");
-    var portrait = document.querySelector(".hero__portrait");
-    var content = document.querySelector(".hero__content");
+    var section = document.querySelector(".hero");
+    if (!section) return;
 
-    if (!name) return;
+    var bgImg = section.querySelector(".hero__bg-img");
+    var words = section.querySelector(".hero__words");
+    var chips = section.querySelectorAll(".hero__chip");
+    var heading = section.querySelector(".hero__heading");
+    var mobileStats = section.querySelector(".hero__mobile-stats");
+    var arrow = section.querySelector(".hero__arrow");
+    var topBar = section.querySelector(".hero__top");
+    var bottom = section.querySelector(".hero__bottom");
+    var navPill = document.getElementById("site-nav-pill");
+    var wordEls = section.querySelectorAll("[data-split]");
 
-    gsap.set([badge, clock, role, tagline, actions].filter(Boolean), {
-      opacity: 0,
-      y: 28,
+    if (prefersReducedMotion) {
+      if (bgImg) gsap.set(bgImg, { scale: 1 });
+      return;
+    }
+
+    /* Letter split with overflow masks */
+    wordEls.forEach(function (word) {
+      var text = word.textContent;
+      word.textContent = "";
+      var chars = Array.from(text);
+      chars.forEach(function (ch) {
+        var mask = document.createElement("span");
+        mask.className = "hero__letter-mask";
+        mask.style.overflow = "hidden";
+        mask.style.display = "inline-block";
+        mask.style.verticalAlign = "top";
+        var letter = document.createElement("span");
+        letter.className = "hero__letter";
+        letter.style.display = "inline-block";
+        letter.textContent = ch;
+        mask.appendChild(letter);
+        word.appendChild(mask);
+      });
     });
-    if (portrait) {
-      gsap.set(portrait, {
-        clipPath: "inset(100% 0 0 0)",
-        scale: 1.15,
-        transformOrigin: "center center",
-      });
+
+    var row1Letters = section.querySelectorAll(".hero__row--1 .hero__word:not(.hero__word--amp) .hero__letter");
+    var ampLetters = section.querySelectorAll(".hero__word--amp .hero__letter");
+    var row2Letters = section.querySelectorAll(".hero__row--2 .hero__letter");
+    var row3Letters = section.querySelectorAll(".hero__row--3 .hero__word .hero__letter");
+
+    if (bgImg) gsap.set(bgImg, { scale: 1.12, transformOrigin: "center center" });
+    gsap.set([].concat(
+      Array.from(row1Letters),
+      Array.from(ampLetters),
+      Array.from(row2Letters),
+      Array.from(row3Letters)
+    ), { yPercent: 110 });
+    gsap.set(chips, { y: -150, opacity: 0 });
+    gsap.set([heading, mobileStats].filter(Boolean), { y: 70, opacity: 0 });
+    if (arrow) gsap.set(arrow, { opacity: 0, y: 20 });
+    gsap.set([topBar, bottom].filter(Boolean), { opacity: 0 });
+
+    var tl = gsap.timeline({ defaults: { ease: "expo.out" } });
+
+    if (bgImg) {
+      tl.to(bgImg, { scale: 1, duration: 2.6, ease: "expo.out" }, 0);
     }
 
-    var nameSplit = splitCreate(name, {
-      type: "chars",
-      mask: "chars",
-      charsClass: "hero-char",
-    });
-
-    var tl = gsap.timeline({ defaults: { ease: "power3.out" } });
-
-    if (nameSplit && nameSplit.chars) {
-      gsap.set(nameSplit.chars, { yPercent: 110 });
-      tl.to(nameSplit.chars, {
-        yPercent: 0,
-        duration: 0.9,
-        stagger: 0.03,
-      });
-    } else {
-      gsap.set(name, { opacity: 1, y: 0 });
+    if (row1Letters.length) {
+      tl.to(row1Letters, { yPercent: 0, duration: 0.9, stagger: 0.035 }, 0.15);
+    }
+    if (ampLetters.length) {
+      tl.to(ampLetters, { yPercent: 0, duration: 0.9, stagger: 0.035 }, 0.5);
+    }
+    if (row2Letters.length) {
+      tl.to(row2Letters, { yPercent: 0, duration: 0.9, stagger: 0.035 }, 0.6);
+    }
+    if (row3Letters.length) {
+      tl.to(row3Letters, { yPercent: 0, duration: 0.9, stagger: 0.035 }, 0.95);
+    }
+    if (arrow) {
+      tl.to(arrow, { opacity: 1, y: 0, duration: 0.6, ease: "expo.out" }, 1.35);
     }
 
-    if (role) {
-      tl.to(role, { opacity: 1, y: 0, duration: 0.55 }, "-=0.35");
+    tl.to(chips, { y: 0, opacity: 1, duration: 0.9, ease: "back.out(1.6)", stagger: 0.08 }, 1.7);
+    tl.to([heading, mobileStats].filter(Boolean), { y: 0, opacity: 1, duration: 0.6, ease: "back.out(1.4)" }, 1.9);
+    tl.to([topBar, bottom].filter(Boolean), { opacity: 1, duration: 0.8, ease: "power2.out" }, 2.1);
+
+    /* Scroll parallax — desktop */
+    if (window.innerWidth >= DESKTOP_MIN) {
+      if (words) {
+        gsap.to(words, {
+          y: -80,
+          opacity: 0.3,
+          ease: "none",
+          scrollTrigger: {
+            trigger: section,
+            start: "top top",
+            end: "bottom top",
+            scrub: 1,
+          },
+        });
+      }
+      if (bgImg) {
+        gsap.to(bgImg, {
+          y: 120,
+          ease: "none",
+          scrollTrigger: {
+            trigger: section,
+            start: "top top",
+            end: "bottom top",
+            scrub: 1,
+          },
+        });
+      }
     }
-    if (tagline) {
-      tl.to(tagline, { opacity: 1, y: 0, duration: 0.55 }, "-=0.35");
-    }
-    if (actions) {
-      tl.to(actions, { opacity: 1, y: 0, duration: 0.55 }, "-=0.35");
-    }
-    if (badge || clock) {
-      tl.to([badge, clock].filter(Boolean), { opacity: 1, y: 0, duration: 0.45 }, "-=0.55");
-    }
-    if (portrait) {
-      tl.to(
-        portrait,
-        {
-          clipPath: "inset(0% 0% 0% 0%)",
-          scale: 1,
-          duration: 1.1,
-          ease: "power3.out",
+
+    /* Pin nav pill to viewport after leaving hero */
+    if (navPill) {
+      ScrollTrigger.create({
+        trigger: section,
+        start: "bottom top+=80",
+        onEnter: function () {
+          navPill.classList.add("is-fixed");
         },
-        "-=0.85"
-      );
-    }
-
-    if (window.innerWidth >= DESKTOP_MIN && content && portrait) {
-      gsap.to(content, {
-        y: -120,
-        opacity: 0.15,
-        ease: "none",
-        scrollTrigger: {
-          trigger: ".hero",
-          start: "top top",
-          end: "bottom top",
-          scrub: true,
-        },
-      });
-
-      gsap.to(portrait, {
-        y: 140,
-        ease: "none",
-        scrollTrigger: {
-          trigger: ".hero",
-          start: "top top",
-          end: "bottom top",
-          scrub: true,
+        onLeaveBack: function () {
+          navPill.classList.remove("is-fixed");
         },
       });
     }
   }
 
   /* ----------------------------------------------------------
-     4. Marquee — time-based, one-copy wrap
+     4. Marquee — removed with old hero
      ---------------------------------------------------------- */
   function initMarquee() {
-    var track = document.querySelector(".hero__marquee-track");
-    if (!track) return;
-
-    var x = 0;
-    var dir = -1;
-    var boost = 1;
-    var targetBoost = 1;
-    var BASE_PX_PER_SEC = 40;
-    var MAX_BOOST = 1.6;
-    var BOOST_EASE_SEC = 0.6;
-    var copyWidth = 0;
-
-    function measureCopyWidth() {
-      var first = track.querySelector(".hero__marquee-text");
-      if (!first) {
-        copyWidth = 0;
-        return;
-      }
-      var gap = parseFloat(window.getComputedStyle(track).columnGap || window.getComputedStyle(track).gap) || 0;
-      copyWidth = first.offsetWidth + gap;
-    }
-
-    function applyX() {
-      if (!copyWidth) {
-        gsap.set(track, { x: 0, xPercent: 0 });
-        return;
-      }
-      x = gsap.utils.wrap(-copyWidth, 0, x);
-      gsap.set(track, { x: x, xPercent: 0 });
-    }
-
-    measureCopyWidth();
-    gsap.set(track, { x: 0, xPercent: 0 });
-
-    ScrollTrigger.create({
-      onUpdate: function (self) {
-        var v = self.getVelocity();
-        if (Math.abs(v) > 20) {
-          dir = v > 0 ? 1 : -1;
-        }
-      },
-    });
-
-    gsap.ticker.add(function (time, deltaTime) {
-      var dt = deltaTime / 1000;
-      if (!dt || !isFinite(dt) || dt > 0.2) {
-        dt = 1 / 60;
-      }
-
-      if (lenis && typeof lenis.velocity === "number") {
-        var scrollV = lenis.velocity;
-        if (Math.abs(scrollV) > 0.2) {
-          dir = scrollV > 0 ? 1 : -1;
-        }
-        var extra = Math.min(Math.abs(scrollV) * 0.12, MAX_BOOST - 1);
-        targetBoost = 1 + extra;
-      } else {
-        targetBoost = 1;
-      }
-
-      var blend = Math.min(1, dt / BOOST_EASE_SEC);
-      boost += (targetBoost - boost) * blend;
-
-      if (!copyWidth || !isFinite(boost)) return;
-
-      x += BASE_PX_PER_SEC * boost * dir * dt;
-      if (!isFinite(x)) x = 0;
-      applyX();
-    });
-
-    function remeasure() {
-      measureCopyWidth();
-      applyX();
-    }
-
-    if (document.fonts && document.fonts.ready) {
-      document.fonts.ready.then(remeasure).catch(function () {});
-    }
-    window.addEventListener("resize", remeasure, { passive: true });
+    /* no-op: editorial hero has no marquee */
   }
 
   /* ----------------------------------------------------------
@@ -503,7 +458,7 @@
     if (!hasFinePointer || isMobile) return;
 
     document
-      .querySelectorAll(".btn--primary, .hero__btn--primary, .quiz__next, .quiz__submit")
+      .querySelectorAll(".btn--primary, .hero__nav-cta, .quiz__next, .quiz__submit")
       .forEach(function (btn) {
         btn.addEventListener("mousemove", function (e) {
           var r = btn.getBoundingClientRect();

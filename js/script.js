@@ -12,10 +12,10 @@
   const header    = document.getElementById("site-header");
   const navToggle = document.getElementById("nav-toggle");
   const navMenu   = document.getElementById("nav-menu");
-  const navLinks  = document.querySelectorAll(".nav-link");
+  const navLinks  = document.querySelectorAll(".hero__nav-link, .nav-menu .nav-link");
 
   const SCROLL_THRESHOLD = 24;
-  const DESKTOP_BREAKPOINT = 768;
+  const DESKTOP_BREAKPOINT = 810;
 
   /* ----------------------------------------------------------
      Mobile navigation toggle
@@ -125,9 +125,10 @@
   }
 
   function setActiveLink() {
-    if (!header) return;
-
-    const scrollPos = window.scrollY + header.offsetHeight + 48;
+    const offset = header && window.innerWidth < DESKTOP_BREAKPOINT
+      ? header.offsetHeight + 48
+      : 120;
+    const scrollPos = window.scrollY + offset;
     let currentId = "home";
 
     navLinks.forEach(function (link) {
@@ -145,6 +146,7 @@
       const targetId = getNavSectionId(link.getAttribute("href"));
       const isActive = targetId === currentId;
       link.classList.toggle("nav-link--active", isActive);
+      link.classList.toggle("is-active", isActive);
     });
   }
 
