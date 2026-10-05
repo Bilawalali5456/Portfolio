@@ -1140,15 +1140,15 @@ p {
   will-change: transform;
 }
 
-.whatido__fly[data-col="left"] { left: 8%; right: auto; }
-.whatido__fly[data-col="left-alt"] { left: 10%; right: auto; }
+.whatido__fly[data-col="left"] { left: 18%; right: auto; }
+.whatido__fly[data-col="left-alt"] { left: 20%; right: auto; }
 .whatido__fly[data-col="center"],
 .whatido__fly[data-col="center-alt"] {
   left: 50%;
   right: auto;
 }
-.whatido__fly[data-col="right"] { right: 8%; left: auto; }
-.whatido__fly[data-col="right-alt"] { right: 10%; left: auto; }
+.whatido__fly[data-col="right"] { right: 18%; left: auto; }
+.whatido__fly[data-col="right-alt"] { right: 20%; left: auto; }
 
 .whatido__fly img {
   position: relative;
@@ -1256,10 +1256,10 @@ html:not(.js-motion) .whatido__grid,
   }
 
   .whatido__fly[data-col="left"],
-  .whatido__fly[data-col="left-alt"] { left: 6%; }
+  .whatido__fly[data-col="left-alt"] { left: 16%; }
 
   .whatido__fly[data-col="right"],
-  .whatido__fly[data-col="right-alt"] { right: 6%; }
+  .whatido__fly[data-col="right-alt"] { right: 16%; }
 
   .whatido__layout {
     padding-inline: clamp(24px, 5vw, 64px);
