@@ -85,16 +85,19 @@
       </header>
 
       <figure class="case-study__media" data-reveal data-reveal-delay="0.1">
-        <!-- TODO: replace with real cover video when available -->
-        <img
-          class="case-study__img"
-          src="/assets/projects/kynetix-cover.webp"
-          alt="Kynetix influencer marketing agency website by Bilawal Ali"
+        <video
+          class="case-study__video js-cover-video"
+          src="/assets/projects/kynetix-cover.mp4"
+          poster="/assets/projects/kynetix-cover.webp"
           width="1600"
           height="1200"
-          loading="eager"
-          decoding="async"
-        >
+          autoplay
+          muted
+          loop
+          playsinline
+          preload="metadata"
+          aria-label="Kynetix influencer marketing agency website by Bilawal Ali"
+        ></video>
       </figure>
 
       <section class="case-study__fullpage" aria-labelledby="fullpage-heading">
