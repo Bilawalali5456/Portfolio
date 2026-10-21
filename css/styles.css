@@ -1276,16 +1276,21 @@ html:not(.js-motion) .whatido__grid,
   .whatido__layout {
     display: flex;
     flex-direction: column;
-    gap: 24px;
-    padding: 80px 20px 40px;
+    gap: 16px;
+    padding: 56px 20px 28px;
   }
 
   .whatido__statement {
-    font-size: 36px;
+    font-size: 34px;
+  }
+
+  .whatido__statement .whatido__word,
+  .whatido__statement .fill-unit {
+    color: #4a463c;
   }
 
   .whatido__trust {
-    margin-top: 40px;
+    margin-top: 20px;
     font-size: 14px;
   }
 
@@ -1296,7 +1301,7 @@ html:not(.js-motion) .whatido__grid,
   .whatido__grid {
     display: grid;
     gap: 12px;
-    padding: 0 20px 80px;
+    padding: 0 20px 48px;
   }
 
   .whatido__grid-card {
@@ -1644,7 +1649,7 @@ html:not(.js-motion) .whatido__grid,
 
 @media (max-width: 809px) {
   .work {
-    padding-block: 72px 100px;
+    padding-block: 48px 32px;
     overflow: clip;
   }
 
@@ -1655,8 +1660,8 @@ html:not(.js-motion) .whatido__grid,
   .work__header {
     flex-direction: column;
     align-items: flex-start;
-    gap: 12px;
-    margin-bottom: 56px;
+    gap: 10px;
+    margin-bottom: 36px;
   }
 
   .work__heading {
@@ -1669,8 +1674,12 @@ html:not(.js-motion) .whatido__grid,
     top: auto;
     height: auto;
     display: block;
-    margin-bottom: 88px;
+    margin-bottom: 52px;
     z-index: auto;
+  }
+
+  .work-row:last-child {
+    margin-bottom: 12px;
   }
 
   .work-row__panel {
@@ -1977,6 +1986,7 @@ html:not(.js-motion) .whatido__grid,
     letter-spacing: -0.045em;
     line-height: 0.92;
     overflow: hidden;
+    color: var(--text);
   }
 
   .results__bg-line {
@@ -1988,10 +1998,10 @@ html:not(.js-motion) .whatido__grid,
   .results__stage {
     height: auto;
     min-height: 0;
-    padding: 72px 20px 88px;
+    padding: 40px 20px 56px;
     display: flex;
     flex-direction: column;
-    gap: 28px;
+    gap: 20px;
     overflow-x: clip;
   }
 
@@ -2000,27 +2010,27 @@ html:not(.js-motion) .whatido__grid,
     inset: auto;
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 14px;
     width: 100%;
   }
 
   .results-card {
     position: relative;
-    padding: 24px;
+    padding: 22px;
     min-height: 0;
     width: 100%;
   }
 
   .results-card__text {
-    font-size: 18px;
+    font-size: 17px;
   }
 
   .results-card__title {
-    font-size: 18px;
+    font-size: 17px;
   }
 
   .results-card__sub {
-    font-size: 14px;
+    font-size: 13px;
   }
 }
 
@@ -2215,7 +2225,12 @@ html:not(.js-motion) .whatido__grid,
 
 @media (max-width: 809px) {
   .about-part {
-    padding-block: 72px;
+    padding-block: 40px;
+  }
+
+  .about-part--statement {
+    padding-top: 48px;
+    padding-bottom: 8px;
   }
 
   .about-part__layout,
@@ -2224,6 +2239,11 @@ html:not(.js-motion) .whatido__grid,
     grid-template-columns: 1fr;
     padding-inline: 20px;
     min-height: 0;
+    gap: 16px;
+  }
+
+  .about-part__layout--stack {
+    gap: 14px;
   }
 
   .about-part__body {
@@ -2231,11 +2251,19 @@ html:not(.js-motion) .whatido__grid,
   }
 
   .about-part--start {
-    padding-bottom: 48px;
+    margin-top: 12px;
+    padding-top: 0;
+    padding-bottom: 28px;
   }
 
   .about-part--focus {
-    padding-top: 48px;
+    padding-top: 28px;
+    padding-bottom: 40px;
+  }
+
+  .about-part__layout--focus {
+    margin-bottom: 32px;
+    gap: 24px;
   }
 
   .about-photo {
@@ -2249,14 +2277,17 @@ html:not(.js-motion) .whatido__grid,
 
   .about-skills {
     padding-inline: 20px;
+    padding-bottom: 24px;
   }
 
   .about-skills__grid {
     grid-template-columns: 1fr;
+    margin-top: 24px;
+    gap: 24px;
   }
 
   .fill-statement {
-    font-size: clamp(32px, 9vw, 40px);
+    font-size: clamp(30px, 8.5vw, 38px);
   }
 }
 
@@ -2400,17 +2431,17 @@ html:not(.js-motion) .whatido__grid,
 
 @media (max-width: 809px) {
   .faq {
-    padding-block: 80px;
+    padding-block: 56px;
   }
 
   .faq__layout {
     grid-template-columns: 1fr;
     padding-inline: 20px;
-    gap: 24px;
+    gap: 18px;
   }
 
   .faq__heading {
-    font-size: clamp(64px, 14vw, 96px);
+    font-size: clamp(56px, 14vw, 80px);
   }
 
   .faq-item__summary {
@@ -2418,7 +2449,7 @@ html:not(.js-motion) .whatido__grid,
   }
 
   .faq-item__question {
-    font-size: 18px;
+    font-size: 17px;
   }
 
   .faq-item__answer {
@@ -2563,8 +2594,13 @@ html:not(.js-motion) .whatido__grid,
 }
 
 @media (max-width: 809px) {
+  .cta {
+    min-height: auto;
+    padding-block: 72px 100px;
+  }
+
   .cta__heading {
-    font-size: 44px;
+    font-size: 40px;
   }
 
   .cta__actions {

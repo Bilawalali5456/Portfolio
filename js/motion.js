@@ -239,6 +239,10 @@
 
   function getUnlitColor(el) {
     var size = parseFloat(window.getComputedStyle(el).fontSize) || 16;
+    /* Mobile: slightly lighter unlit so large type isn't invisible before scrub */
+    if (isMobile) {
+      return size < 24 ? "rgba(208,197,171,.35)" : "#4a463c";
+    }
     return size < 24 ? "rgba(208,197,171,.25)" : "#2a2822";
   }
 
@@ -305,15 +309,18 @@
 
   function scrubFill(prep, trigger) {
     if (!prep || !prep.units || !prep.units.length) return;
+    /* Mobile: fill earlier + finish while text is still on screen */
+    var start = isMobile ? "top 95%" : "top 80%";
+    var end = isMobile ? "top 42%" : "bottom 45%";
     gsap.to(prep.units, {
       color: prep.lit,
       ease: "none",
-      stagger: 0.04,
+      stagger: isMobile ? 0.02 : 0.04,
       scrollTrigger: {
         trigger: trigger || prep.el,
-        start: "top 80%",
-        end: "bottom 45%",
-        scrub: 1,
+        start: start,
+        end: end,
+        scrub: isMobile ? 0.55 : 1,
       },
     });
   }
@@ -549,19 +556,19 @@
       !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     if (!canPin) {
-      scrubFill(fill, section);
+      scrubFill(fill, statement);
 
       var gridCards = section.querySelectorAll(".whatido__grid-card");
       if (gridCards.length) {
         gsap.from(gridCards, {
-          y: 40,
+          y: 28,
           opacity: 0,
-          duration: 0.7,
-          stagger: 0.1,
+          duration: 0.55,
+          stagger: 0.08,
           ease: "power2.out",
           scrollTrigger: {
             trigger: section.querySelector(".whatido__grid") || section,
-            start: "top 85%",
+            start: "top 90%",
             once: true,
           },
         });
@@ -1006,19 +1013,20 @@
     if (!cards.length) return;
 
     if (window.innerWidth < 810) {
+      var bgHeading = section.querySelector(".results__bg") || stage;
       bgFills.forEach(function (prep) {
-        scrubFill(prep, stage);
+        scrubFill(prep, bgHeading);
       });
       gsap.set(cards, { clearProps: "transform" });
       gsap.from(cards, {
-        y: 40,
+        y: 28,
         opacity: 0,
-        duration: 0.7,
-        stagger: 0.1,
+        duration: 0.55,
+        stagger: 0.08,
         ease: "power2.out",
         scrollTrigger: {
           trigger: stage,
-          start: "top 80%",
+          start: "top 88%",
           once: true,
         },
       });
