@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Case study: Kynetix — an influencer marketing agency site built with React, Next.js, Tailwind CSS and GSAP by Bilawal Ali.">
+  <meta name="author" content="Bilawal Ali">
+  <meta name="theme-color" content="#11100d">
+
+  <title>Kynetix — Next.js Agency Site by Bilawal Ali</title>
+  <link rel="canonical" href="https://bilawalali.vercel.app/work/kynetix">
+
+  <link rel="icon" href="../assets/images/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" href="../assets/images/favicon.png" sizes="48x48">
+  <link rel="apple-touch-icon" href="../assets/images/apple-touch-icon.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Kynetix — Next.js Agency Site by Bilawal Ali">
+  <meta property="og:description" content="Case study: Kynetix — an influencer marketing agency site built with React, Next.js, Tailwind CSS and GSAP by Bilawal Ali.">
+  <meta property="og:url" content="https://bilawalali.vercel.app/work/kynetix">
+  <meta property="og:image" content="https://bilawalali.vercel.app/assets/projects/kynetix-cover.webp">
+  <meta property="og:locale" content="en_US">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Kynetix — Next.js Agency Site by Bilawal Ali">
+  <meta name="twitter:description" content="Case study: Kynetix — an influencer marketing agency site built with React, Next.js, Tailwind CSS and GSAP by Bilawal Ali.">
+  <meta name="twitter:image" content="https://bilawalali.vercel.app/assets/projects/kynetix-cover.webp">
+
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lenis@1.3.26/dist/lenis.css">
+</head>
+<body>
+
+  <a href="#main" class="skip-link">Skip to main content</a>
+
+  <header class="site-header site-header--mobile" id="site-header">
+    <nav class="site-nav" aria-label="Mobile navigation">
+      <a href="/" class="site-logo" aria-label="Bilawal Ali — Home">
+        <span class="site-logo__text">Bilawal Ali</span>
+      </a>
+      <button class="nav-toggle" id="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Open navigation menu">
+        <span class="nav-toggle__bar" aria-hidden="true"></span>
+        <span class="nav-toggle__bar" aria-hidden="true"></span>
+        <span class="nav-toggle__bar" aria-hidden="true"></span>
+      </button>
+      <ul class="nav-menu" id="nav-menu" role="list">
+        <li><a href="/work" class="nav-link nav-link--active">Work</a></li>
+        <li><a href="/#about" class="nav-link">About</a></li>
+        <li><a href="/#faq" class="nav-link">FAQ</a></li>
+        <li><a href="/#contact" class="nav-link">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <header class="page-top" id="page-top">
+    <a class="hero__brand" href="/">BILAWAL ALI</a>
+    <a class="hero__email" href="mailto:bilawalali5456@gmail.com">bilawalali5456@gmail.com</a>
+  </header>
+
+  <nav class="hero__nav-pill is-fixed" id="site-nav-pill" aria-label="Primary navigation">
+    <a href="/#work" class="hero__nav-link">WORK</a>
+    <a href="/#about" class="hero__nav-link">ABOUT</a>
+    <a href="/#faq" class="hero__nav-link">FAQ</a>
+    <a href="/#contact" class="hero__nav-cta">
+      <span class="hero__nav-badge" aria-hidden="true">BA</span>
+      LET'S TALK
+    </a>
+  </nav>
+
+  <main id="main">
+    <article class="case-study">
+      <header class="case-study__hero" data-reveal>
+        <p class="case-study__eyebrow">Case study</p>
+        <p class="case-study__type">React · Next.js · GSAP</p>
+        <h1 class="case-study__title">Kynetix<span class="case-study__title-dot">.</span></h1>
+        <p class="case-study__lede">Influencer marketing agency site with scroll-driven motion</p>
+        <div class="case-study__hero-actions">
+          <a href="https://www.thekynetix.com/" class="btn btn--primary" target="_blank" rel="noopener noreferrer">Visit live site</a>
+          <a href="/work" class="btn btn--secondary">All projects</a>
+        </div>
+      </header>
+
+      <figure class="case-study__media" data-reveal data-reveal-delay="0.1">
+        <!-- TODO: replace with real cover video when available -->
+        <img
+          class="case-study__img"
+          src="/assets/projects/kynetix-cover.webp"
+          alt="Kynetix influencer marketing agency website by Bilawal Ali"
+          width="1600"
+          height="1200"
+          loading="eager"
+          decoding="async"
+        >
+      </figure>
+
+      <section class="case-study__fullpage" aria-labelledby="fullpage-heading">
+        <h2 class="case-study__heading" id="fullpage-heading">Full page</h2>
+        <div class="case-study__frames">
+          <div class="browser-frame" tabindex="0">
+            <div class="browser-frame__bar" aria-hidden="true">
+              <span></span><span></span><span></span>
+            </div>
+            <div class="browser-frame__viewport js-hover-scroll">
+              <img
+                src="/assets/projects/kynetix-desk.webp"
+                alt="Kynetix full page by Bilawal Ali"
+                width="1440"
+                height="3200"
+                loading="lazy"
+                decoding="async"
+                class="js-hover-scroll__img"
+              >
+            </div>
+          </div>
+          <div class="phone-frame" tabindex="0">
+            <div class="phone-frame__viewport js-hover-scroll">
+              <img
+                src="/assets/projects/kynetix-mobile.webp"
+                alt="Kynetix mobile view by Bilawal Ali"
+                width="390"
+                height="2800"
+                loading="lazy"
+                decoding="async"
+                class="js-hover-scroll__img"
+              >
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="case-study__body">
+        <section class="case-study__section" data-reveal aria-labelledby="overview-heading">
+          <h2 class="case-study__heading" id="overview-heading">Overview</h2>
+          <p>A high-motion marketing site for Kynetix, an influencer marketing agency connecting brands and creators. Built to feel cinematic — with scroll storytelling, roster showcases, and clear paths for both brands and creators to get in touch.</p>
+        </section>
+
+        <section class="case-study__section" data-reveal aria-labelledby="challenge-heading">
+          <h2 class="case-study__heading" id="challenge-heading">The Challenge</h2>
+          <p>The agency needed a site that matched the energy of creator culture without sacrificing speed or clarity — room for motion, case work, and dual CTAs for brands and creators.</p>
+        </section>
+
+        <section class="case-study__section" data-reveal aria-labelledby="built-heading">
+          <h2 class="case-study__heading" id="built-heading">What I Built</h2>
+          <ul class="case-study__list" role="list">
+            <li>Next.js app with Tailwind CSS and GSAP scroll animations</li>
+            <li>Brand × creator partnership showcase and roster sections</li>
+            <li>Contact flows for brands and creators</li>
+            <li>Responsive layout tuned for desktop and mobile storytelling</li>
+          </ul>
+        </section>
+
+        <section class="case-study__section" data-reveal aria-labelledby="stack-heading">
+          <h2 class="case-study__heading" id="stack-heading">Tech Stack</h2>
+          <ul class="case-study__tags" role="list" aria-label="Technologies used">
+            <li><span class="case-study__tag">React</span></li>
+            <li><span class="case-study__tag">Next.js</span></li>
+            <li><span class="case-study__tag">Tailwind CSS</span></li>
+            <li><span class="case-study__tag">GSAP</span></li>
+          </ul>
+        </section>
+
+        <section class="case-study__section" data-reveal aria-labelledby="results-heading">
+          <h2 class="case-study__heading" id="results-heading">Results</h2>
+          <ul class="case-study__list" role="list">
+            <li>Live agency site at thekynetix.com</li>
+            <li>Scroll-driven experience that supports brand and creator acquisition</li>
+          </ul>
+        </section>
+
+        <section class="case-study__section case-study__live" data-reveal aria-labelledby="live-heading">
+          <h2 class="case-study__heading" id="live-heading">Live link</h2>
+          <a href="https://www.thekynetix.com/" class="case-study__live-link" target="_blank" rel="noopener noreferrer">www.thekynetix.com</a>
+        </section>
+      </div>
+
+      <nav class="case-study__next" data-reveal aria-label="Next project">
+        <p class="case-study__next-label">Next project</p>
+        <a class="case-study__next-link" href="/work/adforce-hrms">
+          <span class="case-study__next-name">Adforce HRMS<span class="case-study__title-dot">.</span></span>
+          <span class="case-study__next-type">Full-stack HR platform with React, Node and PostgreSQL</span>
+        </a>
+      </nav>
+    </article>
+  </main>
+
+  <footer class="site-footer" id="site-footer">
+    <div class="site-footer__inner">
+      <div class="site-footer__top">
+        <p class="site-footer__logo" aria-label="Bilawal Ali">
+          <span class="site-footer__logo-line"><span class="site-footer__logo-word">BILAWAL</span></span>
+          <span class="site-footer__logo-line"><span class="site-footer__logo-word">ALI</span></span>
+        </p>
+        <div class="site-footer__ready">
+          <p class="site-footer__ready-title">Ready to start?</p>
+          <div class="site-footer__contact-line">
+            <a href="mailto:bilawalali5456@gmail.com">bilawalali5456@gmail.com</a>
+            <button type="button" class="site-footer__copy" data-copy="bilawalali5456@gmail.com" aria-label="Copy email">Copy</button>
+          </div>
+          <div class="site-footer__contact-line">
+            <a href="https://wa.me/923087224354" target="_blank" rel="noopener noreferrer">+92 308 7224354</a>
+            <button type="button" class="site-footer__copy" data-copy="+923087224354" aria-label="Copy WhatsApp number">Copy</button>
+          </div>
+          <span class="site-footer__copy-status" id="footer-copy-status" role="status" aria-live="polite"></span>
+        </div>
+      </div>
+      <div class="site-footer__mid">
+        <div class="site-footer__cols">
+          <nav class="site-footer__col" aria-label="Site">
+            <p class="site-footer__col-label">SITE</p>
+            <ul class="site-footer__links" role="list">
+              <li><a href="/">Home</a></li>
+              <li><a href="/#work">Work</a></li>
+              <li><a href="/#about">About</a></li>
+              <li><a href="/#faq">FAQ</a></li>
+              <li><a href="/#contact">Contact</a></li>
+            </ul>
+          </nav>
+          <nav class="site-footer__col" aria-label="Follow">
+            <p class="site-footer__col-label">FOLLOW</p>
+            <ul class="site-footer__links" role="list">
+              <li><a href="https://www.linkedin.com/in/bilawal-ali-5bb280340/" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+              <li><a href="https://github.com/Bilawalali5456" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+              <li><a href="https://wa.me/923087224354" target="_blank" rel="noopener noreferrer">WhatsApp</a></li>
+            </ul>
+          </nav>
+        </div>
+        <div class="site-footer__chips">
+          <div class="site-footer__chip">FAST SITES</div>
+          <div class="site-footer__chip">REAL SALES</div>
+        </div>
+      </div>
+      <div class="site-footer__bar">
+        <p class="site-footer__copy">&copy; 2026 Bilawal Ali</p>
+        <a href="#main" class="site-footer__top-link" id="back-to-top">Back to top ↑</a>
+      </div>
+    </div>
+  </footer>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/ScrollTrigger.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/SplitText.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.3.26/dist/lenis.min.js" defer></script>
+  <script src="../js/script.js" defer></script>
+  <script src="../js/motion.js" defer></script>
+</body>
+</html>

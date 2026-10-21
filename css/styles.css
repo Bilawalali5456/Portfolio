@@ -1440,7 +1440,9 @@ html:not(.js-motion) .whatido__grid,
   clip-path: inset(0);
 }
 
-.work-row__main--vyva { --tint: rgba(91, 140, 255, 0.28); }
+.work-row__main--kynetix { --tint: rgba(207, 196, 170, 0.28); }
+.work-row__main--hrms { --tint: rgba(91, 140, 255, 0.28); }
+.work-row__main--vyva { --tint: rgba(91, 140, 255, 0.22); }
 .work-row__main--builders { --tint: rgba(245, 197, 66, 0.25); }
 .work-row__main--daichi { --tint: rgba(255, 90, 31, 0.22); }
 .work-row__main--appealmate { --tint: rgba(160, 120, 255, 0.25); }
