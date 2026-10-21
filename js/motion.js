@@ -1013,9 +1013,14 @@
     if (!cards.length) return;
 
     if (window.innerWidth < 810) {
-      var bgHeading = section.querySelector(".results__bg") || stage;
+      /* Mobile: keep RESULTS heading cream (no dark scrub fill) */
       bgFills.forEach(function (prep) {
-        scrubFill(prep, bgHeading);
+        var cream = prep.lit || "#d0c5ab";
+        gsap.set(prep.units, { color: cream });
+        if (prep.el) {
+          prep.el.classList.add("is-fill-lit");
+          prep.el.style.color = cream;
+        }
       });
       gsap.set(cards, { clearProps: "transform" });
       gsap.from(cards, {
