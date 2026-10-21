@@ -85,16 +85,19 @@
       </header>
 
       <figure class="case-study__media" data-reveal data-reveal-delay="0.1">
-        <!-- TODO: replace with real cover video when available -->
-        <img
-          class="case-study__img"
-          src="/assets/projects/adforce-hrms-cover.webp"
-          alt="Adforce HRMS full-stack platform by Bilawal Ali"
+        <video
+          class="case-study__video js-cover-video"
+          src="/assets/projects/adforce-hrms-cover.mp4"
+          poster="/assets/projects/adforce-hrms-cover.webp"
           width="1600"
           height="1200"
-          loading="eager"
-          decoding="async"
-        >
+          autoplay
+          muted
+          loop
+          playsinline
+          preload="metadata"
+          aria-label="Adforce HRMS full-stack platform by Bilawal Ali"
+        ></video>
       </figure>
 
       <section class="case-study__fullpage" aria-labelledby="fullpage-heading">
@@ -108,8 +111,8 @@
               <img
                 src="/assets/projects/adforce-hrms-desk.webp"
                 alt="Adforce HRMS full page by Bilawal Ali"
-                width="1440"
-                height="3200"
+                width="1406"
+                height="1902"
                 loading="lazy"
                 decoding="async"
                 class="js-hover-scroll__img"
@@ -121,8 +124,8 @@
               <img
                 src="/assets/projects/adforce-hrms-mobile.webp"
                 alt="Adforce HRMS mobile view by Bilawal Ali"
-                width="390"
-                height="2800"
+                width="366"
+                height="2343"
                 loading="lazy"
                 decoding="async"
                 class="js-hover-scroll__img"
