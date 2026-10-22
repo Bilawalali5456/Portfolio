@@ -1,5 +1,5 @@
 /**
- * Module 1 — Navigation & Hero interactions
+ * Module 1 Navigation & Hero interactions
  * Vanilla JS, no dependencies
  */
 
@@ -92,7 +92,7 @@
   }
 
   /* ----------------------------------------------------------
-     Hero live clock — Asia/Karachi
+     Hero live clock Asia/Karachi
      ---------------------------------------------------------- */
   const heroClock = document.getElementById("hero-clock");
 
@@ -107,7 +107,7 @@
       hour12: true,
     }).format(now);
 
-    heroClock.textContent = "Lahore, PK — " + time;
+    heroClock.textContent = "Lahore, PK " + time;
     heroClock.setAttribute("datetime", now.toISOString());
   }
 
@@ -194,7 +194,7 @@
   });
 
   /* ----------------------------------------------------------
-     MODULE 2 — Stat counter animations
+     MODULE 2 Stat counter animations
      ---------------------------------------------------------- */
   const prefersReducedMotion = window.matchMedia(
     "(prefers-reduced-motion: reduce)"
@@ -270,7 +270,7 @@
   });
 
   /* ----------------------------------------------------------
-     MODULE 4 — Missing / detail / optional images
+     MODULE 4 Missing / detail / optional images
      ---------------------------------------------------------- */
   document
     .querySelectorAll(
@@ -307,7 +307,7 @@
   });
 
   /* ----------------------------------------------------------
-     Cover videos — play in view; poster-only under reduced motion / Save-Data
+     Cover videos play in view; poster-only under reduced motion / Save-Data
      ---------------------------------------------------------- */
   (function initCoverVideos() {
     var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -362,7 +362,7 @@
     });
   })();
   /* ----------------------------------------------------------
-     MODULE 5 — Contact quiz modal + form validation
+     MODULE 5 Contact quiz modal + form validation
      ---------------------------------------------------------- */
   const contactForm = document.getElementById("contact-form");
   const formStatus = document.getElementById("form-status");
@@ -536,7 +536,7 @@
       const parts = [];
       if (needs) parts.push(needs);
       if (budget) parts.push("Budget: " + budget);
-      subjectInput.value = parts.join(" — ");
+      subjectInput.value = parts.join(" ");
     }
 
     function showStep(step, options) {
@@ -694,7 +694,7 @@
         formStatus.hidden = false;
         formStatus.classList.remove("is-error");
         formStatus.textContent =
-          "Thanks for reaching out! Your message has been received — I'll get back to you soon.";
+          "Thanks for reaching out! Your message has been received I'll get back to you soon.";
       }
     });
 
@@ -745,7 +745,7 @@
   })();
 
   /* ----------------------------------------------------------
-     MODULE 5 — Back to top button
+     MODULE 5 Back to top button
      ---------------------------------------------------------- */
   const backToTop = document.getElementById("back-to-top");
   const BACK_TO_TOP_THRESHOLD = 400;
